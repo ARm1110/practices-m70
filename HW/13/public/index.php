@@ -1,4 +1,5 @@
 <?php
+
 use App\controllers\AuthController;
 
 use App\core\Application;
@@ -12,15 +13,16 @@ $dotenv->load();
 
 
 $config = [
-'db' => [
-'dsn' => $_ENV['DB_DSN'],
-'user' => $_ENV['DB_USER'],
-'password' => $_ENV['DB_PASSWORD']
-]
+    'db' => [
+        'host' => $_ENV['DB_DSN'],
+        'user' => $_ENV['DB_USER'],
+        'databaseName' => $_ENV['DB_NAME'],
+        'password' => $_ENV['DB_PASSWORD']
+    ]
 ];
 // var_dump($config);
 // exit;
-$app = new Application();
+$app = new Application(dirname(__DIR__ . '/mvc7.com/'), $config);
 
 // $app->router->get('/', function () {
 // return 'hello';

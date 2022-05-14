@@ -4,7 +4,7 @@ namespace App\core;
 
 use App\core\MedooDatabase;
 
-abstract class Model
+abstract class Model 
 {
     // protected $table;
    
