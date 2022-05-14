@@ -18,19 +18,20 @@ class Router
 
     public function solve()
     {
+       
         $path = Request::getInstance()->getPath();
         $request = Request::getInstance()->method();
         $routes = $this->routes;
-        $callback = $routes[$request][$path];
+        $callback = $routes[$request][$path] ?? false;
 
-
+      
         if (!$callback) {
-           Response::getInstance()->setStatusCode(404);
-           
+            Response::getInstance()->setStatusCode(404);
+          return   header('Location: /_404');
         }
-
+      
         if (is_array($callback)) {
-            $callback[0] =  new $callback[0];
+            $callback[0] =  new $callback[0]; 
         }
 
         return call_user_func($callback);

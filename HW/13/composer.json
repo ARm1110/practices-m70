@@ -1,18 +1,13 @@
 {
-  "name": "amadg/13",
-  "autoload": {
-    "psr-4": {
-      "Amadg\\13\\": "src/"
+    "name": "hassan/cw",
+    "autoload": {
+        "psr-4": {
+            "App\\": "./"
+        }
+    },
+    "require": {
+        "catfan/medoo": "^2.1",
+        "vlucas/phpdotenv": "^5.4"
+
     }
-  },
-  "authors": [
-    {
-      "name": "ARm1110",
-      "email": "amirrajabali1999@gmail.com"
-    }
-  ],
-  "require": {
-    "vlucas/phpdotenv": "^5.4",
-    "catfan/medoo": "^2.1"
-  }
 }
