@@ -3,7 +3,7 @@
 use App\controllers\AuthController;
 
 use App\core\Application;
-use App\controllers\siteController;
+
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
@@ -20,14 +20,17 @@ $config = [
         'password' => $_ENV['DB_PASSWORD']
     ]
 ];
-// var_dump($config);
-// exit;
+
 $app = new Application(dirname(__DIR__ . '/mvc7.com/'), $config);
 
-// $app->router->get('/', function () {
-// return 'hello';
-// }); //
-$app->router->get('/', [siteController::class, 'home']); //
+
+$app->router->get('/', [homeController::class, 'home']); 
+
+$app->router->get('/login', [AuthController::class, 'login']); 
+$app->router->get('/register', [AuthController::class, 'register']);
+
+$app->router->get('/profile', [AuthController::class, 'profile']); 
+
 
 
 $app->run();
