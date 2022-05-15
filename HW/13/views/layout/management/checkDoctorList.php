@@ -2,6 +2,7 @@
     <thead>
         <tr>
             <th scope="col">#</th>
+            <th scope="col">Profile</th>
             <th scope="col">username</th>
             <th scope="col">role</th>
             <th scope="col">status</th>
@@ -11,6 +12,9 @@
     <tbody>
         <tr>
             <th scope="row">1</th>
+            <td>
+                <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="" width="40">
+            </td>
             <td>Mark</td>
             <td>Doctor</td>
             <td>waiting</td>
@@ -18,11 +22,34 @@
         </tr>
         <tr>
             <th scope="row">1</th>
+            <td>
+                <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="" width="40">
+            </td>
             <td>Mark</td>
             <td>Doctor</td>
             <td>accept</td>
-            <td><button type="button" class="btn btn-outline-success">accept</button></td>
+            <td><button type="button" class="btn btn-outline-success" disabled data>accept</button></td>
         </tr>
-      
+        <tr>
+            <th scope="row">1</th>
+            <td>
+                <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="" width="40">
+            </td>
+            <td>Mark</td>
+            <td>Doctor</td>
+            <td>accept</td>
+            <td><button type="button" class="btn btn-outline-success" disabled data>accept</button></td>
+        </tr>
+        <tr>
+            <th scope="row">1</th>
+            <td>
+                <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="" width="40">
+            </td>
+            <td>Mark</td>
+            <td>Doctor</td>
+            <td>accept</td>
+            <td><button type="button" class="btn btn-outline-success" disabled data>accept</button></td>
+        </tr>
+
     </tbody>
 </table>
