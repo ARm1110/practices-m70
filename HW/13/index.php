@@ -35,10 +35,14 @@ $app->get('/dashboardDoctor', [dashboardController::class, 'dashboardDoctor']);
 
 $app->get('/profileEdited', [dashboardController::class, 'profileEdited']);
 
+$app->get('/dashboardManagement', [dashboardController::class, 'dashboardManagement']);
+
 
 $app->get('/DoctorList', [Controller::class, 'DoctorList']);
 
 
+
+$app->get('/AcceptList', [dashboardController::class, 'AcceptList']);
 
 
 

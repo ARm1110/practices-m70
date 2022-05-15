@@ -28,7 +28,7 @@
           Panel
         </button>
         <ul class="dropdown-menu ">
-          <li><a class="dropdown-item" href="#">Management</a></li>
+          <li><a class="dropdown-item" href="/dashboardManagement">Management</a></li>
           <li><a class="dropdown-item" href="/dashboardDoctor">Doctor</a></li>
           <li><a class="dropdown-item" href="#">patient</a></li>
         </ul>
