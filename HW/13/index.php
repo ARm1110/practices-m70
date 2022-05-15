@@ -17,6 +17,9 @@ $app = new Application;
 
 $app->get('/',[Controller::class, 'index']);
 
+$app->get('/home', [Controller::class, 'index']);
+
+
 $app->get('/_404', [Controller::class, 'error404']);
 
 
@@ -45,6 +48,9 @@ $app->get('/DoctorList', [Controller::class, 'DoctorList']);
 $app->get('/AcceptList', [dashboardController::class, 'AcceptList']);
 
 
+
+
+$app->get('/addsection', [dashboardController::class, 'addSection']);
 
 
 

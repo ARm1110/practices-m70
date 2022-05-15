@@ -15,7 +15,7 @@
         <div class="container-fluid flex-row-reverse ">
             <div class=" flex-row-reverse ">
                 <a class="navbar-brand" href="#">
-                    <img src="logo.png" alt="Avatar Logo" style="width:40px;" class="rounded-pill">
+                    <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="" width="40">
                 </a>
             </div>
             <div class="flex-row">
@@ -24,10 +24,10 @@
                         <a class="nav-link active" href="#">Active</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/<?php echo $list;  ?>"><?php echo $list;  ?></a>
+                        <a class="nav-link" href="/<?php echo str_replace(' ', '', $list);  ?>"><?php echo $list;  ?></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link" href="<?php echo str_replace(' ', '', $list2);  ?>"><?php echo $list2;  ?></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link disabled" href="#">Disabled</a>
