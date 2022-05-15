@@ -1,16 +1,5 @@
 <div class="container">
     <div class="row flex-lg-nowrap">
-        <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
-            <div class="card p-3">
-                <div class="e-navlist e-navlist--active-bg">
-                    <ul class="nav">
-                        <li class="nav-item"><a class="nav-link px-2 active" href="#"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Overview</span></a></li>
-                        <li class="nav-item"><a class="nav-link px-2" href="https://www.bootdey.com/snippets/view/bs4-crud-users" target="__blank"><i class="fa fa-fw fa-th mr-1"></i><span>CRUD</span></a></li>
-                        <li class="nav-item"><a class="nav-link px-2" href="https://www.bootdey.com/snippets/view/bs4-edit-profile-page" target="__blank"><i class="fa fa-fw fa-cog mr-1"></i><span>Settings</span></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
 
         <div class="col">
             <div class="row">
@@ -112,24 +101,39 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
                                                 <div class="col-12 col-sm-5 offset-sm-1 mb-3">
-                                                    <div class="mb-2"><b>Keeping in Touch</b></div>
+                                                    <div class="mb-2"><b>Days of work</b></div>
                                                     <div class="row">
                                                         <div class="col">
-                                                            <label>Email Notifications</label>
                                                             <div class="custom-controls-stacked px-2">
                                                                 <div class="custom-control custom-checkbox">
                                                                     <input type="checkbox" class="custom-control-input" id="notifications-blog" checked="">
-                                                                    <label class="custom-control-label" for="notifications-blog">Blog posts</label>
+                                                                    <label class="custom-control-label" for="notifications-blog">Saturday</label>
                                                                 </div>
                                                                 <div class="custom-control custom-checkbox">
-                                                                    <input type="checkbox" class="custom-control-input" id="notifications-news" checked="">
-                                                                    <label class="custom-control-label" for="notifications-news">Newsletter</label>
+                                                                    <input type="checkbox" class="custom-control-input" id="notifications-blog" checked="">
+                                                                    <label class="custom-control-label" for="notifications-blog">Sunday</label>
                                                                 </div>
                                                                 <div class="custom-control custom-checkbox">
-                                                                    <input type="checkbox" class="custom-control-input" id="notifications-offers" checked="">
-                                                                    <label class="custom-control-label" for="notifications-offers">Personal
-                                                                        Offers</label>
+                                                                    <input type="checkbox" class="custom-control-input" id="notifications-blog" checked="">
+                                                                    <label class="custom-control-label" for="notifications-blog">Monday</label>
+                                                                </div>
+                                                                <div class="custom-control custom-checkbox">
+                                                                    <input type="checkbox" class="custom-control-input" id="notifications-blog" checked="">
+                                                                    <label class="custom-control-label" for="notifications-blog">Tuesday</label>
+                                                                </div>
+                                                                <div class="custom-control custom-checkbox">
+                                                                    <input type="checkbox" class="custom-control-input" id="notifications-blog" checked="">
+                                                                    <label class="custom-control-label" for="notifications-blog">Wednesday</label>
+                                                                </div>
+                                                                <div class="custom-control custom-checkbox">
+                                                                    <input type="checkbox" class="custom-control-input" id="notifications-blog" checked="">
+                                                                    <label class="custom-control-label" for="notifications-blog">Thursday</label>
+                                                                </div>
+                                                                <div class="custom-control custom-checkbox">
+                                                                    <input type="checkbox" class="custom-control-input" id="notifications-blog" checked="">
+                                                                    <label class="custom-control-label" for="notifications-blog">ّFriday</label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -161,14 +165,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h6 class="card-title font-weight-bold">Support</h6>
-                            <p class="card-text">Get fast, free help from our friendly assistants.</p>
-                            <button type="button" class="btn btn-primary">Contact Us</button>
-                        </div>
-                    </div>
                 </div>
+
             </div>
 
         </div>

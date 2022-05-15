@@ -50,7 +50,7 @@ $app->get('/AcceptList', [dashboardController::class, 'AcceptList']);
 
 
 
-$app->get('/addsection', [dashboardController::class, 'addSection']);
+$app->get('/section', [dashboardController::class, 'section']);
 
 
 

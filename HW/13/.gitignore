@@ -2,8 +2,4 @@
 vendor
 composer.lock
 .env
-
-/.vscode/
-
-
-
+.vscode

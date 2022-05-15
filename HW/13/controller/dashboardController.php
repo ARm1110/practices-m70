@@ -31,18 +31,18 @@ class dashboardController
 
     public function dashboardManagement()
     {
-        (new View)->showDashboardManagement('home',["list"=>"AcceptList", "list2" => "add section"]);
+        (new View)->showDashboardManagement('home',["list"=>"AcceptList", "list2" => "section"]);
     }
 
 
     public function AcceptList()
     {
-        (new View)->showDashboardManagement('checkDoctorList',["list"=>"AcceptList" ,"list2" => "add section"]);
+        (new View)->showDashboardManagement('checkDoctorList',["list"=>"AcceptList" ,"list2" => "section"]);
     }
 
-    public function addSection()
+    public function section()
     {
-        (new View)->showDashboardManagement('addSection', ["list" => "AcceptList", "list2" => "add section"]);
+        (new View)->showDashboardManagement('Section', ["list" => "AcceptList", "list2" => "section"]);
     }
 
 
