@@ -12,7 +12,6 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
 
-
   <!-- Favicon-->
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
   <!-- Core theme CSS (includes Bootstrap)-->
@@ -25,11 +24,18 @@
     <div class="border-end bg-white" id="sidebar-wrapper">
       <div class="sidebar-heading border-bottom bg-light">Start Menu</div>
       <div class="list-group list-group-flush">
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Dashboard</a>
+        <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">
+          Panel
+        </button>
+        <ul class="dropdown-menu ">
+          <li><a class="dropdown-item" href="#">Management</a></li>
+          <li><a class="dropdown-item" href="/dashboardDoctor">Doctor</a></li>
+          <li><a class="dropdown-item" href="#">patient</a></li>
+        </ul>
         <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Shortcuts</a>
         <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Overview</a>
         <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Events</a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>
+        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="DoctorList">Doctor list</a>
         <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
       </div>
     </div>
@@ -50,7 +56,7 @@
                   <a class="dropdown-item" href="/login">Login</a>
                   <a class="dropdown-item" href="/register">Register</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#!">Log out..</a>
+                  <a class="dropdown-item" href="/login">Log out..</a>
                 </div>
               </li>
             </ul>
