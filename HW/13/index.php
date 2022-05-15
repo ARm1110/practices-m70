@@ -1,7 +1,11 @@
 <?php
 
 use App\core\Application;
-use App\controller\Controller;
+use App\controller\dashboardController;
+
+use App\controller\controller;
+
+
 use App\controller\TodoController;
 use App\controller\authController\AuthController;
 
@@ -27,7 +31,18 @@ $app->get('/passwordForgets', [Controller::class, 'passwordForgets']);
 
 
 
+$app->get('/dashboardDoctor', [dashboardController::class, 'dashboardDoctor']);
 
+$app->get('/profileEdited', [dashboardController::class, 'profileEdited']);
+
+$app->get('/dashboardManagement', [dashboardController::class, 'dashboardManagement']);
+
+
+$app->get('/DoctorList', [Controller::class, 'DoctorList']);
+
+
+
+$app->get('/AcceptList', [dashboardController::class, 'AcceptList']);
 
 
 
