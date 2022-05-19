@@ -6,6 +6,7 @@ use App\core\Router;
 
 use App\Controller\Controller;
 
+
 class Application
 {
 

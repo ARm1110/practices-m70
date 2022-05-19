@@ -34,10 +34,7 @@ class Controller
     {
         (new View)->show('passwordForgets');
     }
-    public function DoctorList()
-    {
-        (new View)->show('DoctorList');
-    }
+ 
 
     
   

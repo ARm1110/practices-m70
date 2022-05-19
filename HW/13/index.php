@@ -4,6 +4,7 @@ use App\core\Application;
 use App\controller\dashboardController;
 
 use App\controller\controller;
+use App\controller\listController;
 
 
 use App\controller\TodoController;
@@ -23,11 +24,14 @@ $app->get('/home', [Controller::class, 'index']);
 $app->get('/_404', [Controller::class, 'error404']);
 
 
-
+//!login
 $app->get('/login', [Controller::class, 'login']);
+$app->post('/login', [AuthController::class, 'login']);
 
-
+//!register
 $app->get('/register', [Controller::class, 'register']);
+$app->post('/register', [AuthController::class, 'register']);
+
 
 
 $app->get('/passwordForgets', [Controller::class, 'passwordForgets']);
@@ -41,7 +45,7 @@ $app->get('/profileEdited', [dashboardController::class, 'profileEdited']);
 $app->get('/dashboardManagement', [dashboardController::class, 'dashboardManagement']);
 
 
-$app->get('/DoctorList', [Controller::class, 'DoctorList']);
+$app->get('/DoctorList', [listController::class, 'DoctorList']);
 
 
 
