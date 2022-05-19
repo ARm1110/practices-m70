@@ -5,7 +5,7 @@ use App\controller\dashboardController;
 
 use App\controller\controller;
 use App\controller\listController;
-
+use App\controller\siteController;
 
 use App\controller\TodoController;
 use App\controller\authController\AuthController;
@@ -14,27 +14,27 @@ use App\controller\authController\AuthController;
 require_once __DIR__.'/vendor/autoload.php';
 
 
-$app = new Application;
+$app = new Application(__DIR__);
 
-$app->get('/',[Controller::class, 'index']);
+$app->get('/',[siteController::class, 'index']);
 
-$app->get('/home', [Controller::class, 'index']);
+$app->get('/home', [siteController::class, 'index']);
 
 
-$app->get('/_404', [Controller::class, 'error404']);
+$app->get('/_404', [siteController::class, 'error404']);
 
 
 //!login
-$app->get('/login', [Controller::class, 'login']);
+$app->get('/login', [siteController::class, 'login']);
 $app->post('/login', [AuthController::class, 'login']);
 
 //!register
-$app->get('/register', [Controller::class, 'register']);
+$app->get('/register', [siteController::class, 'register']);
 $app->post('/register', [AuthController::class, 'register']);
 
 
 
-$app->get('/passwordForgets', [Controller::class, 'passwordForgets']);
+$app->get('/passwordForgets', [siteController::class, 'passwordForgets']);
 
 
 
