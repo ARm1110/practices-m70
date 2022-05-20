@@ -26,7 +26,7 @@
                         <a class="nav-link active" href="#">Active</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/<?php echo str_replace(' ', '', $list);  ?>"><?php echo $list;  ?></a>
+                        <a class="nav-link" href="/<?php echo str_replace(' ', '', $link1);  ?>"><?php echo $list;  ?></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo str_replace(' ', '', $list2);  ?>"><?php echo $list2;  ?></a>
@@ -39,11 +39,11 @@
         </div>
 
     </nav>
-    
+
     <div class="container-fluid mt-3">
         {{content}}
     </div>
-
+   
 </body>
 
 </html>

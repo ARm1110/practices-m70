@@ -7,10 +7,10 @@ use App\core\Application;
 class View
 {
 
-    public $layout= "main";
+    public $layout = "main";
     public function setLayout($layout)
     {
-        $this->layout = $layout ;
+        $this->layout = $layout;
         return $this;
     }
 
@@ -18,9 +18,27 @@ class View
 
     public function renderView($view, $params = [])
     {
-        $viewContent = $this->renderOnlyView($view, $params);
-        $layoutContent = $this->layoutContent();
-        return str_replace('{{content}}', $viewContent, $layoutContent);
+        $layout =  Controller::$layout;
+        foreach ($params as $key => $value) {
+            $$key = $value;
+        };
+
+        ob_start();
+        include Application::$ROOT_DIR . "/views/$view.php";
+        $body = ob_get_clean();
+        include Application::$ROOT_DIR . "/views/layouts/$layout.php";
+        $main = ob_get_contents();
+        ob_end_clean();
+        echo str_replace('{{content}}', $body, $main);
+
+
+
+
+
+        // $viewContent = $this->renderOnlyView($view, $params);
+        // $layoutContent = $this->layoutContent();
+
+        // return str_replace('{{content}}', $viewContent, $layoutContent);
     }
 
 
@@ -32,11 +50,10 @@ class View
 
     protected function layoutContent()
     {
-        $layout = $this->layout;
 
-        // if (Application::$app->controller) {
-        //     $layout = Application::$app->controller->layout;
-        // }
+        // $layout = Application::$app->controller->layout;
+        $layout =  Controller::$layout;
+
         ob_start();
         include_once Application::$ROOT_DIR . "/views/layouts/$layout.php";
         return ob_get_clean();
@@ -46,9 +63,9 @@ class View
 
     protected function renderOnlyView($view, $params)
     {
-        foreach ($params as $key => $value) {
-            $$key = $value;
-        };
+        var_dump($params);
+
+      
         ob_start();
         include_once Application::$ROOT_DIR . "/views/$view.php";
         return ob_get_clean();

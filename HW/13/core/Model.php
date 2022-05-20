@@ -27,7 +27,7 @@ abstract class Model
     {
         return new static;
     }
-    public function select($columns, $where)
+    public function select($columns, $where=null)
     {
 
         return self::$medooDatabase->select($this->tableName, $columns, $where);

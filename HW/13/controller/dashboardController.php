@@ -10,8 +10,8 @@ class dashboardController extends Controller
 
     public function dashboardDoctor()
     {
-
-        echo $this->render('main2', 'homeDoctor', ["list" => "profileEdited", "list2" => "home"]);
+        Controller::setLayout('main2');
+        echo $this->render('homeDoctor', ["list" => "profileEdited", "list2" => "home"]);
     }
 
 
@@ -20,6 +20,8 @@ class dashboardController extends Controller
 
     public function profileEdited()
     {
+        Controller::setLayout('main2');
+        echo $this->render('profileEdited', ["list" => "profileEdited", "list2" => "home"]);
         // (new View)->showDashboard('profileEdited', ["list" => "profileEdited", "list2" => "home"]);
     }
 
@@ -32,17 +34,22 @@ class dashboardController extends Controller
 
     public function dashboardManagement()
     {
+        Controller::setLayout('main2');
+        echo $this->render('homeManagement', ["list" => "AcceptList", "list2" => "home"]);
         // (new View)->showDashboardManagement('home', ["list" => "AcceptList", "list2" => "section"]);
     }
 
 
     public function AcceptList()
     {
+        Controller::setLayout('main2');
+        echo $this->render('checkDoctorList', ["list" => "AcceptList", "list2" => "section"]);
         // (new View)->showDashboardManagement('checkDoctorList', ["list" => "AcceptList", "list2" => "section"]);
     }
 
     public function section()
     {
-        // (new View)->showDashboardManagement('Section', ["list" => "AcceptList", "list2" => "section"]);
+        Controller::setLayout('main2');
+        echo $this->render('Section', ["list" => "AcceptList", "list2" => "section"]);
     }
 }

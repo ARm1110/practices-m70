@@ -9,11 +9,11 @@
                                   <h3 class="text-center font-weight-light my-4">Create Account</h3>
                               </div>
                               <div class="card-body">
-                                  <form method="POST" name="registerForm" action="" onsubmit="return validateForm()">
+                                  <form method="POST" name="registerForm" action="" >
                                       <div class="row mb-3">
                                           <div class="col-md-6">
                                               <div class="form-floating mb-3 mb-md-0">
-                                                  <input class="form-control " onchange="validateName()" id="inputFirstName" name="firstName" type="text" placeholder="Enter your first name" />
+                                                  <input class="form-control "id="inputFirstName" name="firstName" type="text" placeholder="Enter your first name" />
                                                   <label for="inputFirstName">First name</label>
                                               </div>
                                           </div>
@@ -70,28 +70,3 @@
       </div>
 
   </div>
-  <script>
-      function validateName() {
-          name = document.getElementById('inputFirstName').value;
-          if ($name == "") {
-              name.classList.add("is-invalid");
-          }
-      }
-
-
-
-
-
-
-
-
-
-      function validateForm() {
-          let x = document.forms["registerForm"]["firstName"].value;
-
-          if (x == "") {
-              alert("Name must be filled out");
-              return false;
-          }
-      }
-  </script>

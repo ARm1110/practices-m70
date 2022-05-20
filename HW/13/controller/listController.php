@@ -16,15 +16,15 @@ class listController extends Controller
 
         $column = array(
 
-            '[><]clinic_section' => array('doctor_id' => 'clinic_id')
+            '[><]clinic_section' => array('doctor_id' => 'clinic_id'),
+            array(
+                'doctor.doctor_id', 'doctor.user_name', 'doctor.doctor_name', 'clinic_section.clinic_name'
+            )
         );
-        $where = array(
-            'doctor.doctor_id', 'doctor.doctor_name', 'clinic_section.clinic_name'
-        );
-        
-        $records = TableDoctor::do()->select($column, $where);
-        // var_dump($records);
-        // exit;
+
+        $records = TableDoctor::do()->select($column);
+        var_dump($records);
+        exit;
         $this->render('DoctorList', ['data' => [$records]]);
     }
 }

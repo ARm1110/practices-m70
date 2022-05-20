@@ -7,14 +7,21 @@ use App\core\Application;
 class Controller
 {
 
-   
-   
+    public static $layout = 'main';
 
-  
+    public static function setLayout($layout)
+    {
+        self::$layout = $layout;
+        
+        var_dump(self::$layout);
+        
+    }
 
-    public function render($view,$layout=null, $params = [])
+
+    public function render($view, $params = [])
     {
 
-        return Application::$app->view->setLayout($layout)->renderView($view, $params);
+        return Application::$app->view->renderView($view, $params);
+       
     }
 }
