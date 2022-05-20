@@ -17,6 +17,7 @@ class Validation extends Controller
     public string $email = '';
     public string $rule = '';
     public string $password = '';
+    public string $setting = '';
     public string $confirmPassword = '';
     public array $errors = [];
 
@@ -46,6 +47,7 @@ class Validation extends Controller
             'firstName' => [self::RULE_REQUIRED],
             'lastName' => [self::RULE_REQUIRED],
             'email' => [self::RULE_REQUIRED, self::RULE_EMAIL, [self::RULE_UNIQUE, 'class' => self::class]],
+            'rule' => [self::RULE_REQUIRED],
             'password' => [self::RULE_REQUIRED],
             'confirmPassword' => [self::RULE_REQUIRED, [self::RULE_MATCH, 'match' => 'password']],
         ];
@@ -55,6 +57,7 @@ class Validation extends Controller
         return [
             'email' => [self::RULE_REQUIRED, self::RULE_EMAIL],
             'password' => [self::RULE_REQUIRED],
+            'setting' => [self::RULE_REQUIRED]
         ];
     }
     public function findOneLogin()
@@ -73,7 +76,7 @@ class Validation extends Controller
     public function findOneRegister()
     {
         return  Doctor::do()->select("*", ['email' => $this->email]);
-        // return MedooDatabase::getMedooDatabase()->select('users', '*', ['email' => $this->email]);
+        
     }
     public function validation($validationRules)
     {
@@ -81,6 +84,7 @@ class Validation extends Controller
         foreach ($validationRules as $attribute => $rules) {
 
             $value = $this->{$attribute};
+           
             foreach ($rules as $rule) {
                 $ruleName = $rule;
                 if (!is_string($ruleName)) {

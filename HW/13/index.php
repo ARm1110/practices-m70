@@ -16,7 +16,7 @@ require_once __DIR__.'/vendor/autoload.php';
 
 $app = new Application(__DIR__);
 
-$app->get('/',[siteController::class, 'index']);
+// $app->get('/',[siteController::class, 'index']);
 
 $app->get('/home', [siteController::class, 'index']);
 

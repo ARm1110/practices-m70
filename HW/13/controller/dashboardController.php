@@ -35,7 +35,7 @@ class dashboardController extends Controller
     public function dashboardManagement()
     {
         Controller::setLayout('main2');
-        echo $this->render('homeManagement', ["list" => "AcceptList", "list2" => "home"]);
+        echo $this->render('homeManagement', ["list" => "AcceptList", "list2" => "section"]);
      
     }
 

@@ -7,11 +7,15 @@
   <meta name="description" content="" />
   <meta name="author" content="" />
   <title>Simple Hospital </title>
+  
   <link href="../css/styles2.css" rel="stylesheet" />
   <link href="../css/styles.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  
 
-  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- link sweetalert2 -->
+
+
 
   <!-- Favicon-->
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
