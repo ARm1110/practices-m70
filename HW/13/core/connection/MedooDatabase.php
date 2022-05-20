@@ -20,7 +20,7 @@ class MedooDatabase
     ]);
   }
 
-  public static function getMedoDatabase()
+  public static function getMedooDatabase()
   {
     self::$instance = new self;
     return self::$instance::$database;

@@ -36,7 +36,7 @@ class dashboardController extends Controller
     {
         Controller::setLayout('main2');
         echo $this->render('homeManagement', ["list" => "AcceptList", "list2" => "home"]);
-        // (new View)->showDashboardManagement('home', ["list" => "AcceptList", "list2" => "section"]);
+     
     }
 
 
@@ -44,7 +44,7 @@ class dashboardController extends Controller
     {
         Controller::setLayout('main2');
         echo $this->render('checkDoctorList', ["list" => "AcceptList", "list2" => "section"]);
-        // (new View)->showDashboardManagement('checkDoctorList', ["list" => "AcceptList", "list2" => "section"]);
+      
     }
 
     public function section()

@@ -6,6 +6,8 @@ use App\core\Router;
 use App\core\View;
 use App\core\Controller;
 use App\Controller\siteController;
+use App\core\Validation;
+use App\core\Response;
 
 
 class Application
@@ -15,14 +17,16 @@ class Application
     public static Application $app;
     public View $view;
     public Controller $controller;
-
+    public Response $response;
+    public  Validation $validation;
     public function __construct($path)
     {
         self::$ROOT_DIR = $path;
         self::$app = $this;
         $this->controller = new Controller;
+        $this->validation=new Validation;
         $this->view = new View;
-        
+        $this->response = Response::getInstance();
         $this->router = new Router;
     }
 

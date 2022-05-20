@@ -15,7 +15,7 @@ abstract class Model
     public function __construct()
     {
 
-        self::$medooDatabase = MedooDatabase::getMedoDatabase();
+        self::$medooDatabase = MedooDatabase::getMedooDatabase();
 
         $this->tableName = $this->setTableName();
     }
