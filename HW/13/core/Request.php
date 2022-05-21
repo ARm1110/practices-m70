@@ -33,7 +33,7 @@ class Request
     }
 
 
-    public function getBody()
+    public function getBody():array
     {
         $body = [];
         if($this->method() == 'get'){

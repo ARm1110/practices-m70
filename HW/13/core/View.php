@@ -2,65 +2,71 @@
 
 namespace App\core;
 
+use App\core\Application;
+
 class View
 {
 
-    public function show(string $path, array $data = [])
+    public $layout = "main";
+    public function setLayout($layout)
     {
-        foreach ($data as $key => $value) {
-
-            $$key = $value;
-        }
-
-        $pathView = __DIR__ . '/../views/layout/' . $path . '.php';
-        if (file_exists($pathView)) {
-            ob_start();
-            include $pathView;
-            $body = ob_get_clean();
-            include __DIR__ . '/../views/main.php';
-            $main = ob_get_contents();
-            ob_end_clean();
-            echo str_replace('{{content}}', $body, $main);
-        } else echo '404 from View';
-    }
-
-    public function  showDashboard(string $path, array $data = [])
-    {
-        foreach ($data as $key => $value) {
-
-            $$key = $value;
-        }
-
-        $pathView = __DIR__ . '/../views/layout/Doctor/' . $path . '.php';
-        if (file_exists($pathView)) {
-            ob_start();
-            include $pathView;
-            $body = ob_get_clean();
-            include __DIR__ . '/../views/main2.php';
-            $main = ob_get_contents();
-            ob_end_clean();
-            echo str_replace('{{content}}', $body, $main);
-        } else echo '404 from View';
+        $this->layout = $layout;
+        return $this;
     }
 
 
 
-    public function  showDashboardManagement(string $path, array $data = [])
+    public function renderView($view, $params = [])
     {
-        foreach ($data as $key => $value) {
+        $layout =  Controller::$layout;
 
+        foreach ($params as $key => $value) {
             $$key = $value;
-        }
+        };
 
-        $pathView = __DIR__ . '/../views/layout/management/' . $path . '.php';
-        if (file_exists($pathView)) {
-            ob_start();
-            include $pathView;
-            $body = ob_get_clean();
-            include __DIR__ . '/../views/main2.php';
-            $main = ob_get_contents();
-            ob_end_clean();
-            echo str_replace('{{content}}', $body, $main);
-        } else echo '404 from View';
+        ob_start();
+        include Application::$ROOT_DIR . "/views/$view.php";
+        $body = ob_get_clean();
+        include Application::$ROOT_DIR . "/views/layouts/$layout.php";
+        $main = ob_get_contents();
+        ob_end_clean();
+        return str_replace('{{content}}', $body, $main);
+
+
+
+
+        //!impediment
+        // $viewContent = $this->renderOnlyView($view, $params);
+        // $layoutContent = $this->layoutContent();
+        // return str_replace('{{content}}', $viewContent, $layoutContent);
+    }
+
+
+    public function renderContent($viewContent)
+    {
+        $layoutContent = $this->layoutContent();
+        return str_replace('{{content}}', $viewContent, $layoutContent);
+    }
+
+    protected function layoutContent()
+    {
+
+       
+        $layout =  Controller::$layout;
+
+        ob_start();
+        include_once Application::$ROOT_DIR . "/views/layouts/$layout.php";
+        return ob_get_clean();
+    }
+
+
+
+    protected function renderOnlyView($view, $params)
+    {
+
+
+        ob_start();
+        include_once Application::$ROOT_DIR . "/views/$view.php";
+        return ob_get_clean();
     }
 }

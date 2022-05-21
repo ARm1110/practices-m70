@@ -26,5 +26,9 @@ class Response
    
    
   }
+  public function redirect($path, $query = null)
+  {
+    return header('Location:' . $path);
+  }
  
 }
