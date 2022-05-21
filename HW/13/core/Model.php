@@ -7,7 +7,7 @@ use \App\core\connection\MedooDatabase;
 
 abstract class Model
 {
-    // protected $table;
+    
 
     public  static $medooDatabase;
     public $tableName;

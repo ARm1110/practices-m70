@@ -27,17 +27,18 @@ class AuthController  extends Controller
         if ($validations && !$user) {
             unset($body['confirmPassword']);
             $class = ucfirst($body['role']);
-            // var_dump($body['role']);
-            // exit;
-            Doctor::do()->setRegister($body['role'], $body);
 
+            var_dump($class::class);
+            exit();
+
+            $class::do()->setRegister($body['role'], $body);
+            //Todo
             // Application::$app->Connection->getMedoo()->insert($body['role'], $body);
             return Application::$app->response->redirect('/home');
         }
 
-        // var_dump(Application::$app->validation->errors);
-        // exit;
-        //!
+    
+       
         echo $this->render('register');
     }
 

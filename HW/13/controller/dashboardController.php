@@ -14,22 +14,12 @@ class dashboardController extends Controller
         echo $this->render('homeDoctor', ["list" => "profileEdited", "list2" => "home"]);
     }
 
-
-
-
-
     public function profileEdited()
     {
         Controller::setLayout('main2');
         echo $this->render('profileEdited', ["list" => "profileEdited", "list2" => "home"]);
-        // (new View)->showDashboard('profileEdited', ["list" => "profileEdited", "list2" => "home"]);
+     
     }
-
-
-
-
-
-
 
 
     public function dashboardManagement()

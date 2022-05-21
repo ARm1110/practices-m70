@@ -13,15 +13,11 @@ class Controller
     {
         self::$layout = $layout;
         
-        var_dump(self::$layout);
-        
     }
 
 
     public function render($view, $params = [])
     {
-
         return Application::$app->view->renderView($view, $params);
-       
     }
 }

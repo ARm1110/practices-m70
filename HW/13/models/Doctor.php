@@ -20,8 +20,7 @@ class Doctor extends Model
     }
     public function setRegister($table, array $body)
     {
-        // var_dump($data);
-        // exit;
+       
 
         $SQL = [
 
@@ -37,8 +36,7 @@ class Doctor extends Model
         $SQL["email"] = $body['email'];
         $SQL["password"] = md5($body['password']);
 
-        // var_dump($SQL);
-        // exit;
+     
         Application::$app->Connection->getMedoo()->insert($table, $SQL);
     }
 }

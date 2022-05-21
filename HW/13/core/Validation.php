@@ -80,8 +80,7 @@ class Validation extends Controller
     }
     public function validation($validationRules)
     {
-        // var_dump($validationRules);
-        // exit;
+     
         foreach ($validationRules as $attribute => $rules) {
 
             $value = $this->{$attribute};
@@ -104,8 +103,7 @@ class Validation extends Controller
 
                     $tableName = $this->role;
                     $record = Application::$app->Connection->getMedoo()->select($tableName, '*', [$attribute => $value]);
-                //    var_dump($attribute, $value, $this->role);
-                //    exit;
+            
                     if ($record) {
                         $this->addErrorForRule($attribute, self::RULE_UNIQUE);
                     }

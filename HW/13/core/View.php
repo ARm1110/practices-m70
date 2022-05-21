@@ -19,6 +19,7 @@ class View
     public function renderView($view, $params = [])
     {
         $layout =  Controller::$layout;
+
         foreach ($params as $key => $value) {
             $$key = $value;
         };
@@ -29,15 +30,14 @@ class View
         include Application::$ROOT_DIR . "/views/layouts/$layout.php";
         $main = ob_get_contents();
         ob_end_clean();
-        echo str_replace('{{content}}', $body, $main);
+        return str_replace('{{content}}', $body, $main);
 
 
 
 
-
+        //!impediment
         // $viewContent = $this->renderOnlyView($view, $params);
         // $layoutContent = $this->layoutContent();
-
         // return str_replace('{{content}}', $viewContent, $layoutContent);
     }
 
@@ -51,7 +51,7 @@ class View
     protected function layoutContent()
     {
 
-        // $layout = Application::$app->controller->layout;
+       
         $layout =  Controller::$layout;
 
         ob_start();
@@ -63,9 +63,8 @@ class View
 
     protected function renderOnlyView($view, $params)
     {
-        var_dump($params);
 
-      
+
         ob_start();
         include_once Application::$ROOT_DIR . "/views/$view.php";
         return ob_get_clean();

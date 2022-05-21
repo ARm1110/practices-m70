@@ -40,4 +40,12 @@ class siteController extends Controller
 
         echo $this->render('passwordForgets');
     }
+
+
+    public function seeProfile()
+    {
+
+        echo $this->render('seeProfile');
+    }
+    
 }

@@ -24,17 +24,7 @@ class Session
         unset($_SESSION[$name]);
     }
 
-    /**
-     * flash
-     * 
-     * If session exist, it will return the value
-     * and unset the session.
-     * 
-     * Otherwise, make the $name session with $string value.
-     * @param  string $name
-     * @param  string $string [optional] Default value: 'null'
-     * @return string|void
-     */
+  
     public static function flash(string $name, ?string $string = 'null'): ?string
     {
         if (self::exists($name)) {
