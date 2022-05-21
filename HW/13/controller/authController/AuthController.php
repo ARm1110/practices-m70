@@ -7,7 +7,7 @@ use App\core\Request;
 use App\core\Controller;
 use App\core\View;
 use App\core\connection\MedooDatabase;
-use App\models\TableDoctor;
+use App\models\Doctor;
 
 class AuthController  extends Controller
 {
@@ -17,20 +17,28 @@ class AuthController  extends Controller
         $body = Request::getInstance()->getBody();
 
         $authValidation = Application::$app->validation->loadData($body);
-        $validationRules = $authValidation->loginRules();
+        $validationRules = $authValidation->registerRules();
 
         $validations = $authValidation->validation($validationRules);
-        $user = $authValidation->findOneLogin();
+        $user = $authValidation->findOneRegister();
+
+
 
         if ($validations && !$user) {
             unset($body['confirmPassword']);
-            MedooDatabase::getMedoDatabase()->insert('users', $body);
-            return Application::$app->response->redirect('/');
+            $class = ucfirst($body['role']);
+            // var_dump($body['role']);
+            // exit;
+            Doctor::do()->setRegister($body['role'], $body);
+
+            // Application::$app->Connection->getMedoo()->insert($body['role'], $body);
+            return Application::$app->response->redirect('/home');
         }
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        $body = Request::getInstance()->getBody();
-        var_dump($body);
-        exit;
+
+        // var_dump(Application::$app->validation->errors);
+        // exit;
+        //!
+        echo $this->render('register');
     }
 
 
@@ -53,7 +61,7 @@ class AuthController  extends Controller
         $user = $authValidation->findOneLogin();
 
         if ($validations && $user) {
-            Application::$app->session->sessionStart('id', $user['id']);
+            //Application::$app->session->sessionStart('id', $user['id']);
             return Application::$app->response->redirect('/');
         }
 

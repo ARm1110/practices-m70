@@ -7,11 +7,11 @@ use  \Medoo\Medoo;
 class MedooDatabase
 {
 
-  private static $database;
-  private static MedooDatabase $instance;
-  private function __construct()
+  public  $database;
+  
+  public function __construct()
   {
-    self::$database = new Medoo([
+    $this->database = new Medoo([
       'type' => 'mysql',
       'host' => '127.0.0.1',
       'database' => 'hospital',
@@ -20,9 +20,8 @@ class MedooDatabase
     ]);
   }
 
-  public static function getMedooDatabase()
+  public  function getMedoo()
   {
-    self::$instance = new self;
-    return self::$instance::$database;
+    return $this->database;
   }
 }

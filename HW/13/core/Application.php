@@ -6,6 +6,7 @@ use App\core\Router;
 use App\core\View;
 use App\core\Controller;
 use App\Controller\siteController;
+use App\core\connection\MedooDatabase;
 use App\core\Validation;
 use App\core\Response;
 
@@ -19,10 +20,12 @@ class Application
     public Controller $controller;
     public Response $response;
     public  Validation $validation;
+    public  MedooDatabase $Connection;
     public function __construct($path)
     {
         self::$ROOT_DIR = $path;
         self::$app = $this;
+        $this->Connection= new MedooDatabase();
         $this->controller = new Controller;
         $this->validation=new Validation;
         $this->view = new View;
