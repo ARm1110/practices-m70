@@ -13,7 +13,6 @@
 
 
 
-
  <div id="layoutAuthentication">
      <div id="layoutAuthentication_content">
          <main>
@@ -29,7 +28,7 @@
                                      <div class="row mb-3">
                                          <div class="col-md-6">
                                              <div class="form-floating mb-3 mb-md-0">
-                                                 <input class="form-control <?php echo !empty($firstNameError) ? 'is-invalid' : '' ?> " id="inputFirstName" name="firstName" type="text" placeholder="Enter your first name" />
+                                                 <input class="form-control <?php echo !empty($firstNameError) ? 'is-invalid' : '' ?>  " id="inputFirstName" name="firstName" type="text" placeholder="Enter your first name" onkeypress=" ValidateFirstName();" />
                                                  <label for="inputFirstName">First name</label>
                                                  <div id="invalid-feedback" class="<?php echo !empty($firstNameError) ? 'invalid-feedback' : '' ?>">
                                                      <?php echo $firstNameError ?? ""; ?>
@@ -38,7 +37,7 @@
                                          </div>
                                          <div class="col-md-6">
                                              <div class="form-floating">
-                                                 <input class="form-control <?php echo !empty($lastNameError) ? 'is-invalid' : '' ?>" id="inputLastName" type="text" name="lastName" placeholder=" Enter your last name" />
+                                                 <input class="form-control <?php echo !empty($lastNameError) ? 'is-invalid' : '' ?>  " id="inputLastName" type="text" name="lastName" onkeypress=" ValidateLastName();" placeholder=" Enter your last name" />
                                                  <label for="inputLastName">Last name</label>
                                                  <div id="invalid-feedback" class="<?php echo !empty($lastNameError) ? 'invalid-feedback' : '' ?>">
                                                      <?php echo $lastNameError ?? ""; ?>
@@ -55,14 +54,14 @@
                                                  <option value="management">Management</option>
                                                  <option value="Users">Users</option>
                                              </select>
-                                             <div id="invalid-feedback" class="<?php echo !empty($roleError) ? 'invalid-feedback' : '' ?>">
+                                             <div id="invalid-feedback" class="<?php echo !empty($roleError) ? 'invalid-feedback' : '' ?> ">
                                                  <?php echo $roleError ?? ""; ?>
                                              </div>
                                          </div>
 
                                      </div>
                                      <div class="form-floating mb-3">
-                                         <input class="form-control <?php echo !empty($emailError) ? 'is-invalid' : '' ?>" id="inputEmail" type="email" name="email" placeholder="name@example.com" />
+                                         <input class="form-control <?php echo !empty($emailError) ? 'is-invalid' : '' ?>  " id="inputEmail" type="email" name="email" placeholder="name@example.com" onkeypress="ValidateEmail(this);" />
                                          <label for="inputEmail">Email address</label>
                                          <div id="invalid-feedback" class="<?php echo !empty($emailError) ? 'invalid-feedback' : '' ?>">
                                              <?php echo $emailError ?? ""; ?>
@@ -89,7 +88,7 @@
                                          </div>
                                      </div>
                                      <div class="mt-4 mb-0">
-                                         <div class="d-grid"><input type="submit" name="submit" value="Create Account" class="btn btn-primary btn-block"></div>
+                                         <div class="d-grid"><input type="submit" name="submit" id="submit" value="Create Account" class="btn btn-primary btn-block"></div>
                                      </div>
                                  </form>
                              </div>
@@ -104,3 +103,51 @@
      </div>
 
  </div>
+ <script>
+     function ValidateInputPassword(inputPassword) {
+         if (/^[\d]{4,32}$/.test(inputPassword)) {
+             return true;
+         }
+         swal("Oops!", "Password is not valid!", "error");
+         return false;
+     }
+
+     function ValidatePasswordConfirm(inputPasswordConfirm) {
+         if (/^[\d]{4,32}$/.test(inputPasswordConfirm)) {
+             return true;
+         }
+         swal("Oops!", "Password is not valid!", "error");
+         return false;
+     }
+
+     function ValidateEmail(inputEmail) {
+         var inputEmails = document.getElementById("inputEmail").value;
+         if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(inputEmails)) {
+             document.getElementById("inputEmail").classList.remove("is-invalid");
+             document.getElementById("inputEmail").classList.add("is-valid");
+         } else {
+             document.getElementById("inputEmail").classList.add("is-invalid");
+         }
+     }
+
+     function ValidateLastName(inputLastName) {
+         var inputLastName = document.getElementById("inputLastName").value;
+         if (/^[a-z]{3,32}$/.test(inputLastName)) {
+             document.getElementById("inputLastName").classList.remove("is-invalid");
+             document.getElementById("inputLastName").classList.add("is-valid");
+         } else {
+             document.getElementById("inputLastName").classList.add("is-invalid");
+         }
+     }
+
+     function ValidateFirstName(inputFirstName) {
+         var inputFirstName = document.getElementById("inputFirstName").value;
+         if (/^[a-z]{3,32}$/.test(inputFirstName)) {
+             document.getElementById("inputFirstName").classList.remove("is-invalid");
+             document.getElementById("inputFirstName").classList.add("is-valid");
+         } else {
+             document.getElementById("inputFirstName").classList.add("is-invalid");
+
+         }
+     }
+ </script>
