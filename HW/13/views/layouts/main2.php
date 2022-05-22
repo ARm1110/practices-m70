@@ -26,10 +26,10 @@
                         <a class="nav-link active" href="#">Active</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/<?php echo str_replace(' ', '', $list);  ?>"><?php echo $list;  ?></a>
+                        <a class="nav-link" href="<?php echo $navbar['link1'];  ?>"><?php echo $navbar['viw1'];  ?></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo str_replace(' ', '', $list2);  ?>"><?php echo $list2;  ?></a>
+                        <a class="nav-link" href="<?php echo  $navbar['link2']; ?>"><?php echo $navbar['viw2'];  ?></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link disabled" href="#">Disabled</a>

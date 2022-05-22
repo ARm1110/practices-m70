@@ -34,8 +34,8 @@
           Panel
         </button>
         <ul class="dropdown-menu ">
-          <li><a class="dropdown-item" href="/dashboardManagement">Management</a></li>
-          <li><a class="dropdown-item" href="/dashboardDoctor">Doctor</a></li>
+          <li><a class="dropdown-item" href="/Dashboard/Management">Management</a></li>
+          <li><a class="dropdown-item" href="/Dashboard/Doctor">Doctor</a></li>
           <li><a class="dropdown-item" href="#">patient</a></li>
         </ul>
         <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Shortcuts</a>

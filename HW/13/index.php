@@ -47,13 +47,13 @@ $app->get('/passwordForgets', [siteController::class, 'passwordForgets']);
 
 
 //!sitDoctor
-$app->get('/dashboardDoctor', [dashboardController::class, 'dashboardDoctor']);
-$app->get('/profileEdited', [dashboardController::class, 'profileEdited']);
+$app->get('/Dashboard/Doctor', [dashboardController::class, 'dashboardDoctor']);
+$app->get('/Profile/Edit', [dashboardController::class, 'profileEdited']);
 
 //!siteManagement
-$app->get('/dashboardManagement', [dashboardController::class, 'dashboardManagement']);
-$app->get('/AcceptList', [dashboardController::class, 'AcceptList']);
-$app->get('/section', [dashboardController::class, 'section']);
+$app->get('/Dashboard/Management', [dashboardController::class, 'dashboardManagement']);
+$app->get('/list/Accept', [dashboardController::class, 'AcceptList']);
+$app->get('/add/section', [dashboardController::class, 'section']);
 
 
 

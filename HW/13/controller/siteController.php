@@ -17,8 +17,7 @@ class siteController extends Controller
 
     public function error404()
     {
-
-        echo $this->render('_404');
+        echo $this->render('errors/_404');
     }
 
 

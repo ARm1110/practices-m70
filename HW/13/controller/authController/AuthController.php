@@ -28,8 +28,8 @@ class AuthController  extends Controller
             unset($body['confirmPassword']);
             $class = ucfirst($body['role']);
 
-            var_dump($class::class);
-            exit();
+            // var_dump($class::class);
+            // exit();
 
             $class::do()->setRegister($body['role'], $body);
             //Todo
