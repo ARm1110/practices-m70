@@ -27,9 +27,10 @@ class AuthController  extends Controller
         if ($validations && !$user) {
             unset($body['confirmPassword']);
             $class = ucfirst($body['role']);
-
-            // var_dump($class::class);
-            // exit();
+            $array = [$class];
+            $s= "App\\models\\$class";
+            var_dump(new $s);
+            exit();
 
             $class::do()->setRegister($body['role'], $body);
             //Todo
@@ -37,8 +38,8 @@ class AuthController  extends Controller
             return Application::$app->response->redirect('/home');
         }
 
-    
-       
+
+
         echo $this->render('register');
     }
 

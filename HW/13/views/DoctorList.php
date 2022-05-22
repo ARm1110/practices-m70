@@ -66,7 +66,7 @@ $correct = array_unique($namePart);
                     <?php } ?>
                 </td>
             </tr>
-        <?php   } ?>
+        <?php $flagButton = true;  } ?>
 
 
     </tbody>

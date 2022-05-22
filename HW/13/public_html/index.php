@@ -11,14 +11,15 @@ use App\controller\TodoController;
 use App\controller\authController\AuthController;
 
 
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 
-$app = new Application(__DIR__);
+$app = new Application(dirname(__DIR__));
 
 
-// $app->get('/',[siteController::class, 'index']);
+
 //!home
+$app->get('/', [siteController::class, 'index']);
 $app->get('/home', [siteController::class, 'index']);
 $app->get('/DoctorList', [listController::class, 'DoctorList']);
 $app->post('/DoctorList/Search', [listController::class, 'searchByName']);
