@@ -11,13 +11,13 @@ class dashboardController extends Controller
     public function dashboardDoctor()
     {
         Controller::setLayout('main2');
-        echo $this->render('homeDoctor', ["list" => "profileEdited", "list2" => "home"]);
+        echo $this->render('Doctor/homeDoctor',["navbar"=>["link1"=>'/Profile/Edit','viw1'=>"Panel Profile", "link2" => '/home', 'viw2' => "Home page"]]);
     }
 
     public function profileEdited()
     {
         Controller::setLayout('main2');
-        echo $this->render('profileEdited', ["list" => "profileEdited", "list2" => "home"]);
+        echo $this->render('Doctor/profileEdited', ["navbar" => ["link1" => '/Profile/Edit', 'viw1' => "Panel Profile", "link2" => '/home', 'viw2' => "Home page"]]);
      
     }
 
@@ -25,7 +25,7 @@ class dashboardController extends Controller
     public function dashboardManagement()
     {
         Controller::setLayout('main2');
-        echo $this->render('homeManagement', ["list" => "AcceptList", "list2" => "section"]);
+        echo $this->render('management/homeManagement', ["navbar" => ["link1" => '/list/Accept', 'viw1' => "Panel Profile", "link2" => '/add/section', 'viw2' => "section"]]);
      
     }
 
@@ -33,13 +33,13 @@ class dashboardController extends Controller
     public function AcceptList()
     {
         Controller::setLayout('main2');
-        echo $this->render('checkDoctorList', ["list" => "AcceptList", "list2" => "section"]);
+        echo $this->render('management/checkDoctorList', ["navbar" => ["link1" => '/list/Accept', 'viw1' => "Panel Profile", "link2" => '/add/section', 'viw2' => "section"]]);
       
     }
 
     public function section()
     {
         Controller::setLayout('main2');
-        echo $this->render('Section', ["list" => "AcceptList", "list2" => "section"]);
+        echo $this->render('management/Section', ["navbar" => ["link1" => '/list/Accept', 'viw1' => "Panel Profile", "link2" => '/add/section', 'viw2' => "section"]]);
     }
 }
