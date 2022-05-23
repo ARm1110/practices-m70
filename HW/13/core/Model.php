@@ -35,8 +35,9 @@ abstract class Model
     public function find()
     {
     }
-    public function insert()
+    public function insert($column)
     {
+        self::$medooDatabase->insert($this->tableName,$column);
     }
 
     public function delete()

@@ -24,7 +24,7 @@
                                  <h3 class="text-center font-weight-light my-4">Create Account</h3>
                              </div>
                              <div class="card-body">
-                                 <form method="POST" name="registerForm" action="">
+                                 <form method="POST" name="registerForm" action="" onsubmit="return validateForm()">
                                      <div class="row mb-3">
                                          <div class="col-md-6">
                                              <div class="form-floating mb-3 mb-md-0">
@@ -103,8 +103,8 @@
      </div>
 
  </div>
+
  <script>
-   
      function ValidateEmail(inputEmail) {
          var inputEmails = document.getElementById("inputEmail").value;
          if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(inputEmails)) {
@@ -158,7 +158,7 @@
      }
 
      function ValidatePassword1(inputPassword) {
-         var inputPassword = document.getElementById("inputPassword").value;
+         var inputPassword = document.getElementById("inputPassword").value;;
          if (/^[A-Za-z\d]{8,}$/.test(inputPassword)) {
              document.getElementById("inputPassword").classList.remove("is-invalid");
              document.getElementById("inputPassword").classList.add("is-valid");
@@ -195,11 +195,20 @@
 
              document.getElementById("inputPasswordConfirm").classList.remove("is-invalid");
              document.getElementById("inputPasswordConfirm").classList.add("is-valid");
+
+             document.getElementById("invalid-pass2").classList.remove("invalid-feedback");
+             document.getElementById("invalid-pass2").classList.add("valid-feedback");
+             document.getElementById("invalid-pass2").innerHTML = "Password Match";
          } else {
              document.getElementById("inputPasswordConfirm").classList.remove("is-valid");
              document.getElementById("inputPasswordConfirm").classList.add("is-invalid");
 
+             document.getElementById("invalid-pass2").classList.add("invalid-feedback");
+             document.getElementById("invalid-pass2").innerHTML = "Password Not Match";
+
 
          }
      }
+     
+
  </script>

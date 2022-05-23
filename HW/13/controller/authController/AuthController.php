@@ -27,14 +27,18 @@ class AuthController  extends Controller
         if ($validations && !$user) {
             unset($body['confirmPassword']);
             $class = ucfirst($body['role']);
-            $array = [$class];
-            $s= "App\\models\\$class";
-            var_dump(new $s);
-            exit();
+        
+            $classSet = "App\\models\\$class";
+      
 
-            $class::do()->setRegister($body['role'], $body);
-            //Todo
-            // Application::$app->Connection->getMedoo()->insert($body['role'], $body);
+            try {
+                $classSet::do()->setRegister($body);
+            } catch (\Exception $e) {
+                echo 'Message: ' . $e->getMessage();
+            }
+
+
+            
             return Application::$app->response->redirect('/home');
         }
 
@@ -54,8 +58,7 @@ class AuthController  extends Controller
     public function login()
     {
         $body = Request::getInstance()->getBody();
-        // var_dump($body);
-        // exit;
+    
         $authValidation = Application::$app->validation->loadData($body);
         $validationRules = $authValidation->loginRules();
 
@@ -63,7 +66,7 @@ class AuthController  extends Controller
         $user = $authValidation->findOneLogin();
 
         if ($validations && $user) {
-            //Application::$app->session->sessionStart('id', $user['id']);
+           
             return Application::$app->response->redirect('/');
         }
 
