@@ -4,20 +4,19 @@ namespace App\Models;
 
 use App\core\Model;
 
-class Management extends Model
+class Users extends Model
 {
 
 
     public function setTableName()
     {
-        return 'management';
+        return 'Users';
     }
 
     public static function do()
     {
         return new static;
     }
-
     public function setRegister(array $body)
     {
 
@@ -36,6 +35,6 @@ class Management extends Model
         $SQL["password"] = md5($body['password']);
 
         $this->insert($SQL);
-
+  
     }
 }
