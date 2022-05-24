@@ -27,6 +27,7 @@ $app->get('/DoctorList/seeProfile', [siteController::class, 'seeProfile']);
 $app->post('/DoctorList/seeProfile', [siteController::class, 'seeProfile']);
 $app->post('/DoctorList/Filter', [listController::class, 'filter']);
 $app->post('/DoctorList/Profile', [listController::class, 'showProfile']);
+$app->get('/DoctorList/Profile/appointment', [siteController::class, 'appointment']);
 
 
 

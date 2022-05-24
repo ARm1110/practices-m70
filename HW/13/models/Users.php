@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\core\Model;
 
+use App\core\Application;
+
 class Users extends Model
 {
 
@@ -35,6 +37,12 @@ class Users extends Model
         $SQL["password"] = md5($body['password']);
 
         $this->insert($SQL);
-  
+    }
+    public function getData($where)
+    {
+        $table = $this->setTableName();
+        $column = ['id','firstName','lastName','email'];
+        $findBy = [ "id" => $where ];
+        return  Application::$app->Connection->getMedoo()->select($table, $column, $findBy);
     }
 }

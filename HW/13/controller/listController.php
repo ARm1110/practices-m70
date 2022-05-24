@@ -58,4 +58,8 @@ class listController extends Controller
         
         echo  $this->render('seeProfile', ['data' => [$records]]);
     }
+
+
+
+    
 }

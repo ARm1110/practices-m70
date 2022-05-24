@@ -5,8 +5,10 @@
       "App\\": "./"
     }
   },
+  
   "require": {
     "catfan/medoo": "^2.1",
-    "vlucas/phpdotenv": "^5.4"
+    "vlucas/phpdotenv": "^5.4",
+    "phpmailer/phpmailer": "^6.6"
   }
 }

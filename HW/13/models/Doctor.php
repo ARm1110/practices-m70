@@ -72,4 +72,38 @@ class Doctor extends Model
         ;";
         return  Application::$app->Connection->getMedoo()->exec($SQL)->fetchAll();
     }
+
+    public function appointments($where)
+    {
+        $SQL = "SELECT
+	doctor.id, 
+	worktime.start_worktime, 
+	worktime.week_days, 
+	worktime.end_worktime, 
+    worktime.id as worktID , 
+	clinic_section.`name` as clinicName,
+    clinic_section.`id` as clinicID
+    FROM
+	doctor
+	INNER JOIN
+	doctor_profile
+	ON 
+		doctor.profile_id = doctor_profile.id
+	INNER JOIN
+	worktime
+	ON 
+		doctor.id = worktime.doctor_id
+	INNER JOIN
+	clinic_section
+	ON 
+		doctor.clinic_id = clinic_section.id
+    WHERE
+	doctor.id = $where
+    GROUP BY
+	doctor.id,worktime.id";
+
+
+
+        return  Application::$app->Connection->getMedoo()->exec($SQL)->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }

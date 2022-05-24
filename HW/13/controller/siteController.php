@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use App\core\Controller;
 use App\core\View;
+use App\models\Doctor;
+use App\models\Users;
+use App\core\Request;
 
 class siteController extends Controller
 {
@@ -46,5 +49,20 @@ class siteController extends Controller
 
         echo $this->render('seeProfile');
     }
-    
+    public function appointment()
+    {
+        $body = Request::getInstance()->getBody();
+        
+        $where = $body['id'];
+        $recordsDoctor =  Doctor::do()->appointments($where);
+
+        
+        //todo
+        $recordsUser =  Users::do()->getData(1);
+
+
+
+
+        echo $this->render('appointment', ['user' => $recordsUser, 'doctor' => $recordsDoctor]);
+    }
 }

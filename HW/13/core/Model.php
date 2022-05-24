@@ -45,6 +45,7 @@ abstract class Model
     }
     public function where()
     {
+        
     }
     public function get()
     {
