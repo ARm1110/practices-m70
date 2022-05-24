@@ -19,6 +19,8 @@ class Users extends Model
     {
         return new static;
     }
+    
+    //!refactor
     public function setRegister(array $body)
     {
 
@@ -38,6 +40,8 @@ class Users extends Model
 
         $this->insert($SQL);
     }
+    
+    //!refactor
     public function getData($where)
     {
         $table = $this->setTableName();

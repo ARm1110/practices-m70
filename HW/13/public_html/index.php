@@ -31,6 +31,10 @@ $app->get('/DoctorList/Profile/appointment', [siteController::class, 'appointmen
 
 
 
+//!admin
+$app->get('/admin', [siteController::class, 'admin']);
+
+
 
 //!errorPage
 $app->get('/_404', [siteController::class, 'error404']);

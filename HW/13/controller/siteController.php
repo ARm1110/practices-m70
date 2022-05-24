@@ -65,4 +65,14 @@ class siteController extends Controller
 
         echo $this->render('appointment', ['user' => $recordsUser, 'doctor' => $recordsDoctor]);
     }
+
+
+    public function admin()
+    {
+        Controller::setLayout('mainAdmin');
+        echo $this->render('admin/home');
+     
+    
+    }
+
 }

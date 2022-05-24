@@ -8,7 +8,7 @@ use App\core\Application;
 class Doctor extends Model
 {
 
-
+    //!refactor
     public function setTableName()
     {
         return 'Doctor';
@@ -18,6 +18,9 @@ class Doctor extends Model
     {
         return new static;
     }
+
+
+    //!refactor
     public function setRegister(array $body)
     {
 
@@ -37,7 +40,7 @@ class Doctor extends Model
 
         $this->insert($SQL);
     }
-
+    //!refactor
     public function showTable($where)
     {
         $SQL = "
@@ -55,6 +58,8 @@ class Doctor extends Model
         return  Application::$app->Connection->getMedoo()->exec($SQL)->fetch(\PDO::FETCH_ASSOC);
     }
 
+
+    //!refactor
     public function filterTable($where)
     {
         $SQL = "SELECT doctor.id, doctor.firstName,doctor.statuse,doctor.lastName,clinic_section.name from doctor 
@@ -64,6 +69,8 @@ class Doctor extends Model
         return  Application::$app->Connection->getMedoo()->exec($SQL)->fetchAll();
     }
 
+
+    //!refactor
     public function search($where)
     {
         $SQL = "SELECT doctor.id,doctor.firstName,doctor.statuse,doctor.lastName,clinic_section.name from doctor 
@@ -73,6 +80,8 @@ class Doctor extends Model
         return  Application::$app->Connection->getMedoo()->exec($SQL)->fetchAll();
     }
 
+
+    //!refactor
     public function appointments($where)
     {
         $SQL = "SELECT

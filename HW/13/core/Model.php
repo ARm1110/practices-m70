@@ -32,9 +32,9 @@ abstract class Model
 
         return self::$medooDatabase->select($this->tableName, $columns, $where);
     }
-    public function find()
-    {
-    }
+    // public function find()
+    // {
+    // }
     public function insert($column)
     {
         self::$medooDatabase->insert($this->tableName,$column);
