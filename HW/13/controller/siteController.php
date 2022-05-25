@@ -7,6 +7,7 @@ use App\core\View;
 use App\models\Doctor;
 use App\models\Users;
 use App\core\Request;
+use App\core\Application;
 
 class siteController extends Controller
 {
@@ -14,8 +15,23 @@ class siteController extends Controller
     public function index()
     {
 
+        $records = null;
+        if (Application::$app->session->exists('id')) {
+            $table= $_SESSION['role'];
+            $class="App\\models\\$table";;
+            $data = ['status' => true];
+            $where = ['id' => $_SESSION['id']];
+            $column = ['firstName', 'lastName', 'email'];
+            $records =  $class::do()->select($column, $where);
+            Users::do()->update($data, $where);
+        }
 
-        echo $this->render('home');
+
+
+
+
+    
+        echo $this->render('home', ['data' => $records]);
     }
 
     public function error404()
@@ -52,11 +68,11 @@ class siteController extends Controller
     public function appointment()
     {
         $body = Request::getInstance()->getBody();
-        
+
         $where = $body['id'];
         $recordsDoctor =  Doctor::do()->appointments($where);
 
-        
+
         //todo
         $recordsUser =  Users::do()->getData(1);
 
@@ -71,8 +87,5 @@ class siteController extends Controller
     {
         Controller::setLayout('mainAdmin');
         echo $this->render('admin/home');
-     
-    
     }
-
 }

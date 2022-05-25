@@ -1,20 +1,24 @@
 <?php
 
+namespace App\core;
+
+use App\core\Controller;
+
 session_start();
 
-class Session
+class Session extends Controller
 {
     public static function exists(string $name): bool
     {
         return isset($_SESSION[$name]);
     }
 
-    public static function put(string $name, mixed $value): void
+    public static function put(string $name,  $value): void
     {
         $_SESSION[$name] = $value;
     }
 
-    public static function get(string $name): mixed
+    public static function get(string $name)
     {
         return $_SESSION[$name];
     }
@@ -24,7 +28,7 @@ class Session
         unset($_SESSION[$name]);
     }
 
-  
+
     public static function flash(string $name, ?string $string = 'null'): ?string
     {
         if (self::exists($name)) {

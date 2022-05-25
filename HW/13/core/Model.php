@@ -50,7 +50,8 @@ abstract class Model
     public function get()
     {
     }
-    public function update()
+    public function update($data, $where = null)
     {
+        self::$medooDatabase->update($this->tableName, $data, $where = null);
     }
 }

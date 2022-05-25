@@ -59,4 +59,6 @@ class Picture extends Model
         $stmt->execute(['picture_id' => $this->picture_id]);
         return $stmt->rowCount();
     }
+
+
 }

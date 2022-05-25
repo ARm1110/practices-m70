@@ -27,9 +27,9 @@ class AuthController  extends Controller
         if ($validations && !$user) {
             unset($body['confirmPassword']);
             $class = ucfirst($body['role']);
-        
+
             $classSet = "App\\models\\$class";
-      
+
 
             try {
                 $classSet::do()->setRegister($body);
@@ -38,7 +38,7 @@ class AuthController  extends Controller
             }
 
 
-            
+
             return Application::$app->response->redirect('/home');
         }
 
@@ -58,16 +58,29 @@ class AuthController  extends Controller
     public function login()
     {
         $body = Request::getInstance()->getBody();
-    
+        $table = ucfirst($body['role']);
+
+        // var_dump($table);
+        // exit;
         $authValidation = Application::$app->validation->loadData($body);
         $validationRules = $authValidation->loginRules();
 
         $validations = $authValidation->validation($validationRules);
-        $user = $authValidation->findOneLogin();
+        $user = $authValidation->findOneLogin($table);
 
+
+
+        // var_dump($body);
+        // exit();
         if ($validations && $user) {
-           
-            return Application::$app->response->redirect('/');
+
+            Application::$app->session->put('id', $user["id"]);
+            Application::$app->session->put('massage', "welcome to the hospital");
+            Application::$app->session->put('proses', true);
+            Application::$app->session->put('role', $table);
+
+
+            return Application::$app->response->redirect('/', ['id' => $user["id"]]);
         }
 
         echo $this->render('login');

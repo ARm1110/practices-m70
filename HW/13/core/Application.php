@@ -9,8 +9,8 @@ use App\Controller\siteController;
 use App\core\connection\MedooDatabase;
 use App\core\Validation;
 use App\core\Response;
-
-
+use App\core\Session;
+use App\middleware\CheckAccess;
 class Application
 {
     public static $ROOT_DIR;
@@ -21,13 +21,17 @@ class Application
     public Response $response;
     public  Validation $validation;
     public  MedooDatabase $Connection;
+    public Session $session;
+    public CheckAccess $checkAccess;
     public function __construct($path)
     {
         self::$ROOT_DIR = $path;
         self::$app = $this;
-        $this->Connection= new MedooDatabase();
+        $this->Connection = new MedooDatabase();
         $this->controller = new Controller;
-        $this->validation=new Validation;
+        $this->session = new Session;
+        $this->validation = new Validation;
+        $this->checkAccess = new CheckAccess;
         $this->view = new View;
         $this->response = Response::getInstance();
         $this->router = new Router;

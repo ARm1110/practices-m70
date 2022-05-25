@@ -18,7 +18,7 @@ class Validation extends Controller
     public string $email = '';
     public string $role = '';
     public string $password = '';
-    public string $setting = '';
+
     public string $confirmPassword = '';
     public array $errors = [];
 
@@ -58,16 +58,20 @@ class Validation extends Controller
         return [
             'email' => [self::RULE_REQUIRED, self::RULE_EMAIL],
             'password' => [self::RULE_REQUIRED],
-            'setting' => [self::RULE_REQUIRED]
+            'role' => [self::RULE_REQUIRED, self::RULE_HAVETABLE]
+
         ];
     }
-    public function findOneLogin()
+    public function findOneLogin($table)
     {
-        $user = Application::$app->Connection->getMedoo()->select('users', '*', ['email' => $this->email]);
+        $user = Application::$app->Connection->getMedoo()->select($table, '*', ['email' => $this->email]);
+
+
         if (!$user) {
             $this->errors['email'][] = 'This email not exist';
             return false;
         }
+
         if ($user[0]['password'] != $this->password) {
             $this->errors['password'][] = 'Wrong password';
             return false;
@@ -80,7 +84,7 @@ class Validation extends Controller
     }
     public function validation($validationRules)
     {
-     
+
         foreach ($validationRules as $attribute => $rules) {
 
             $value = $this->{$attribute};
@@ -103,7 +107,7 @@ class Validation extends Controller
 
                     $tableName = $this->role;
                     $record = Application::$app->Connection->getMedoo()->select($tableName, '*', [$attribute => $value]);
-            
+
                     if ($record) {
                         $this->addErrorForRule($attribute, self::RULE_UNIQUE);
                     }
