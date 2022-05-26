@@ -27,7 +27,10 @@ class Session extends Controller
     {
         unset($_SESSION[$name]);
     }
-
+    public static function deleteAll(): void
+    {
+        session_destroy();
+    }
 
     public static function flash(string $name, ?string $string = 'null'): ?string
     {

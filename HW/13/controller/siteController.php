@@ -17,20 +17,21 @@ class siteController extends Controller
 
         $records = null;
         if (Application::$app->session->exists('id')) {
-            $table= $_SESSION['role'];
-            $class="App\\models\\$table";;
+            $table = $_SESSION['role'];
+
+            $class = "App\\models\\$table";;
             $data = ['status' => true];
             $where = ['id' => $_SESSION['id']];
             $column = ['firstName', 'lastName', 'email'];
+            // $class::do()->update($data, $where);
             $records =  $class::do()->select($column, $where);
-            Users::do()->update($data, $where);
         }
 
 
 
 
 
-    
+
         echo $this->render('home', ['data' => $records]);
     }
 
@@ -67,14 +68,15 @@ class siteController extends Controller
     }
     public function appointment()
     {
-        $body = Request::getInstance()->getBody();
+        Application::$app->checkAccess->check('id', 'users');
 
+        $body = Request::getInstance()->getBody();
         $where = $body['id'];
         $recordsDoctor =  Doctor::do()->appointments($where);
 
-
+        $getID = Application::$app->session->get('id');
         //todo
-        $recordsUser =  Users::do()->getData(1);
+        $recordsUser =  Users::do()->getData($getID);
 
 
 

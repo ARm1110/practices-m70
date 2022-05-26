@@ -72,15 +72,15 @@ class Validation extends Controller
             return false;
         }
 
-        if ($user[0]['password'] != $this->password) {
+        if ($user[0]['password'] != md5($this->password)) {
             $this->errors['password'][] = 'Wrong password';
             return false;
         }
         return $user[0];
     }
-    public function findOneRegister()
+    public function findOneRegister($classSet)
     {
-        return  Doctor::do()->select("*", ['email' => $this->email]);
+        return  $classSet::do()->select("*", ['email' => $this->email]);
     }
     public function validation($validationRules)
     {

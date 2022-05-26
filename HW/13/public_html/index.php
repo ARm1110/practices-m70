@@ -48,6 +48,10 @@ $app->post('/login', [AuthController::class, 'login']);
 $app->get('/register', [siteController::class, 'register']);
 $app->post('/register', [AuthController::class, 'register']);
 
+//!logout
+$app->get('/logout', [AuthController::class, 'logout']);
+
+
 //!forgetPassword
 $app->get('/passwordForgets', [siteController::class, 'passwordForgets']);
 
