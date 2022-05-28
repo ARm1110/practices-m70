@@ -26,7 +26,7 @@ class Response
    
    
   }
-  public function redirect($path, $query = null)
+  public  function  redirect($path, $query = null)
   {
     return header('Location:' . $path. '?' . http_build_query($query, '', '&;'));
   }

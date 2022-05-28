@@ -1,5 +1,6 @@
 <?php
 
+
 use App\core\Application;
 use App\controller\dashboardController;
 
@@ -54,6 +55,12 @@ $app->get('/logout', [AuthController::class, 'logout']);
 
 //!forgetPassword
 $app->get('/passwordForgets', [siteController::class, 'passwordForgets']);
+$app->post('/passwordForgets', [AuthController::class, 'passwordForgets']);
+
+
+//!resetPassword
+$app->get('/reset-pass', [siteController::class, 'resetPass']);
+$app->post('/reset-pass', [AuthController::class, 'resetPass']);
 
 
 //!sitDoctor

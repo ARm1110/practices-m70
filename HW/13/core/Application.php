@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\core;
 
 use App\core\Router;
@@ -11,6 +12,7 @@ use App\core\Validation;
 use App\core\Response;
 use App\core\Session;
 use App\middleware\CheckAccess;
+
 class Application
 {
     public static $ROOT_DIR;
@@ -23,13 +25,16 @@ class Application
     public  MedooDatabase $Connection;
     public Session $session;
     public CheckAccess $checkAccess;
+    public EmailProcess $emailProcess;
     public function __construct($path)
     {
+        date_default_timezone_set('Asia/Tehran');
         self::$ROOT_DIR = $path;
         self::$app = $this;
         $this->Connection = new MedooDatabase();
         $this->controller = new Controller;
         $this->session = new Session;
+        $this->emailProcess = new EmailProcess;
         $this->validation = new Validation;
         $this->checkAccess = new CheckAccess;
         $this->view = new View;

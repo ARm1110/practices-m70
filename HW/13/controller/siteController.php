@@ -59,6 +59,10 @@ class siteController extends Controller
 
         echo $this->render('passwordForgets');
     }
+    public function resetPass()
+    {
+        echo $this->render('resetPass');
+    }
 
 
     public function seeProfile()

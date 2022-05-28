@@ -23,7 +23,14 @@ class CheckAccess
         if (($checkSet) == false) {
             $errors['errorW'] = 'you most first login';
             Application::$app->response->redirect('/home', $errors);
+            return false;
         }
+        if ($getRole != $table) {
+            $errors['errorD'] = 'You Not Access This Panel !';
+            Application::$app->response->redirect('/home', $errors);
+            return false;
+        }
+
 
 
         $result =  Application::$app->Connection->getMedoo()->select($table, '*', $where);
@@ -32,6 +39,7 @@ class CheckAccess
         if (empty($result)) {
             $errors['errorD'] = 'You Not Access This Panel';
             Application::$app->response->redirect('/home', $errors);
+            return false;
         }
     }
 }

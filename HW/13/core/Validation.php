@@ -62,6 +62,22 @@ class Validation extends Controller
 
         ];
     }
+    public function passwordForgets()
+    {
+        return [
+            'email' => [self::RULE_REQUIRED, self::RULE_EMAIL],
+            'role' => [self::RULE_REQUIRED, self::RULE_HAVETABLE]
+        ];
+    }
+    public function  passwordRest()
+    {
+        return [
+            'password' => [self::RULE_REQUIRED],
+            'confirmPassword' => [self::RULE_REQUIRED, [self::RULE_MATCH, 'match' => 'password']]
+        ];
+    }
+
+
     public function findOneLogin($table)
     {
         $user = Application::$app->Connection->getMedoo()->select($table, '*', ['email' => $this->email]);
@@ -81,6 +97,17 @@ class Validation extends Controller
     public function findOneRegister($classSet)
     {
         return  $classSet::do()->select("*", ['email' => $this->email]);
+    }
+
+
+    public function findOneForgets($table)
+    {
+        $user = Application::$app->Connection->getMedoo()->select($table, '*', ['email' => $this->email]);
+        if (!$user) {
+            $this->errors['email'][] = 'This email not exist';
+            return false;
+        }
+        return $user[0];
     }
     public function validation($validationRules)
     {
