@@ -11,7 +11,7 @@
  Target Server Version : 100421
  File Encoding         : 65001
 
- Date: 22/05/2022 02:45:42
+ Date: 28/05/2022 22:19:18
 */
 
 SET NAMES utf8mb4;
@@ -32,6 +32,6 @@ CREATE TABLE `management`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `hospital_id`(`hospital_id` ASC) USING BTREE,
   CONSTRAINT `management_ibfk_1` FOREIGN KEY (`hospital_id`) REFERENCES `hospital` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;

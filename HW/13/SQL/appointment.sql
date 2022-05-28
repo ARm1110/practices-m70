@@ -11,7 +11,7 @@
  Target Server Version : 100421
  File Encoding         : 65001
 
- Date: 22/05/2022 02:43:39
+ Date: 28/05/2022 22:18:19
 */
 
 SET NAMES utf8mb4;
@@ -27,6 +27,8 @@ CREATE TABLE `appointment`  (
   `doctor_id` int NULL DEFAULT NULL,
   `reason` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `creat_at` timestamp NOT NULL DEFAULT current_timestamp ON UPDATE CURRENT_TIMESTAMP,
+  `days` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `timeSet` time NOT NULL,
   `statuse` tinyint(1) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `doctor_id`(`doctor_id` ASC) USING BTREE,
