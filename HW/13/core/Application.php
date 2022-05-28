@@ -26,15 +26,15 @@ class Application
     public Session $session;
     public CheckAccess $checkAccess;
     public EmailProcess $emailProcess;
-    public function __construct($path)
+    public function __construct($path,$config)
     {
         date_default_timezone_set('Asia/Tehran');
         self::$ROOT_DIR = $path;
         self::$app = $this;
-        $this->Connection = new MedooDatabase();
+        $this->Connection = new MedooDatabase($config['db']);
         $this->controller = new Controller;
         $this->session = new Session;
-        $this->emailProcess = new EmailProcess;
+        $this->emailProcess = new EmailProcess($config['email']);
         $this->validation = new Validation;
         $this->checkAccess = new CheckAccess;
         $this->view = new View;

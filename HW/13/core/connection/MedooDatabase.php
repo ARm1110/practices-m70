@@ -8,15 +8,17 @@ class MedooDatabase
 {
 
   public  $database;
-  
-  public function __construct()
+
+  public function __construct($config)
   {
+
     $this->database = new Medoo([
-      'type' => 'mysql',
-      'host' => '127.0.0.1',
-      'database' => 'hospital',
-      'username' => 'root',
-      'password' => ''
+      'type' => $config['type'],
+      'host' => $config['host'],
+      'database' => $config['database'],
+      'username' => $config['username'],
+      'password' => $config['password'],
+      'charset' => 'utf8'
     ]);
   }
 

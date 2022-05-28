@@ -14,8 +14,28 @@ use App\controller\authController\AuthController;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
+$dotenv->load();
 
-$app = new Application(dirname(__DIR__));
+
+$config = [
+    'db' => [
+        'type' =>  $_ENV['DB_TYPE'],
+        'host' =>  $_ENV['DB_HOST'],
+        'database' => $_ENV['DB_DATABASE'],
+        'username' => $_ENV['DB_USER'],
+        'password' => $_ENV['DB_PASSWORD'],
+    ],
+    'email'=>[
+        'host'=>$_ENV['EMAIL_HOST'],
+        'port'=>$_ENV['EMAIL_PORT'],
+        'username'=>$_ENV['EMAIL_USERNAME'],
+        'password'=>$_ENV['EMAIL_PASSWORD'],
+        'encryption'=>$_ENV['EMAIL_ENCRYPTION'],
+    ]
+];
+
+$app = new Application(dirname(__DIR__), $config);
 
 
 

@@ -10,9 +10,14 @@ use App\core\Application;
 class EmailProcess
 {
     protected $mail;
-    public function __construct()
+    public function __construct($config) 
     {
         $this->mail = new PHPMailer(true);
+        $this->host=$config['host'];
+        $this->port=$config['port'];
+        $this->username=$config['username'];
+        $this->password=$config['password'];
+        $this->encryption=$config['encryption'];
     }
 
     public function sendMail($user_email, $token, $role)
@@ -118,25 +123,25 @@ class EmailProcess
         $subject = "Password Recovery";
 
         $email_to = $user_email;
-        $fromserver = "amirbbw780@gmail.com";
+        $fromserver = $this->username;
         $this->mail->IsSMTP();
-        $this->mail->Host = "smtp.gmail.com";
+        $this->mail->Host = $this->host;
         $this->mail->SMTPAuth = true;
-        $this->mail->Username = "amirbbw780@gmail.com";
-        $this->mail->Password = "3kb56lvuz0";
-        $this->mail->SMTPSecure = "tls";
-        $this->mail->Port = 587;
+        $this->mail->Username = $this->username;
+        $this->mail->Password = $this->password;
+        $this->mail->SMTPSecure = $this->encryption;
+        $this->mail->Port = $this->port;
 
         $this->mail->IsHTML(true);
         $this->mail->From = "$email_to";
-        $this->mail->FromName = "ForgetPassword";
+        $this->mail->FromName = "Forget Password";
         $this->mail->Sender = $fromserver; // indicates ReturnPath header
         $this->mail->Subject = $subject;
         $this->mail->Body = $body; //output to show user
         $this->mail->AddAddress($email_to);
         if (!$this->mail->Send()) {
             $data = [
-                'errorD' => $this->mail->ErrorInfo
+                'errorD' => 'Error!'
             ];
             return Application::$app->response->redirect('/home', $data);
         } else {
