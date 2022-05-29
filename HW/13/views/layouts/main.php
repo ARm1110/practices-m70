@@ -36,9 +36,9 @@
         <ul class="dropdown-menu ">
           <li><a class="dropdown-item" href="/Dashboard/Management">Management</a></li>
           <li><a class="dropdown-item" href="/Dashboard/Doctor">Doctor</a></li>
-          <li><a class="dropdown-item" href="#">patient</a></li>
+          <li><a class="dropdown-item" href="/dashboard/patient">patient</a></li>
         </ul>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/home">home</a>
+        <a class=" list-group-item list-group-item-action list-group-item-light p-3" href="/home">home</a>
         <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Overview</a>
         <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Events</a>
         <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/DoctorList">Doctor list</a>
@@ -58,9 +58,9 @@
               if (isset($_SESSION['id'])) {
               ?>
                 <li class="nav-item dropdown">
-                  <a href="" class="dropdown-toggle " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><img src="https://www.tutorialrepublic.com/examples/images/avatar/2.jpg" class="rounded-circle" width="40px" aria-haspopup="true" data-toggle="dropdown" aria-expanded="false">
+                  <p href="" class="dropdown-toggle " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     <?php echo $_SESSION['email'];  ?>
-                  </a>
+                  </p>
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <li><a class="dropdown-item" href="/logout">logout</a></li>
                   </ul>

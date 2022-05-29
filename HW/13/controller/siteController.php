@@ -78,9 +78,8 @@ class siteController extends Controller
         $recordsDoctor =  Doctor::do()->appointments($where);
 
         $getID = Application::$app->session->get('id');
-        //todo
+        
         $recordsUser =  Users::do()->getData($getID);
-
 
 
 
@@ -92,5 +91,30 @@ class siteController extends Controller
     {
         Controller::setLayout('mainAdmin');
         echo $this->render('admin/home');
+    }
+    public function appointmentSubmit()
+    {
+        Application::$app->checkAccess->check('id', 'users');
+        $body = Request::getInstance()->getBody();
+
+        $userID = Application::$app->session->get('id');
+        $doctorID = $body['doctorID'];
+        $worktimeID = $body['worktimeID'];
+        $clinicID = $body['clinicID'];
+        $reason = $body['reason'];
+        $data = [
+            'users_id' =>  $userID,
+            'doctor_id' => $doctorID,
+            'worktime_id' => $worktimeID,
+            'clinic_id' => $clinicID,
+            'reason' => $reason,
+            'statuse' => 0
+        ];
+        Application::$app->Connection->getMedoo()->insert('appointment', $data);
+        $data = [
+            'success' => 'appointment successfully'
+        ];
+        Controller::setLayout('main2');
+        Application::$app->response->redirect('/home', $data);
     }
 }

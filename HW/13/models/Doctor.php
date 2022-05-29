@@ -122,7 +122,7 @@ class Doctor extends Model
     //!refactor
     public function appointments($where)
     {
-        $SQL = "SELECT
+     $SQL = "SELECT
 	doctor.id, 
 	worktime.start_worktime, 
 	worktime.week_days, 

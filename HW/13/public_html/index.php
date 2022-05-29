@@ -12,6 +12,7 @@ use App\controller\TodoController;
 use App\controller\authController\AuthController;
 use App\controller\doctorController;
 use App\controller\managementController;
+use App\controller\usersController;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -50,6 +51,9 @@ $app->post('/DoctorList/seeProfile', [siteController::class, 'seeProfile']);
 $app->post('/DoctorList/Filter', [listController::class, 'filter']);
 $app->post('/DoctorList/Profile', [listController::class, 'showProfile']);
 $app->get('/DoctorList/Profile/appointment', [siteController::class, 'appointment']);
+$app->post('/doctor-list/profile/appointment', [siteController::class, 'appointmentSubmit']);
+
+
 
 
 
@@ -102,6 +106,10 @@ $app->post('/management/add/section', [managementController::class, 'addSection'
 $app->get('/management/section/delete', [managementController::class, 'sectionDelete']);
 $app->post('/management/section/rename', [managementController::class, 'sectionRename']);
 
+//!users
+$app->get('/dashboard/patient', [usersController::class, 'showHome']);
+$app->get('/users/list/appointment', [usersController::class, 'showAppointment']);
+$app->get('/users/delete', [usersController::class, 'deleteAppointment']);
 
 
 
