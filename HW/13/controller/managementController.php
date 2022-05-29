@@ -64,6 +64,22 @@ class managementController extends Controller
         ];
         Controller::setLayout('main2');
         Application::$app->response->redirect('/Dashboard/Management', $data);
-        
+    }
+    public function sectionRename()
+    {
+        Application::$app->checkAccess->check('id', 'management');
+        $body = Request::getInstance()->getBody();
+        $clinicID = $body['clinic_id'];
+        $clinicName = $body['clinicName'];
+
+        $data = [
+            'name' => $clinicName
+        ];
+        Application::$app->Connection->getMedoo()->update('clinic_section', $data, ['id' => $clinicID]);
+        $data = [
+            'success' => 'rename section successfully'
+        ];
+        Controller::setLayout('main2');
+        Application::$app->response->redirect('/Dashboard/Management', $data);
     }
 }

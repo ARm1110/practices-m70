@@ -100,6 +100,8 @@ $app->get('/management/user-enable', [managementController::class, 'userActive']
 $app->get('/management/user-disable', [managementController::class, 'userDisable']);
 $app->post('/management/add/section', [managementController::class, 'addSection']);
 $app->get('/management/section/delete', [managementController::class, 'sectionDelete']);
+$app->post('/management/section/rename', [managementController::class, 'sectionRename']);
+
 
 
 
