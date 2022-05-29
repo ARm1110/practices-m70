@@ -4,7 +4,7 @@ use App\core\Application;
 
 $emailError = Application::$app->validation->getFirstError('email');
 $passwordError = Application::$app->validation->getFirstError('password');
-$settingError = Application::$app->validation->getFirstError('setting');
+$roleError = Application::$app->validation->getFirstError('setting');
 ?>
 
 <div id="layoutAuthentication">
@@ -18,7 +18,7 @@ $settingError = Application::$app->validation->getFirstError('setting');
                                 <h3 class="text-center font-weight-light my-4">Login</h3>
                             </div>
                             <div class="card-body">
-                                <form method="POST" action="login" >
+                                <form method="POST" action="login">
                                     <div class="form-floating mb-3">
                                         <input class="form-control  <?php echo !empty($emailError) ? 'is-invalid' : '' ?>" id="inputEmail" type="email" name="email" placeholder="name@example.com" />
                                         <label for="inputEmail">Email address</label>
@@ -33,10 +33,12 @@ $settingError = Application::$app->validation->getFirstError('setting');
                                             <?php echo $passwordError ?? ""; ?>
                                         </div>
                                     </div>
-                                    <div class="form-check mb-3">
-                                        <input class="form-check-input <?php echo !empty($settingError) ? 'is-invalid' : '' ?>" id="inputRememberPassword" type="checkbox" name="setting" value="on" />
-                                        <label class="form-check-label <?php echo !empty($settingError) ? 'is-invalid' : '' ?>" for="inputRememberPassword">Remember Me</label>
-                                    </div>
+                                    <select class="form-select <?php echo !empty($roleError) ? 'is-invalid' : '' ?>" id="inputGroupSelect01" name="role">
+                                        <option value="Role">Role...</option>
+                                        <option value="doctor">Doctor</option>
+                                        <option value="management">Management</option>
+                                        <option value="Users">Users</option>
+                                    </select>
                                     <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                         <a class="small" href="passwordForgets">Forgot Password?</a>
                                         <button class="btn btn-primary">Login</button>

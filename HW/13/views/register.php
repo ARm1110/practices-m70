@@ -47,7 +47,7 @@
                                      </div>
                                      <div class="col-md-6">
                                          <div class="input-group mb-3">
-                                             <label class="input-group-text" for="inputGroupSelect01">Options</label>
+                                             <label class="input-group-text" for="inputGroupSelect01">Role</label>
                                              <select class="form-select <?php echo !empty($roleError) ? 'is-invalid' : '' ?>" id="inputGroupSelect01" name="role">
                                                  <option value="Role">Role...</option>
                                                  <option value="doctor">Doctor</option>

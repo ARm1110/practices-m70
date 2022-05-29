@@ -215,9 +215,7 @@
                                 <p><?php echo $data[0]["name"] ?? 'none'; ?></p>
                             </div>
                         </div>
-                        <form method="POST" action="/DoctorList/Profile">
-                            <input type="submit" class="btn  btn-outline-success" value="Reservation"></input>
-                        </form>
+                        <a type="submit" href="/DoctorList/Profile/appointment?id=<?php echo $data[0]["id"]; ?>" class="btn  btn-outline-success">Reservation</a>
                     </div>
                 </div>
             </div>

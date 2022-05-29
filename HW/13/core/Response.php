@@ -23,12 +23,9 @@ class Response
   public function setStatusCode(int $code)
   {
     http_response_code($code);
-   
-   
   }
-  public function redirect($path, $query = null)
+  public  function  redirect($path, $query = null)
   {
-    return header('Location:' . $path);
+    return header('Location:' . $path . '?' . http_build_query($query, '', '&;'));
   }
- 
 }
