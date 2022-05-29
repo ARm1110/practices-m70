@@ -21,7 +21,7 @@ class dashboardController extends Controller
 
 
         Controller::setLayout('main2');
-        echo $this->render('Doctor/homeDoctor', ["navbar" => ["link1" => '/Profile/Edit', 'viw1' => "Panel Profile", "link2" => '/home', 'viw2' => "Home page"]]);
+        echo $this->render('Doctor/homeDoctor', ["navbar" => ["link1" => '/Profile/Edit', 'viw1' => "Panel Profile", "link2" => '/home', 'viw2' =>"Home page", "link3" => '/visit/appointment', 'viw3' => "visit list"]]);
     }
 
     public function profileEdited()
@@ -37,7 +37,7 @@ class dashboardController extends Controller
         $data2 = Clinic::do()->getDataJustName();
 
         Controller::setLayout('main2');
-        echo $this->render('Doctor/profileEdited', ["navbar" => ["link1" => '/Profile/Edit', 'viw1' => "Panel Profile", "link2" => '/home', 'viw2' => "Home page"], "data" => $data, "data2" => $data2]);
+        echo $this->render('Doctor/profileEdited', ["navbar" => ["link1" => '/Profile/Edit', 'viw1' => "Panel Profile", "link2" => '/home', 'viw2' =>"Home page", "link3" => '/visit/appointment', 'viw3' => "visit list"], "data" => $data, "data2" => $data2]);
     }
 
 
@@ -47,7 +47,7 @@ class dashboardController extends Controller
 
 
         Controller::setLayout('main2');
-        echo $this->render('management/homeManagement', ["navbar" => ["link1" => '/list/Accept', 'viw1' => "Panel Profile", "link2" => '/add/section', 'viw2' => "section"]]);
+        echo $this->render('management/homeManagement', ["navbar" => ["link1" => '/list/Accept', 'viw1' => "Panel Profile", "link2" => '/add/section', 'viw2' =>"section", "link3" => '', 'viw3' => "none"]]);
     }
 
 
@@ -64,7 +64,7 @@ class dashboardController extends Controller
         ]);
 
         Controller::setLayout('main2');
-        echo $this->render('management/checkDoctorList', ["navbar" => ["link1" => '/list/Accept', 'viw1' => "Panel Profile", "link2" => '/add/section', 'viw2' => "section"], "result" => $result]);
+        echo $this->render('management/checkDoctorList', ["navbar" => ["link1" => '/list/Accept', 'viw1' => "Panel Profile", "link2" => '/add/section', 'viw2' =>"section", "link3" => '', 'viw3' => "none"], "result" => $result]);
     }
 
     public function section()
@@ -80,6 +80,6 @@ class dashboardController extends Controller
 
 
         Controller::setLayout('main2');
-        echo $this->render('management/Section', ["navbar" => ["link1" => '/list/Accept', 'viw1' => "Panel Profile", "link2" => '/add/section', 'viw2' => "section"], 'result' => $result]);
+        echo $this->render('management/Section', ["navbar" => ["link1" => '/list/Accept', 'viw1' => "Panel Profile", "link2" => '/add/section', 'viw2' =>"section", "link3" => '', 'viw3' => "none"], 'result' => $result]);
     }
 }

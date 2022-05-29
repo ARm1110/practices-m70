@@ -122,7 +122,7 @@ class Doctor extends Model
     //!refactor
     public function appointments($where)
     {
-     $SQL = "SELECT
+        $SQL = "SELECT
 	doctor.id, 
 	worktime.start_worktime, 
 	worktime.week_days, 
@@ -152,5 +152,36 @@ class Doctor extends Model
 
 
         return  Application::$app->Connection->getMedoo()->exec($SQL)->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+
+    public function bootTable($doctorID)
+    {
+        $sql = "
+         SELECT
+	clinic_section.`name`,
+	appointment.statuse,
+	doctor.email,
+	worktime.start_worktime,
+	worktime.end_worktime,
+	worktime.week_days,
+	doctor_profile.amount_visit,
+	appointment.id, 
+	appointment.reason, 
+	appointment.creat_at 
+    FROM
+	appointment
+	INNER JOIN doctor ON appointment.doctor_id = doctor.id
+	INNER JOIN worktime ON doctor.id = worktime.doctor_id 
+	AND appointment.worktime_id = worktime.id
+	INNER JOIN doctor_profile ON doctor.profile_id = doctor_profile.id
+	INNER JOIN clinic_section ON appointment.clinic_id = clinic_section.id 
+	AND doctor.clinic_id = clinic_section.id 
+    WHERE
+	doctor.id = $doctorID
+    GROUP BY
+	appointment.id;";
+
+    return  Application::$app->Connection->getMedoo()->exec($sql)->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

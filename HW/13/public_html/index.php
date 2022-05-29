@@ -95,6 +95,9 @@ $app->post('/Profile/Edit', [doctorController::class, 'profileEdited']);
 $app->post('/dashboard/doctor/add-time', [doctorController::class, 'addTime']);
 $app->get('/dashboard-doctor/delete-work-day', [doctorController::class, 'deleteWorkDay']);
 $app->post('/dashboard/doctor/change-clinic-section', [doctorController::class, 'changedClinicSection']);
+$app->get('/visit/appointment', [doctorController::class, 'visitShow']);
+$app->get('/users/accept', [doctorController::class, 'visitAccept']);
+
 
 //!siteManagement
 $app->get('/Dashboard/Management', [dashboardController::class, 'dashboardManagement']);

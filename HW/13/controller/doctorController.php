@@ -60,6 +60,27 @@ class doctorController extends Controller
         ];
         Application::$app->Connection->getMedoo()->update('doctor', $data, ['id' => $doctorID]);
         Application::$app->response->redirect('/Profile/Edit', ['success' => 'set new clinic section successfully']);
-        
+    }
+    public function visitShow()
+    {
+        Application::$app->checkAccess->check('id', 'doctor');
+        $doctorID = Application::$app->session->get('id');
+        $result = Doctor::do()->bootTable($doctorID);
+
+        Controller::setLayout('main3');
+        echo $this->render('doctor/visit', ['result' => $result]);
+    }
+    public function visitAccept()
+    {
+        Application::$app->checkAccess->check('id', 'doctor');
+        $body = Request::getInstance()->getBody();
+        $doctorID = Application::$app->session->get('id');
+        $visitID = $body['id'];
+       
+        $data = [
+            'statuse' => true
+        ];
+        Application::$app->Connection->getMedoo()->update('appointment', $data, ['id' => $visitID]);
+        Application::$app->response->redirect('/visit/appointment', ['success' => 'accept visit successfully']);
     }
 }

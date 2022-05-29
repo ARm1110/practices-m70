@@ -32,7 +32,7 @@
                         <a class="nav-link" href="<?php echo  $navbar['link2']; ?>"><?php echo $navbar['viw2'];  ?></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
+                        <a class="nav-link " href="<?php echo  $navbar['link3']; ?>"><?php echo $navbar['viw3'];  ?></a>
                     </li>
                 </ul>
             </div>
@@ -43,7 +43,7 @@
     <div class="container-fluid mt-3">
         {{content}}
     </div>
-   
+
 </body>
 
 </html>
