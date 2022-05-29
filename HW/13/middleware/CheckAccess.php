@@ -12,9 +12,11 @@ class CheckAccess
 
         $errors = null;
         $checkSet = Application::$app->session->exists($data);
-        $getRole = Application::$app->session->get('role');
+        $getRole = lcfirst(Application::$app->session->get('role'));
         $getEmail = Application::$app->session->get('email');
         $checkGet = Application::$app->session->get($data);
+        // var_dump($getRole);
+        // exit();
         $where = [
             'id' => $checkGet,
             'email' => $getEmail

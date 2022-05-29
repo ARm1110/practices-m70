@@ -43,7 +43,6 @@ class AuthController  extends Controller
         $body = Request::getInstance()->getBody();
         $table = ucfirst($body['role']);
 
-
         $authValidation = Application::$app->validation->loadData($body);
         $validationRules = $authValidation->loginRules();
 
@@ -91,7 +90,7 @@ class AuthController  extends Controller
         $pass1 = $body['password'];
         $pass2 = $body['confirmPassword'];
         $results = Application::$app->Connection->getMedoo()->select('password_reset_temp', '*', ['token' => $body['token']]);
-        
+
         if ($pass1 != $pass2) {
             $data = [
                 'errorW' => 'password not match back to gmail try again!'
@@ -122,7 +121,6 @@ class AuthController  extends Controller
             'success' => 'password has been changed!'
         ];
         Application::$app->response->redirect('/home', $data);
-
     }
     public function logout()
     {

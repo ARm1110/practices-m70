@@ -11,15 +11,18 @@ class MedooDatabase
 
   public function __construct($config)
   {
-
-    $this->database = new Medoo([
-      'type' => $config['type'],
-      'host' => $config['host'],
-      'database' => $config['database'],
-      'username' => $config['username'],
-      'password' => $config['password'],
-      'charset' => 'utf8'
-    ]);
+    try {
+      $this->database = new Medoo([
+        'type' => $config['type'],
+        'host' => $config['host'],
+        'database' => $config['database'],
+        'username' => $config['username'],
+        'password' => $config['password'],
+        'charset' => 'utf8'
+      ]);
+    } catch (\Exception $e) {
+      throw $e;
+    }
   }
 
   public  function getMedoo()

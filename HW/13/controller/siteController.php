@@ -18,7 +18,6 @@ class siteController extends Controller
         $records = null;
         if (Application::$app->session->exists('id')) {
             $table = $_SESSION['role'];
-
             $class = "App\\models\\$table";;
             $data = ['status' => true];
             $where = ['id' => $_SESSION['id']];

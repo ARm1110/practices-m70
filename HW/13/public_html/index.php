@@ -10,7 +10,7 @@ use App\controller\siteController;
 
 use App\controller\TodoController;
 use App\controller\authController\AuthController;
-
+use App\controller\doctorController;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -86,6 +86,10 @@ $app->post('/reset-pass', [AuthController::class, 'resetPass']);
 //!sitDoctor
 $app->get('/Dashboard/Doctor', [dashboardController::class, 'dashboardDoctor']);
 $app->get('/Profile/Edit', [dashboardController::class, 'profileEdited']);
+$app->post('/Profile/Edit', [doctorController::class, 'profileEdited']);
+$app->post('/dashboard/doctor/add-time', [doctorController::class, 'addTime']);
+$app->get('/dashboard-doctor/delete-work-day', [doctorController::class, 'deleteWorkDay']);
+$app->post('/dashboard/doctor/change-clinic-section', [doctorController::class, 'changedClinicSection']);
 
 //!siteManagement
 $app->get('/Dashboard/Management', [dashboardController::class, 'dashboardManagement']);

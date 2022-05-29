@@ -10,21 +10,18 @@ use App\core\Application;
 class EmailProcess
 {
     protected $mail;
-    public function __construct($config) 
+    public function __construct($config)
     {
         $this->mail = new PHPMailer(true);
-        $this->host=$config['host'];
-        $this->port=$config['port'];
-        $this->username=$config['username'];
-        $this->password=$config['password'];
-        $this->encryption=$config['encryption'];
+        $this->host = $config['host'];
+        $this->port = $config['port'];
+        $this->username = $config['username'];
+        $this->password = $config['password'];
+        $this->encryption = $config['encryption'];
     }
 
     public function sendMail($user_email, $token, $role)
     {
-
-
-
         $expFormat = mktime(
             date("H"),
             date("i") + 5,

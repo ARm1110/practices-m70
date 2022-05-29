@@ -59,6 +59,44 @@ class Doctor extends Model
     }
 
 
+    public function getData($where)
+    {
+
+        return  Application::$app->Connection->getMedoo()->select(
+            'doctor',
+            [
+                '[><]doctor_profile' => ['profile_id' => 'id'],
+
+                '[><]clinic_section' => ['clinic_id' => 'id'],
+
+                '[><]worktime' => ['id' => 'doctor_id'],
+            ],
+            [
+                'doctor_profile.zip_code',
+                'doctor_profile.url_picture',
+                'doctor_profile.ed_info',
+                'doctor_profile.id(imgID)',
+                'doctor_profile.amount_visit',
+                'doctor_profile.phone_number',
+                'doctor_profile.madia_1',
+                'clinic_section.name',
+                'clinic_section.creat_at',
+                'worktime.start_worktime',
+                'worktime.end_worktime',
+                'worktime.id(workID)',
+                'worktime.week_days',
+                'doctor.firstName',
+                'doctor.lastName',
+                'doctor.email',
+                'doctor.creat_at'
+            ],
+            [
+                'doctor.id' => $where
+            ]
+        );
+    }
+
+
     //!refactor
     public function filterTable($where)
     {

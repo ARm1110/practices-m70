@@ -88,7 +88,7 @@ class Validation extends Controller
             return false;
         }
 
-        if ($user[0]['password'] != md5($this->password)) {
+        if ($user[0]['password'] !=$this->password) {
             $this->errors['password'][] = 'Wrong password';
             return false;
         }

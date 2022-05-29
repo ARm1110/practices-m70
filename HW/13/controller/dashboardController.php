@@ -5,14 +5,18 @@ namespace App\controller;
 use App\core\Application;
 use App\core\Controller;
 use App\core\Request;
+use App\Models\Clinic;
+use App\Models\Doctor;
 
 class dashboardController extends Controller
 {
 
     public function dashboardDoctor()
     {
-     
-        Application::$app->checkAccess->check('id','doctor');
+
+        Application::$app->checkAccess->check('id', 'doctor');
+
+
 
 
         Controller::setLayout('main2');
@@ -22,8 +26,17 @@ class dashboardController extends Controller
     public function profileEdited()
     {
         Application::$app->checkAccess->check('id', 'doctor');
+
+
+        $id = Application::$app->session->get('id');
+        $email = Application::$app->session->get('email');
+        $role = Application::$app->session->get('role');
+
+        $data = Doctor::do()->getData($id);
+        $data2 = Clinic::do()->getDataJustName();
+
         Controller::setLayout('main2');
-        echo $this->render('Doctor/profileEdited', ["navbar" => ["link1" => '/Profile/Edit', 'viw1' => "Panel Profile", "link2" => '/home', 'viw2' => "Home page"]]);
+        echo $this->render('Doctor/profileEdited', ["navbar" => ["link1" => '/Profile/Edit', 'viw1' => "Panel Profile", "link2" => '/home', 'viw2' => "Home page"], "data" => $data, "data2" => $data2]);
     }
 
 
