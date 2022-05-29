@@ -27,12 +27,12 @@ $config = [
         'username' => $_ENV['DB_USER'],
         'password' => $_ENV['DB_PASSWORD'],
     ],
-    'email'=>[
-        'host'=>$_ENV['EMAIL_HOST'],
-        'port'=>$_ENV['EMAIL_PORT'],
-        'username'=>$_ENV['EMAIL_USERNAME'],
-        'password'=>$_ENV['EMAIL_PASSWORD'],
-        'encryption'=>$_ENV['EMAIL_ENCRYPTION'],
+    'email' => [
+        'host' => $_ENV['EMAIL_HOST'],
+        'port' => $_ENV['EMAIL_PORT'],
+        'username' => $_ENV['EMAIL_USERNAME'],
+        'password' => $_ENV['EMAIL_PASSWORD'],
+        'encryption' => $_ENV['EMAIL_ENCRYPTION'],
     ]
 ];
 
@@ -98,6 +98,8 @@ $app->get('/list/Accept', [dashboardController::class, 'AcceptList']);
 $app->get('/add/section', [dashboardController::class, 'section']);
 $app->get('/management/user-enable', [managementController::class, 'userActive']);
 $app->get('/management/user-disable', [managementController::class, 'userDisable']);
+$app->post('/management/add/section', [managementController::class, 'addSection']);
+$app->get('/management/section/delete', [managementController::class, 'sectionDelete']);
 
 
 

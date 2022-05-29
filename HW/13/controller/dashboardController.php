@@ -62,7 +62,7 @@ class dashboardController extends Controller
             'statuse',
             'creat_at',
         ]);
-    
+
         Controller::setLayout('main2');
         echo $this->render('management/checkDoctorList', ["navbar" => ["link1" => '/list/Accept', 'viw1' => "Panel Profile", "link2" => '/add/section', 'viw2' => "section"], "result" => $result]);
     }
@@ -70,7 +70,16 @@ class dashboardController extends Controller
     public function section()
     {
         Application::$app->checkAccess->check('id', 'management');
+
+
+        $result = Application::$app->Connection->getMedoo()->select('clinic_section', [
+            'id',
+            'name',
+            'creat_at',
+        ]);
+
+
         Controller::setLayout('main2');
-        echo $this->render('management/Section', ["navbar" => ["link1" => '/list/Accept', 'viw1' => "Panel Profile", "link2" => '/add/section', 'viw2' => "section"]]);
+        echo $this->render('management/Section', ["navbar" => ["link1" => '/list/Accept', 'viw1' => "Panel Profile", "link2" => '/add/section', 'viw2' => "section"], 'result' => $result]);
     }
 }

@@ -37,4 +37,33 @@ class managementController extends Controller
         Controller::setLayout('main2');
         Application::$app->response->redirect('/Dashboard/Management', $data);
     }
+    public function addSection()
+    {
+        Application::$app->checkAccess->check('id', 'management');
+        $body = Request::getInstance()->getBody();
+        $management = Application::$app->session->get('id');
+        $clinicName = $body['clinic'];
+        $data = [
+            'name' => $clinicName,
+            'management_id' => $management
+
+        ];
+        Application::$app->Connection->getMedoo()->insert('clinic_section', $data);
+        $data = [
+            'success' => 'add section successfully'
+        ];
+        Controller::setLayout('main2');
+        Application::$app->response->redirect('/Dashboard/Management', $data);
+    }
+    public function sectionDelete()
+    {
+        Application::$app->checkAccess->check('id', 'management');
+        Application::$app->Connection->getMedoo()->delete('clinic_section', ['id' => $_GET['id']]);
+        $data = [
+            'success' => 'delete section successfully'
+        ];
+        Controller::setLayout('main2');
+        Application::$app->response->redirect('/Dashboard/Management', $data);
+        
+    }
 }
