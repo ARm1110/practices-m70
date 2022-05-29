@@ -7,6 +7,7 @@ use App\core\Controller;
 use App\core\Request;
 use App\Models\Clinic;
 use App\Models\Doctor;
+use App\Models\Management;
 
 class dashboardController extends Controller
 {
@@ -43,6 +44,8 @@ class dashboardController extends Controller
     public function dashboardManagement()
     {
         Application::$app->checkAccess->check('id', 'management');
+
+
         Controller::setLayout('main2');
         echo $this->render('management/homeManagement', ["navbar" => ["link1" => '/list/Accept', 'viw1' => "Panel Profile", "link2" => '/add/section', 'viw2' => "section"]]);
     }
@@ -51,8 +54,17 @@ class dashboardController extends Controller
     public function AcceptList()
     {
         Application::$app->checkAccess->check('id', 'management');
+        $result = Application::$app->Connection->getMedoo()->select('doctor', [
+            'id',
+            'firstName',
+            'lastName',
+            'email',
+            'statuse',
+            'creat_at',
+        ]);
+    
         Controller::setLayout('main2');
-        echo $this->render('management/checkDoctorList', ["navbar" => ["link1" => '/list/Accept', 'viw1' => "Panel Profile", "link2" => '/add/section', 'viw2' => "section"]]);
+        echo $this->render('management/checkDoctorList', ["navbar" => ["link1" => '/list/Accept', 'viw1' => "Panel Profile", "link2" => '/add/section', 'viw2' => "section"], "result" => $result]);
     }
 
     public function section()

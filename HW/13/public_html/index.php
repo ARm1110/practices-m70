@@ -11,6 +11,7 @@ use App\controller\siteController;
 use App\controller\TodoController;
 use App\controller\authController\AuthController;
 use App\controller\doctorController;
+use App\controller\managementController;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -95,8 +96,8 @@ $app->post('/dashboard/doctor/change-clinic-section', [doctorController::class, 
 $app->get('/Dashboard/Management', [dashboardController::class, 'dashboardManagement']);
 $app->get('/list/Accept', [dashboardController::class, 'AcceptList']);
 $app->get('/add/section', [dashboardController::class, 'section']);
-
-
+$app->get('/management/user-enable', [managementController::class, 'userActive']);
+$app->get('/management/user-disable', [managementController::class, 'userDisable']);
 
 
 

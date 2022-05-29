@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\core\Application;
 use App\core\Model;
 
 class Management extends Model
@@ -18,7 +19,7 @@ class Management extends Model
         return new static;
     }
 
-    
+
     //!refactor
     public function setRegister(array $body)
     {
@@ -39,4 +40,7 @@ class Management extends Model
 
         $this->insert($SQL);
     }
+
+
+   
 }
