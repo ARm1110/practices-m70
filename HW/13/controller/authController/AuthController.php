@@ -54,7 +54,7 @@ class AuthController  extends Controller
             Application::$app->session->put('id', $user["id"]);
             Application::$app->session->put('email', $user["email"]);
             Application::$app->session->put('massage', "welcome to the hospital");
-            Application::$app->session->put('proses', true);
+            Application::$app->session->put('proses', $user["statuse"]);
             Application::$app->session->put('role', $table);
 
 

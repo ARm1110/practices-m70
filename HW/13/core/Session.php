@@ -27,6 +27,10 @@ class Session extends Controller
     {
         unset($_SESSION[$name]);
     }
+    public static function change($name, $value): void
+    {
+        $_SESSION[$name]=$value;
+    }
     public static function deleteAll(): void
     {
         session_destroy();
