@@ -61,7 +61,6 @@ $app->post('/doctor-list/profile/appointment', [siteController::class, 'appointm
 $app->get('/admin', [siteController::class, 'admin']);
 
 
-
 //!errorPage
 $app->get('/_404', [siteController::class, 'error404']);
 
@@ -108,6 +107,9 @@ $app->get('/management/user-disable', [managementController::class, 'userDisable
 $app->post('/management/add/section', [managementController::class, 'addSection']);
 $app->get('/management/section/delete', [managementController::class, 'sectionDelete']);
 $app->post('/management/section/rename', [managementController::class, 'sectionRename']);
+$app->get('/management/account/active', [managementController::class, 'listShow']);
+$app->get('/management/account/active/management', [managementController::class, 'accountActive']);
+$app->get('/management/account/disable/management', [managementController::class, 'accountDisable']);
 
 //!users
 $app->get('/dashboard/patient', [usersController::class, 'showHome']);

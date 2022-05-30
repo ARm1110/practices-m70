@@ -18,6 +18,7 @@ class doctorController extends Controller
 
     {
         Application::$app->checkAccess->check('id', 'doctor');
+        Application::$app->checkStatus->check();
         $body = Request::getInstance()->getBody();
         $userID = Application::$app->session->get('id');
         $imgID = $body['imgID'];
@@ -27,6 +28,7 @@ class doctorController extends Controller
     {
 
         Application::$app->checkAccess->check('id', 'doctor');
+        Application::$app->checkStatus->check();
         $body = Request::getInstance()->getBody();
         $doctorID = Application::$app->session->get('id');
         $days = $body['days'];
@@ -44,6 +46,7 @@ class doctorController extends Controller
     public function deleteWorkDay()
     {
         Application::$app->checkAccess->check('id', 'doctor');
+        Application::$app->checkStatus->check();
         $body = Request::getInstance()->getBody();
         $workTimeID = $body['workTimeID'];
         Application::$app->Connection->getMedoo()->delete('worktime', ['id' => $workTimeID]);
@@ -52,6 +55,7 @@ class doctorController extends Controller
     public function changedClinicSection()
     {
         Application::$app->checkAccess->check('id', 'doctor');
+        Application::$app->checkStatus->check();
         $body = Request::getInstance()->getBody();
         $doctorID = Application::$app->session->get('id');
         $clinicSectionID = $body['clinic'];
@@ -64,6 +68,7 @@ class doctorController extends Controller
     public function visitShow()
     {
         Application::$app->checkAccess->check('id', 'doctor');
+        Application::$app->checkStatus->check();
         $doctorID = Application::$app->session->get('id');
         $result = Doctor::do()->bootTable($doctorID);
 
@@ -73,6 +78,7 @@ class doctorController extends Controller
     public function visitAccept()
     {
         Application::$app->checkAccess->check('id', 'doctor');
+        Application::$app->checkStatus->check();
         $body = Request::getInstance()->getBody();
         $doctorID = Application::$app->session->get('id');
         $visitID = $body['id'];

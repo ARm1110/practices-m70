@@ -12,6 +12,7 @@ use App\core\Validation;
 use App\core\Response;
 use App\core\Session;
 use App\middleware\CheckAccess;
+use App\middleware\CheckStatus;
 
 class Application
 {
@@ -25,6 +26,7 @@ class Application
     public  MedooDatabase $Connection;
     public Session $session;
     public CheckAccess $checkAccess;
+    public CheckStatus $checkStatus;
     public EmailProcess $emailProcess;
     public function __construct($path,$config)
     {
@@ -37,6 +39,7 @@ class Application
         $this->emailProcess = new EmailProcess($config['email']);
         $this->validation = new Validation;
         $this->checkAccess = new CheckAccess;
+        $this->checkStatus = new CheckStatus;
         $this->view = new View;
         $this->response = Response::getInstance();
         $this->router = new Router;
