@@ -97,6 +97,12 @@ class AuthController  extends Controller
             ];
             Application::$app->response->redirect('/home', $data);
         }
+        if ($pass1 != $pass2) {
+            $data = [
+                'errorW' => 'password not match back to gmail try again!'
+            ];
+            Application::$app->response->redirect('/home', $data);
+        }
         if (strtotime($results[0]['expire_date']) < time()) {
             $data = [
                 'errorW' => 'Expire this link!'

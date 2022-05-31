@@ -44,7 +44,7 @@ use App\core\Application;
 
                                         <div class="mx-auto" style="width: 140px;">
                                             <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
-                                                <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;"><img src="<?php echo 'http://127.0.0.1:8000' . "/uploads/" . $data[0]['url_picture'] ?>" class="rounded" alt="not load" width='140px' height="140"></span>
+                                                <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;"><img src="<?php echo 'http://127.0.0.1:8000' . "/uploads/" . $data[0]['url_picture'] ?>" class="rounded" alt="not load" width='140px' height="140">140*140</span>
                                             </div>
                                         </div>
                                     </div>

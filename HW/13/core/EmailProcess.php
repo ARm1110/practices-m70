@@ -12,6 +12,8 @@ class EmailProcess
     protected $mail;
     public function __construct($config)
     {
+        // var_dump($config);
+        // exit;
         $this->mail = new PHPMailer(true);
         $this->host = $config['host'];
         $this->port = $config['port'];
@@ -24,7 +26,7 @@ class EmailProcess
     {
         $expFormat = mktime(
             date("H"),
-            date("i") + 5,
+            date("i") + 10,
             date("s"),
             date("m"),
             date("d"),

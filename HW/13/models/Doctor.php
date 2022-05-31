@@ -45,7 +45,7 @@ class Doctor extends Model
     {
         $SQL = "
         SELECT
-	    doctor.id, doctor.firstName, doctor.lastName,
+	    doctor.id, doctor.firstName,url_picture, doctor.lastName,
         doctor.statuse, doctor.email, doctor_profile.zip_code,
         doctor_profile.ed_info, doctor_profile.amount_visit,
         doctor_profile.phone_number, clinic_section.`name`, 
