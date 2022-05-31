@@ -120,8 +120,13 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="profile-img">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt="" />
-
+                    <img style="width:240px ;height:240px " src="<?php
+                 if (!empty($data[0]['url_picture'])) {
+                     echo 'http://127.0.0.1:8000' . "/uploads/" . $data[0]['url_picture'];
+                 } else {
+                     echo 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog';
+                 }
+                 ?>" alt="" />
                 </div>
             </div>
             <div class="col-md-6">

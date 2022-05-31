@@ -18,7 +18,7 @@ class listController extends Controller
 
 
         $column = array('[><]clinic_section' => array('clinic_id' => 'id'));
-        $where = array('doctor.id', 'doctor.firstName', 'doctor.lastName', 'doctor.statuse', 'clinic_section.name');
+        $where = array('doctor.id',  'doctor.firstName', 'doctor.lastName', 'doctor.statuse', 'clinic_section.name');
 
         $records = Application::$app->Connection->getMedoo()->select('doctor', $column, $where);
         echo  $this->render('DoctorList', ['data' => [$records]]);
