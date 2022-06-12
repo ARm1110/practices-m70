@@ -6,6 +6,8 @@ use App\Http\Requests\StoreBookingRequest;
 use App\Http\Requests\UpdateBookingRequest;
 use App\Models\Booking;
 
+use function Ramsey\Uuid\v1;
+
 class BookingController extends Controller
 {
     /**
@@ -15,7 +17,10 @@ class BookingController extends Controller
      */
     public function index()
     {
-        //
+
+        return  view(
+            'booking.index'
+        );
     }
 
     /**
