@@ -21,9 +21,4 @@ class Booking extends Model
         'service',
         'price',
     ];
-
-    public function users()
-    {
-        return $this->belongsTo(User::class);
-    }
 }

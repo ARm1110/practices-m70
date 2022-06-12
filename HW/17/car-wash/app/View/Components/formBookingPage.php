@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class form-booking-page extends Component
+class formBookingPage extends Component
 {
     /**
      * Create a new component instance.

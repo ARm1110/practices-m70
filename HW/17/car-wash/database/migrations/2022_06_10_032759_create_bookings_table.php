@@ -22,6 +22,7 @@ return new class extends Migration
             $table->date('date');
             $table->string('service');
             $table->integer('price');
+            $table->foreignIdFor(User::class)->constrained();
             $table->boolean('status');
             $table->timestamps();
         });
