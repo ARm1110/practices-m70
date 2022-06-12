@@ -19,4 +19,5 @@ Route::get('/', function () {
     return view('home');
 });
 Route::resource('users', UserController::class);
+
 Route::resource('booking', BookingController::class);

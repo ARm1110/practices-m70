@@ -30,7 +30,7 @@ class BookingController extends Controller
      */
     public function create()
     {
-        //
+        return back();
     }
 
     /**
@@ -41,7 +41,7 @@ class BookingController extends Controller
      */
     public function store(StoreBookingRequest $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
