@@ -20,5 +20,6 @@ class Booking extends Model
         'date',
         'service',
         'price',
+        'fastService'
     ];
 }

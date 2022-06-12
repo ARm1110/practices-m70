@@ -24,7 +24,7 @@ return new class extends Migration
             $table->integer('price');
             $table->foreignIdFor(User::class)->constrained();
             $table->boolean('status');
-            $table->timestamps();
+            $table->integer('station');
         });
     }
 
