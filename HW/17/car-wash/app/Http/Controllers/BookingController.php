@@ -22,7 +22,6 @@ class BookingController extends Controller
      */
     public function index()
     {
-
         return  view(
             'booking.index'
         );
@@ -35,7 +34,9 @@ class BookingController extends Controller
      */
     public function create()
     {
-        return back();
+        return  view(
+            'booking.create'
+        );
     }
 
     /**
@@ -67,7 +68,7 @@ class BookingController extends Controller
                 return response()->json(
                     [
                         'status' => 'error',
-                        'message' =>  'Time is not valid',
+                        'body' =>  'Time is not valid',
                     ],
                 );
             }
@@ -78,7 +79,7 @@ class BookingController extends Controller
         if (empty($user)) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'User not found',
+                'body' => 'User not found',
 
             ]);
         }
@@ -93,7 +94,7 @@ class BookingController extends Controller
         if ($services->isEmpty() != true) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'you are active service',
+                'body' => 'you are active service',
 
             ]);
         }
@@ -130,7 +131,7 @@ class BookingController extends Controller
         if (($child->isEmpty() != true)) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Booking not available',
+                'body' => 'Booking not available',
 
             ]);
         }
@@ -156,12 +157,12 @@ class BookingController extends Controller
         if ($update) {
             return response()->json([
                 'status' => 'success',
-                'message' => 'Booking success',
+                'body' => 'Booking success',
             ]);
         } else {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Booking failed',
+                'body' => 'Booking failed',
             ]);
         }
     }
@@ -172,9 +173,22 @@ class BookingController extends Controller
      * @param  \App\Models\Booking  $booking
      * @return \Illuminate\Http\Response
      */
-    public function show(Booking $booking)
+    public function show()
     {
-        //
+        $needle = request()->token;
+        $data = User::with("bookings")
+            ->whereHas('bookings', function ($query) use ($needle) {
+                $query->where("token", "=", "%{$needle}%");
+            })
+            ->orWhere("status", "=", "1")->get();
+
+        return response()->json([
+            'status' => 'success',
+            'body' => request()->token,
+            'data' => $data
+        ]);
+        // return redirect('booking.show');
+        // return response()->view('booking.show');
     }
 
     /**

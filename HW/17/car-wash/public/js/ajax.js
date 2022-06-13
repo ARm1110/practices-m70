@@ -8,7 +8,7 @@ $(document).ready(function () {
     $("#send").click(function (event) {
         event.preventDefault();
         $.ajax({
-            url: "booking",
+            url: "/booking",
             type: "POST",
             data: {
                 _token: $("input[name='_token']").val(),
@@ -23,16 +23,52 @@ $(document).ready(function () {
                 if (response) {
                     if (response.status == "error") {
                         $("#title").text(response.status);
-                        $("#massage").text(response.message);
+                        $("#body_massage").text(response.body);
                         $("#error").show();
                         off("#error");
                     }
                     if (response.status == "success") {
                         $("#title").text(response.status);
-                        $("#massage").text(response.message);
+                        $("#body_massage").text(response.body);
                         $("#success").show();
                         off("#success");
                     }
+                    // $(".success").text(response.success);
+                    // $("#ajaxform")[0].reset();
+                }
+            },
+            dataType: "json",
+        });
+    });
+});
+
+$(document).ready(function () {
+    $("#send_token").click(function (event) {
+        event.preventDefault();
+        $.ajax({
+            url: "/booking/show",
+            type: "GET",
+            data: {
+                token: $("input[name='token']").val(),
+            },
+            success: function (response) {
+                console.log(response);
+                if (response) {
+                    if (response.status == "error") {
+                        $("#title").text(response.status);
+                        $("#body_massage").text(response.body);
+                        $("#error").show();
+                        off("#error");
+                        return;
+                    }
+                    if (response.status == "success") {
+                        $("#title").text(response.status);
+                        $("#body_massage").text(response.body);
+                        $("#success").show();
+                        off("#success");
+                        return;
+                    }
+                    // window.location.replace(response);
                     // $(".success").text(response.success);
                     // $("#ajaxform")[0].reset();
                 }
