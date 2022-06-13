@@ -23,6 +23,11 @@ class Booking extends Model
         'fastService',
         'user_id',
         'status',
-        'station'
+        'station',
+        'token_reserve'
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

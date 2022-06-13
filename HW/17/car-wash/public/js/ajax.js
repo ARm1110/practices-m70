@@ -26,15 +26,15 @@ $(document).ready(function () {
                         $("#body_massage").text(response.body);
                         $("#error").show();
                         off("#error");
+                        return;
                     }
                     if (response.status == "success") {
                         $("#title").text(response.status);
                         $("#body_massage").text(response.body);
                         $("#success").show();
                         off("#success");
+                        return;
                     }
-                    // $(".success").text(response.success);
-                    // $("#ajaxform")[0].reset();
                 }
             },
             dataType: "json",

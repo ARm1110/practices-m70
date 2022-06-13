@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('service');
             $table->integer('price');
             $table->foreignIdFor(User::class)->constrained();
+            $table->integer('token_reserve');
             $table->boolean('status');
             $table->integer('station');
             $table->timestamps();

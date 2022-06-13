@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
+use function GuzzleHttp\json_decode;
 use function Ramsey\Uuid\v1;
+use function Symfony\Component\String\b;
 
 class BookingController extends Controller
 {
@@ -75,7 +77,7 @@ class BookingController extends Controller
         }
 
         //find user
-        $user = User::select('id')->where('email', $request->email)->first();
+        $user = User::select('id')->where('email', $request->email)->get();
         if (empty($user)) {
             return response()->json([
                 'status' => 'error',
@@ -86,15 +88,14 @@ class BookingController extends Controller
 
         //check active services
 
-        $services = Booking::where(function ($query) use ($user) {
-            return $query->whereDate('user_id', $user->id)
-                ->orWhere('status', '1');
-        })->get();
+        $services = Booking::select('*')->where('user_id', '=', ($user->first()->id))
+            ->get();
+
 
         if ($services->isEmpty() != true) {
             return response()->json([
                 'status' => 'error',
-                'body' => 'you are active service',
+                'body' => 'you are active service   '
 
             ]);
         }
@@ -121,48 +122,59 @@ class BookingController extends Controller
 
         //check if time is free
         $sta = [1, 2];
-        $child = Booking::where('station', '=', '1')
-            ->where('status', '=', '1')
-            ->where(function ($query) use ($from, $to) {
-                $query->whereBetween('start_time', [$from, $to])
-                    ->orWhereBetween('end_time', [$from, $to]);
-            })
-            ->get();
-        if (($child->isEmpty() != true)) {
+        for ($i = 1; $i < count($sta); $i++) {
+
+
+            $child = Booking::where('station', '=', $i)
+                ->where('status', '=', '1')
+                ->where(function ($query) use ($from, $to) {
+                    $query->whereBetween('start_time', [$from, $to])
+                        ->orWhereBetween('end_time', [$from, $to]);
+                })
+                ->get();
+            if (($child->isEmpty())) {
+                break;
+            }
+        }
+        if (($child->isEmpty()) != true) {
             return response()->json([
                 'status' => 'error',
-                'body' => 'Booking not available',
-
+                'body' => 'Booking not available ',
             ]);
         }
 
+
+
+
+
+
+
+
         //saved date after check
-        Booking::create(
-            [
-                'start_time' => $from,
-                'end_time' => $to,
-                'service' => $type,
-                'price' => $price,
-                'user_id' => $user->id,
-                'status' => 1,
-                'station' => 1
-            ]
-        );
+        //generated token for user 
 
-        //generated token for user
-        $generateToken = rand(1000, 9999);
+        try {
 
-        $update = User::where('id', '=', $user->id)->update(array('token' => $generateToken));
-
-        if ($update) {
+            Booking::create(
+                [
+                    'start_time' => $from,
+                    'end_time' => $to,
+                    'service' => $type,
+                    'price' => $price,
+                    'user_id' => $user->first()->id,
+                    'status' => 1,
+                    'token_reserve' => rand(1000, 9999),
+                    'station' => $i
+                ]
+            );
             return response()->json([
                 'status' => 'success',
                 'body' => 'Booking success',
             ]);
-        } else {
+        } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'body' => 'Booking failed',
+                'body' => 'Booking failed' . $e
             ]);
         }
     }
@@ -175,17 +187,13 @@ class BookingController extends Controller
      */
     public function show()
     {
+        // TODO: check if user is logged in
         $needle = request()->token;
-        $data = User::with("bookings")
-            ->whereHas('bookings', function ($query) use ($needle) {
-                $query->where("token", "=", "%{$needle}%");
-            })
-            ->orWhere("status", "=", "1")->get();
-
+        $users = Booking::has('user')->where('token_reserve', $needle)->get();
         return response()->json([
             'status' => 'success',
             'body' => request()->token,
-            'data' => $data
+            'data' => $users
         ]);
         // return redirect('booking.show');
         // return response()->view('booking.show');
