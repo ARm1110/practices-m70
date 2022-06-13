@@ -46,7 +46,7 @@ class BookingController extends Controller
      */
     public function store(StoreBookingRequest $request)
     {
-        // dd($request->all());
+
         Validator::make(
             $request->all(),
             [
@@ -57,6 +57,22 @@ class BookingController extends Controller
                 'fastService' => ['required'],
             ]
         )->validate();
+        //check if time 9:00 am- 9:00pm 
+        // == '9:00 am- 9:00pm'
+        if ($request->input('time')) {
+            $timeInput = strtotime($request->input('date') . $request->input('time'));
+            $openTime = strtotime($request->input('date') . ' 9:00 Am');
+            $closeTime = strtotime($request->input('date') . ' 9:00 Pm');
+            if ($timeInput < $openTime || $timeInput > $closeTime) {
+                return response()->json(
+                    [
+                        'status' => 'error',
+                        'message' =>  'Time is not valid',
+                    ],
+                );
+            }
+        }
+
         //find user
         $user = User::select('id')->where('email', $request->email)->first();
         if (empty($user)) {
@@ -67,13 +83,26 @@ class BookingController extends Controller
             ]);
         }
 
+        //check active services
+
+        $services = Booking::where(function ($query) use ($user) {
+            return $query->whereDate('user_id', $user->id)
+                ->orWhere('status', '1');
+        })->get();
+
+        if ($services->isEmpty() != true) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'you are active service',
+
+            ]);
+        }
+
         //service find and set time
 
         $timeAndPrice = BookingController::timeAndPrice();
         $type = $request->input('service');
         $result = $timeAndPrice[$type];
-
-
         $dateFrom = $request->input('date');
         $price =  $result['price'];
 
@@ -86,7 +115,7 @@ class BookingController extends Controller
 
         $from = $dateFrom . ' ' . $start_time;
         $to = $dateFrom . ' ' . date('H:i', strtotime($start_time) + $result['time']);
-        // return response()->json($to);
+
 
 
         //check if time is free
@@ -119,16 +148,22 @@ class BookingController extends Controller
             ]
         );
 
+        //generated token for user
+        $generateToken = rand(1000, 9999);
 
+        $update = User::where('id', '=', $user->id)->update(array('token' => $generateToken));
 
-
-
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Booking created',
-
-        ]);
+        if ($update) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Booking success',
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Booking failed',
+            ]);
+        }
     }
 
     /**

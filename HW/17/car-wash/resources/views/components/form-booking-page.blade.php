@@ -8,7 +8,7 @@
         <p>Something not ideal might be happening.</p>
     </div>
 </div>
-
+{{-- success --}}
 <div role="alert" id="success" class=" absolute top-4  opacity-90 right-0 w-96 hidden  ">
     <div class="bg-green-500 text-white font-bold rounded-t px-4 py-2 " id="title">
         success
