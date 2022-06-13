@@ -1,6 +1,6 @@
-function off() {
+function off(id) {
     $(document).ready(function () {
-        $("#error").delay(1000).fadeOut();
+        $("#".id).delay(2000).fadeOut();
     });
 }
 
@@ -25,7 +25,13 @@ $(document).ready(function () {
                         $("#title").text(response.status);
                         $("#massage").text(response.message);
                         $("#error").show();
-                        off();
+                        off("error");
+                    }
+                    if (response.status == "success") {
+                        $("#title").text(response.status);
+                        $("#massage").text(response.message);
+                        $("#success").show();
+                        off("success");
                     }
                     // $(".success").text(response.success);
                     // $("#ajaxform")[0].reset();

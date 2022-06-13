@@ -7,6 +7,8 @@ use App\Http\Requests\UpdateBookingRequest;
 use App\Models\Booking;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 use function Ramsey\Uuid\v1;
@@ -74,21 +76,59 @@ class BookingController extends Controller
 
         $dateFrom = $request->input('date');
         $price =  $result['price'];
-        if ($request->input('fastService')) {
+
+
+        if ($request->input('fastService') != true || $request->input('fastService') != 'true') {
             $start_time = $request->input('time');
         } else {
-            $start_time = time();
+            $start_time = date('H:i', time());
         }
-        return response()->json(strtotime($start_time));
 
-        $end_time = $start_time + $result['time'];
-        $start_time = strtotime($dateFrom . ' ' . $start_time);
-        $end_time = strtotime($end_time);
-        $dateFrom = strtotime($dateFrom);
+        $from = $dateFrom . ' ' . $start_time;
+        $to = $dateFrom . ' ' . date('H:i', strtotime($start_time) + $result['time']);
+        // return response()->json($to);
 
 
+        //check if time is free
+        $sta = [1, 2];
+        $child = Booking::where('station', '=', '1')
+            ->where('status', '=', '1')
+            ->where(function ($query) use ($from, $to) {
+                $query->whereBetween('start_time', [$from, $to])
+                    ->orWhereBetween('end_time', [$from, $to]);
+            })
+            ->get();
+        if (($child->isEmpty() != true)) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Booking not available',
 
-        return response()->json($request->all());
+            ]);
+        }
+
+        //saved date after check
+        Booking::create(
+            [
+                'start_time' => $from,
+                'end_time' => $to,
+                'service' => $type,
+                'price' => $price,
+                'user_id' => $user->id,
+                'status' => 1,
+                'station' => 1
+            ]
+        );
+
+
+
+
+
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Booking created',
+
+        ]);
     }
 
     /**

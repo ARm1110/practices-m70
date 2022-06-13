@@ -20,6 +20,9 @@ class Booking extends Model
         'date',
         'service',
         'price',
-        'fastService'
+        'fastService',
+        'user_id',
+        'status',
+        'station'
     ];
 }
