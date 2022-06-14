@@ -33,7 +33,6 @@ $(document).ready(function () {
                         $("#body_massage").text(response.body);
                         $("#success").show();
                         off("#success");
-                        return;
                     }
                 }
             },
@@ -43,13 +42,49 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    $("#send_token").click(function (event) {
+    $("#send_edit").click(function (event) {
         event.preventDefault();
         $.ajax({
-            url: "/booking/show",
+            url: "/booking/edit",
             type: "GET",
             data: {
-                token: $("input[name='token']").val(),
+                edit: $("#edit").val(),
+            },
+            success: function (response) {
+                if (response) {
+                    if (response.status == "error") {
+                        $("#title").text(response.status);
+                        $("#body_massage").text(response.body);
+                        $("#error").show();
+                        off("#error");
+                        return;
+                    }
+                    if (response.status == "success") {
+                        $("#title").text(response.status);
+                        $("#body_massage").text(response.body);
+                        $("#success").show();
+                        off("#success");
+                    }
+                    if (response.action == "reloaded") {
+                        window.setTimeout(function () {
+                            window.location.replace("/");
+                        }, 1100);
+                    }
+                }
+            },
+            dataType: "json",
+        });
+    });
+});
+
+$(document).ready(function () {
+    $("#send_update").click(function (event) {
+        event.preventDefault();
+        $.ajax({
+            url: "/booking/update",
+            type: "PUT",
+            data: {
+                update: $("#delete").val(),
             },
             success: function (response) {
                 console.log(response);
@@ -66,11 +101,12 @@ $(document).ready(function () {
                         $("#body_massage").text(response.body);
                         $("#success").show();
                         off("#success");
-                        return;
                     }
-                    // window.location.replace(response);
-                    // $(".success").text(response.success);
-                    // $("#ajaxform")[0].reset();
+                    if (response.action == "reloaded") {
+                        window.setTimeout(function () {
+                            window.location.replace("/");
+                        }, 1100);
+                    }
                 }
             },
             dataType: "json",

@@ -9,6 +9,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 
 use function GuzzleHttp\json_decode;
@@ -154,7 +155,6 @@ class BookingController extends Controller
         //generated token for user 
 
         try {
-
             Booking::create(
                 [
                     'start_time' => $from,
@@ -189,14 +189,20 @@ class BookingController extends Controller
     {
         // TODO: check if user is logged in
         $needle = request()->token;
-        $users = Booking::has('user')->where('token_reserve', $needle)->get();
-        return response()->json([
-            'status' => 'success',
-            'body' => request()->token,
-            'data' => $users
-        ]);
-        // return redirect('booking.show');
-        // return response()->view('booking.show');
+        $booking = Booking::has('user')->where('token_reserve', $needle)->get();
+        if ($booking->isEmpty()) {
+            return response()->json([
+                'status' => 'error',
+                'body' => 'Booking errors',
+            ]);
+        }
+
+        return view(
+            'booking.show',
+            [
+                'booking' => $booking->first(),
+            ]
+        );
     }
 
     /**
@@ -207,7 +213,10 @@ class BookingController extends Controller
      */
     public function edit(Booking $booking)
     {
-        //
+        return response()->json([
+            'status' => 'success',
+            'body' => 'edit',
+        ]);
     }
 
     /**
@@ -219,7 +228,10 @@ class BookingController extends Controller
      */
     public function update(UpdateBookingRequest $request, Booking $booking)
     {
-        //
+        return response()->json([
+            'status' => 'success',
+            'body' => 'Booking updated',
+        ]);
     }
 
     /**
@@ -250,5 +262,10 @@ class BookingController extends Controller
             ],
         ];
         return $data;
+    }
+
+    public function showCard()
+    {
+        return view('booking.show');
     }
 }
