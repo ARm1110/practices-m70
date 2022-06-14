@@ -133,8 +133,7 @@ class BookingController extends Controller
 
         //check if time is free
         $sta = [1, 2];
-        for ($i = 1; $i < count($sta); $i++) {
-
+        for ($i = 1; $i <= count($sta); $i++) {
 
             $child = Booking::where('station', '=', $i)
                 ->where('status', '=', '1')
@@ -153,13 +152,6 @@ class BookingController extends Controller
                 'body' => 'Booking not available ',
             ]);
         }
-
-
-
-
-
-
-
 
         //saved date after check
         //generated token for user 
@@ -258,7 +250,7 @@ class BookingController extends Controller
     {
         $booking = Booking::where("token_reserve", $request->token);
 
-        $booking->where('start_time', '<', date('Y-m-d H:i:s', time()))->update(
+        $booking->update(
             [
                 'status' => 0,
             ]
