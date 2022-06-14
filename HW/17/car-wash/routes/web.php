@@ -20,8 +20,8 @@ Route::get('/', function () {
     return view('home');
 });
 Route::resource('users', UserController::class);
-
+// Route::delete('/booking/{token}', [BookingController::class, 'destroy']);
+Route::get('/booking/{token}/edit', [BookingController::class, 'edit']);
+Route::delete('booking/{token}', [BookingController::class, 'destroy']);
 Route::resource('booking', BookingController::class);
-
-
 Route::get('/card', [BookingController::class, 'showCard']);

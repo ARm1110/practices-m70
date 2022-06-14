@@ -38,18 +38,27 @@
                                 <td> {{ $value }} </td>
                             @endif
                         @endforeach
+                        <td class="px-6 py-4 text-right ">
 
-                        <td class="px-6 py-4 text-right ">
-                            <input type="hidden" name="edit" id="edit" value="edit">
-                            <button id="send_edit"
-                                class="font-medium text-yellow-600  dark:text-blue-500 hover:underline">Edit</button>
-                        </td>
-                        <td class="px-6 py-4 text-right ">
-                            <input type="hidden" name="delete" id="delete" value="delete">
-                            <button id="send_delete"
-                                class="font-medium text-red-600  dark:text-blue-500 hover:underline">Delete</button>
+
+                            <a href="/booking/{{ request()->token }}/edit"
+                                class="font-medium text-yellow-600  dark:text-blue-500 hover:underline">Edit</a>
+
                         </td>
 
+                        @if ($booking->getAttributes()['token_reserve'] != null)
+                            <td class="px-6 py-4 text-right ">
+                                <form method="POST"
+                                    action="{{ route('booking.destroy', $booking->getAttributes()['token_reserve']) }}">
+                                    @method('DELETE')
+                                    @csrf
+                                    <input type="hidden" name="delete" id="delete" value="delete">
+                                    <button id="send_delete"
+                                        class="font-medium text-red-600  dark:text-blue-500 hover:underline">Delete</button>
+                                </form>
+
+                            </td>
+                        @endif
 
                 </tbody>
             </table>

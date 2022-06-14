@@ -40,76 +40,30 @@ $(document).ready(function () {
         });
     });
 });
+function showTime() {
+    var date = new Date();
+    var h = date.getHours(); // 0 - 23
+    var m = date.getMinutes(); // 0 - 59
+    var s = date.getSeconds(); // 0 - 59
+    var session = "AM";
 
-$(document).ready(function () {
-    $("#send_edit").click(function (event) {
-        event.preventDefault();
-        $.ajax({
-            url: "/booking/edit",
-            type: "GET",
-            data: {
-                edit: $("#edit").val(),
-            },
-            success: function (response) {
-                if (response) {
-                    if (response.status == "error") {
-                        $("#title").text(response.status);
-                        $("#body_massage").text(response.body);
-                        $("#error").show();
-                        off("#error");
-                        return;
-                    }
-                    if (response.status == "success") {
-                        $("#title").text(response.status);
-                        $("#body_massage").text(response.body);
-                        $("#success").show();
-                        off("#success");
-                    }
-                    if (response.action == "reloaded") {
-                        window.setTimeout(function () {
-                            window.location.replace("/");
-                        }, 1100);
-                    }
-                }
-            },
-            dataType: "json",
-        });
-    });
-});
+    if (h == 0) {
+        h = 12;
+    }
 
-$(document).ready(function () {
-    $("#send_update").click(function (event) {
-        event.preventDefault();
-        $.ajax({
-            url: "/booking/update",
-            type: "PUT",
-            data: {
-                update: $("#delete").val(),
-            },
-            success: function (response) {
-                console.log(response);
-                if (response) {
-                    if (response.status == "error") {
-                        $("#title").text(response.status);
-                        $("#body_massage").text(response.body);
-                        $("#error").show();
-                        off("#error");
-                        return;
-                    }
-                    if (response.status == "success") {
-                        $("#title").text(response.status);
-                        $("#body_massage").text(response.body);
-                        $("#success").show();
-                        off("#success");
-                    }
-                    if (response.action == "reloaded") {
-                        window.setTimeout(function () {
-                            window.location.replace("/");
-                        }, 1100);
-                    }
-                }
-            },
-            dataType: "json",
-        });
-    });
-});
+    if (h > 12) {
+        h = h - 12;
+        session = "PM";
+    }
+
+    h = h < 10 ? "0" + h : h;
+    m = m < 10 ? "0" + m : m;
+    s = s < 10 ? "0" + s : s;
+
+    var time = h + ":" + m + ":" + s + " " + session;
+    document.getElementById("MyClockDisplay").innerText = time;
+    document.getElementById("MyClockDisplay").textContent = time;
+
+    setTimeout(showTime, 1000);
+}
+showTime();

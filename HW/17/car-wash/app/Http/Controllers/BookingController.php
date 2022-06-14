@@ -90,6 +90,7 @@ class BookingController extends Controller
         //check active services
 
         $services = Booking::select('*')->where('user_id', '=', ($user->first()->id))
+            ->where('status', '=', '1')
             ->get();
 
 
@@ -119,6 +120,15 @@ class BookingController extends Controller
         $from = $dateFrom . ' ' . $start_time;
         $to = $dateFrom . ' ' . date('H:i', strtotime($start_time) + $result['time']);
 
+        //check time is not in the past
+        if ((strtotime($from) < time())) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'body' =>  'Time is not valid :the past',
+                ],
+            );
+        }
 
 
         //check if time is free
@@ -187,9 +197,9 @@ class BookingController extends Controller
      */
     public function show()
     {
-        // TODO: check if user is logged in
+
         $needle = request()->token;
-        $booking = Booking::has('user')->where('token_reserve', $needle)->get();
+        $booking = Booking::has('user')->where('token_reserve', $needle)->where('status', '=', ' 1')->get();
         if ($booking->isEmpty()) {
             return response()->json([
                 'status' => 'error',
@@ -213,9 +223,13 @@ class BookingController extends Controller
      */
     public function edit(Booking $booking)
     {
+        // TODO: Implement edit() method.
+        $needle = request()->token;
+        $booking = Booking::has('user')->select('start_time', 'service')->where('token_reserve', $needle)->where('status', '=', ' 1')->get();
+        // return view('booking.edit', compact('company'));
         return response()->json([
             'status' => 'success',
-            'body' => 'edit',
+            'body' => $booking,
         ]);
     }
 
@@ -240,9 +254,16 @@ class BookingController extends Controller
      * @param  \App\Models\Booking  $booking
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Booking $booking)
+    public function destroy(Booking $booking, UpdateBookingRequest $request)
     {
-        //
+        $booking = Booking::where("token_reserve", $request->token);
+
+        $booking->where('start_time', '<', date('Y-m-d H:i:s', time()))->update(
+            [
+                'status' => 0,
+            ]
+        );
+        return redirect('/booking');
     }
 
     public static function timeAndPrice()
