@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Booking;
-use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,16 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('bookings', function (Blueprint $table) {
+        Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('start_time');
-            $table->dateTime('end_time');
-            $table->string('service');
+            $table->string('name');
+            $table->timestamp('time');
             $table->integer('price');
-            $table->foreignIdFor(User::class)->constrained();
-            $table->integer('token_reserve');
-            $table->boolean('status');
-            $table->integer('station');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }
@@ -36,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bookings');
+        Schema::dropIfExists('services');
     }
 };

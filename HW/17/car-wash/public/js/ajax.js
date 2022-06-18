@@ -3,7 +3,8 @@ function off(id) {
         $(id).delay(1000).fadeOut();
     });
 }
-
+$(document).notify("Access granted", "success");
+$(document).notify("Hello World");
 $(document).ready(function () {
     $("#send").click(function (event) {
         event.preventDefault();
@@ -36,10 +37,23 @@ $(document).ready(function () {
                     }
                 }
             },
+            error: function (textStatus, errorThrown) {
+                $.notify("Hello World");
+                // alert(response);
+                //console.log(textStatus.responseJSON.errors);
+                let errorsd = textStatus.responseJSON.errors;
+                let errors = Object.values(errorsd);
+                errors.forEach(myFunction);
+            },
             dataType: "json",
         });
     });
 });
+function myFunction(currentValue, index) {
+    console.log(
+        "Array Current Index is: " + index + " :: Value is: " + currentValue
+    );
+}
 function showTime() {
     var date = new Date();
     var h = date.getHours(); // 0 - 23
