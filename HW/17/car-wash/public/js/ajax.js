@@ -1,59 +1,59 @@
-function off(id) {
-    $(document).ready(function () {
-        $(id).delay(1000).fadeOut();
-    });
-}
-$(document).notify("Access granted", "success");
-$(document).notify("Hello World");
-$(document).ready(function () {
-    $("#send").click(function (event) {
-        event.preventDefault();
-        $.ajax({
-            url: "/booking",
-            type: "POST",
-            data: {
-                _token: $("input[name='_token']").val(),
-                email: $("input[name='email']").val(),
-                date: $("input[name='date']").val(),
-                time: $("input[name='time']").val(),
-                service: $("select[name='service']").val(),
-                fastService: $("select[name='fastService']").val(),
-            },
-            success: function (response) {
-                console.log(response);
-                if (response) {
-                    if (response.status == "error") {
-                        $("#title").text(response.status);
-                        $("#body_massage").text(response.body);
-                        $("#error").show();
-                        off("#error");
-                        return;
-                    }
-                    if (response.status == "success") {
-                        $("#title").text(response.status);
-                        $("#body_massage").text(response.body);
-                        $("#success").show();
-                        off("#success");
-                    }
-                }
-            },
-            error: function (textStatus, errorThrown) {
-                $.notify("Hello World");
-                // alert(response);
-                //console.log(textStatus.responseJSON.errors);
-                let errorsd = textStatus.responseJSON.errors;
-                let errors = Object.values(errorsd);
-                errors.forEach(myFunction);
-            },
-            dataType: "json",
-        });
-    });
-});
-function myFunction(currentValue, index) {
-    console.log(
-        "Array Current Index is: " + index + " :: Value is: " + currentValue
-    );
-}
+// function off(id) {
+//     $(document).ready(function () {
+//         $(id).delay(1000).fadeOut();
+//     });
+// }
+// $(document).notify("Access granted", "success");
+// $(document).notify("Hello World");
+// $(document).ready(function () {
+//     $("#send").click(function (event) {
+//         event.preventDefault();
+//         $.ajax({
+//             url: "/booking",
+//             type: "POST",
+//             data: {
+//                 _token: $("input[name='_token']").val(),
+//                 email: $("input[name='email']").val(),
+//                 date: $("input[name='date']").val(),
+//                 time: $("input[name='time']").val(),
+//                 service: $("select[name='service']").val(),
+//                 fastService: $("select[name='fastService']").val(),
+//             },
+//             success: function (response) {
+//                 console.log(response);
+//                 if (response) {
+//                     if (response.status == "error") {
+//                         $("#title").text(response.status);
+//                         $("#body_massage").text(response.body);
+//                         $("#error").show();
+//                         off("#error");
+//                         return;
+//                     }
+//                     if (response.status == "success") {
+//                         $("#title").text(response.status);
+//                         $("#body_massage").text(response.body);
+//                         $("#success").show();
+//                         off("#success");
+//                     }
+//                 }
+//             },
+//             error: function (textStatus, errorThrown) {
+//                 $.notify("Hello World");
+//                 // alert(response);
+//                 //console.log(textStatus.responseJSON.errors);
+//                 let errorsd = textStatus.responseJSON.errors;
+//                 let errors = Object.values(errorsd);
+//                 errors.forEach(myFunction);
+//             },
+//             dataType: "json",
+//         });
+//     });
+// });
+// function myFunction(currentValue, index) {
+//     console.log(
+//         "Array Current Index is: " + index + " :: Value is: " + currentValue
+//     );
+// }
 function showTime() {
     var date = new Date();
     var h = date.getHours(); // 0 - 23

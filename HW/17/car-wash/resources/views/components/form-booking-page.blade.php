@@ -1,38 +1,24 @@
-{{-- errors --}}
-
-<div role="alert" id="error" class=" absolute top-4  opacity-90 right-0 w-96 hidden  ">
-    <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2 " id="title">
-        Danger
-    </div>
-    <div id="body_massage" class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
-        <p>Something not ideal might be happening.</p>
-    </div>
-</div>
-
-
-
-
-{{-- success --}}
-<div role="alert" id="success" class=" absolute top-4  opacity-90 right-0 w-96 hidden  ">
-    <div class="bg-green-500 text-white font-bold rounded-t px-4 py-2 " id="title">
-        success
-    </div>
-    <div id="body_massage" class="border border-t-0 border-green-400 rounded-b bg-green-100 px-4 py-3 text-green-700">
-        <p>this massage success.</p>
-    </div>
-</div>
-
-
-
 <div class="px-8 py-6 mx-4 mt-4 text-left bg-white shadow-lg md:w-1/3 lg:w-1/3 sm:w-1/3">
     <div class="flex justify-center">
         <img class="  " style="width: 100px" src="{{ asset('img/reservation.svg') }}" alt="car-wash">
     </div>
 </div>
-<h3 class="text-2xl font-bold text-center">Reserve</h3>
+<div>
 
+    <h3 class="text-2xl font-bold text-center">Reserve</h3>
+    @if ($errors->any())
+        <div class="bg-red-100 border-l-4 border-orange-500 text-orange-700 p-4  " role="alert">
+            <p class="font-bold"> Please check the following messages :</p>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+</div>
 {{-- <form action="{{ route('booking.store') }}" method="POST"> --}}
-<form>
+<form action="{{ route('booking.store') }}" method="POST">
     @csrf
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <div class="mt-4">
@@ -109,6 +95,6 @@
             Submit a request
         </button>
     </div>
-    <script src="{{ asset('js/ajax.js') }}"></script>
+    {{-- <script src="{{ asset('js/ajax.js') }}"></script> --}}
 </form>
 </div>

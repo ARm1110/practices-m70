@@ -27,6 +27,10 @@ class RedirectIfAuthenticated
             }
         }
 
+        if (Auth::guard($guard)->check()) {
+            abort(404);
+        }
+
         return $next($request);
     }
 }

@@ -18,8 +18,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         \App\Models\User::factory(10)->create();
-         \App\Models\Station::factory(10)->create();
+        \App\Models\User::factory(10)->create();
+        \App\Models\Station::factory(10)->create();
         \App\Models\Service::factory(10)->create();
         Booking::factory(10)
             ->has(User::factory()->count(3))
