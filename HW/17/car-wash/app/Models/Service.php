@@ -9,6 +9,13 @@ class Service extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'time',
+        'price',
+        'status',
+
+    ];
 
     public function bookings()
     {

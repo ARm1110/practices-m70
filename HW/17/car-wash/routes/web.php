@@ -2,7 +2,9 @@
 
 
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,7 +48,7 @@ Route::get('home/sing-up', [HomeController::class, 'registerPage'])
     ->name('register');
 
 
-Route::get('home/dashboard', [HomeController::class, 'dashboard'])
+Route::get('home/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard')
     ->middleware(['auth']);
 
@@ -64,4 +66,37 @@ Route::post('home/login', [UserController::class, 'login'])
 
 Route::get('home/logout', [UserController::class, 'logout'])
     ->name('user.logout')
+    ->middleware(['auth']);
+
+
+Route::get('/dashboard/users/list', [DashboardController::class, 'usersList'])
+    ->name('dashboard.users')
+    ->middleware(['auth']);
+
+Route::get('/dashboard/users/show/{id}', [DashboardController::class, 'showUser'])
+    ->name('dashboard.user.show')
+    ->middleware(['auth']);
+
+Route::put('dashboard/users/update/{id}/{status}', [DashboardController::class, 'updateUser'])
+    ->name('dashboard.user.update')
+    ->middleware(['auth']);
+
+Route::get('/dashboard/service', [ServiceController::class, 'index'])
+    ->name('dashboard.service')
+    ->middleware(['auth']);
+
+Route::put('/dashboard/service/update/{id}/{status}', [ServiceController::class, 'update'])
+    ->name('dashboard.service.update')
+    ->middleware(['auth']);
+
+Route::get('/dashboard/service/{id}/edit', [ServiceController::class, 'edit'])
+    ->name('dashboard.service.edit')
+    ->middleware(['auth']);
+
+Route::put('/dashboard/service/{id}/edit', [ServiceController::class, 'update'])
+    ->name('dashboard.service.edit.update')
+    ->middleware(['auth']);
+
+Route::put('/dashboard/services/filter', [ServiceController::class, 'filter'])
+    ->name('dashboard.service.filter')
     ->middleware(['auth']);
