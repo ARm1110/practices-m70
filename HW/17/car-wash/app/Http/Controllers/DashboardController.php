@@ -87,24 +87,9 @@ class DashboardController extends Controller
 
     public function usersList()
     {
-        $users = User::select('id', 'phone', 'name', 'email', 'status', 'role', 'updated_at')->paginate(5);
-
-        return view('dashboard.users_list', compact('users'));
     }
     public function updateUser(Request $request)
     {
-        try {
-            // dd($request->id, $request->status);
-            User::where('id', $request->id)->update(
-                [
-                    'status' => !$request->status,
-                ]
-            );
-
-            return redirect()->back()->with('message', 'User updated successfully');
-        } catch (\Throwable $th) {
-            return redirect()->back()->with('error', 'Something went wrong');
-        }
     }
     public function showUser(Request $request)
     {

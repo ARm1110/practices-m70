@@ -3,7 +3,7 @@
 @section('content')
     <x-dashboard>
     @section('homePage')
-        <x-table>
+        <x-table-user>
 
             <x-slot name="body">
                 @foreach ($users as $user)
@@ -83,7 +83,7 @@
                 </div>
             </x-slot>
 
-        </x-table>
+        </x-table-user>
     @endsection
 
 </x-dashboard>

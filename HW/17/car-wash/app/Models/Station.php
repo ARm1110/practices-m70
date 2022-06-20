@@ -9,6 +9,12 @@ class Station extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'description',
+        'status',
+
+    ];
 
     public function bookings()
     {

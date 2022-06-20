@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 use Symfony\Component\Console\Input\Input;
+use Symfony\Component\HttpFoundation\ServerBag;
 
 class ServiceController extends Controller
 {
@@ -32,7 +33,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        //
+        return view('services.create');
     }
 
     /**
@@ -43,19 +44,20 @@ class ServiceController extends Controller
      */
     public function store(StoreServiceRequest $request)
     {
-        dd('store');
-        $service = Service::updateOrCreate(
-            [
-                'id' => $request->id,
-            ],
-            [
-                'name' => $request->name,
-                'time' => $request->time,
-                'price' => $request->price,
-                'status' => $request->status,
-            ]
+        try {
+            Service::create(
+                [
+                    'name' => $request->name,
+                    'time' => $request->time,
+                    'price' => $request->price,
+                    'status' => false,
+                ]
 
-        );
+            );
+            return redirect()->back()->with('message', 'Service Added successfully');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Something went wrong');
+        }
     }
 
     /**
@@ -67,7 +69,7 @@ class ServiceController extends Controller
     public function show(Service $service, Request $request)
     {
 
-        $service->where('name', 'LIKE', '%' . $request->search . '%')->get();
+        //$service->where('name', 'LIKE', '%' . $request->search . '%')->get();
     }
 
     /**
@@ -138,6 +140,7 @@ class ServiceController extends Controller
                 return redirect()->back()->with('message', 'Service Edit successfully');
             }
         }
+        return redirect()->back()->with('error', 'Server side error');
     }
 
     /**
@@ -148,39 +151,45 @@ class ServiceController extends Controller
      */
     public function destroy(Service $service)
     {
-        //
+
+        try {
+            $service::destroy(request()->id);
+            return redirect()->back()->with('message', 'Service deleted successfully');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Something went wrong');
+        }
     }
 
-    public function filter(Request $request, Service $service)
+    public function filter(Request $request)
     {
-        $services = $service->newQuery();
+
+        $services = Service::select('*');
 
         // Search for a service based on their name.
         if (request()->has('name') && request()->input('name') != '') {
-
-            $services->where('name', 'LIKE', request()->input('name'));
+            $services->whereName(request()->input('name'));
         }
 
         // Search for a service time.
         if (request()->has('time') && request()->input('time') != '') {
-
             $services->where('time', '=', request()->input('time'));
-            dd($services->get(), request()->all());
         }
-
-
         // Search for a service price.
         if (request()->has('price') && request()->input('price') != '') {
-            $services->where('price', '= ', request()->input('price'));
+            $services->where('price', '=', request()->input('price'));
         }
 
 
         if (request()->has('status') && request()->input('status') != '') {
-            $services->where('status', '= ', request()->input('status'));
+            $services->where('status', '=', request()->input('status'));
         }
-        // dd($services->get());
+
+
+
+        $services = $services->paginate(5);
 
         // Get the results and return them.
-        return $services->get();
+
+        return view('services.index', compact('services'));
     }
 }

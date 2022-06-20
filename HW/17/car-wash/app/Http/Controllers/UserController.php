@@ -20,7 +20,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::select('id', 'phone', 'name', 'email', 'status', 'role', 'updated_at')->paginate(5);
+
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -52,7 +54,12 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        try {
+            $user = User::find(request()->id);
+            return view('users.show', compact('user'));
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Something went wrong');
+        }
     }
 
     /**
@@ -75,7 +82,18 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        try {
+
+            User::where('id', $request->id)->update(
+                [
+                    'status' => !$request->status,
+                ]
+            );
+
+            return redirect()->back()->with('message', 'User updated successfully');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Something went wrong');
+        }
     }
 
     /**
@@ -132,5 +150,29 @@ class UserController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('home')->with('message', 'Logout Success');
+    }
+
+    public function filter(Request $request)
+    {
+
+        $user = User::select('*');
+
+        // Search for a name.
+        if (request()->has('name') && request()->input('name') != '') {
+            $user->whereName(request()->input('name'));
+        }
+
+        // Search for a status
+        if (request()->has('status') && request()->input('status') != '') {
+            $user->where('status', '=', request()->input('status'));
+        }
+
+
+
+        $users = $user->paginate(5);
+
+        // Get the results and return them.
+
+        return view('users.index', compact('users'));
     }
 }

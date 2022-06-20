@@ -1,5 +1,5 @@
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <form action="/dashboard/services/filter" method="post" class="">
+    <form action="/dashboard/stations/filter" method="post" class="">
         @csrf
         @method('put')
         <div class="p-4 grid grid-cols-8 gap-4">
@@ -10,20 +10,14 @@
                         type="text" name="name" placeholder="name..." aria-label="Full name">
                 </div>
             </div>
-            <div class="  ">
+            <div class="">
                 <div class="flex items-center border-b-2 border-gray-200 py-2">
                     <input
                         class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
-                        type="text" name="time" placeholder="time..." aria-label="Full name">
+                        type="text" name="time" placeholder="description..." aria-label="Full name">
                 </div>
             </div>
-            <div class="  ">
-                <div class="flex items-center border-b-2 border-gray-200 py-2">
-                    <input
-                        class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
-                        type="text" name="price" placeholder="price..." aria-label="Full name">
-                </div>
-            </div>
+
             <div class=" ">
                 <label for="underline_select" class="sr-only">status</label>
                 <select id="underline_select" name="status"
@@ -47,7 +41,7 @@
     </form>
     <div class="pt-2">
         <div class="md:w-1/2 px-3 mb-6 md:mb-0">
-            <a href="/dashboard/services/create" name="process" value="edit"
+            <a href="/dashboard/stations/create" name="process" value="edit"
                 class="bg-transparent hover:bg-green-500 text-green-700 font-semi bold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded-lg ">
                 Add
             </a>
@@ -64,11 +58,9 @@
                     Name
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Time
+                    Description
                 </th>
-                <th scope="col" class="px-6 py-3">
-                    Price
-                </th>
+
                 <th scope="col" class="px-6 py-3">
                     status
                 </th>
