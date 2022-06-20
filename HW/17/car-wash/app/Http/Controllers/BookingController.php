@@ -361,7 +361,7 @@ class BookingController extends Controller
         // TODO: check
         $bookings = $bookings->paginate(5);
         // dd($bookings);
-        return response()->json($bookings);
+        //return response()->json($bookings);
         // Get the results and return them.
 
         return view('booking.showAll', compact('bookings'));

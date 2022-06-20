@@ -77,6 +77,6 @@
         </script>
     @endif
 </body>
-<s src="{{ asset('js/ajax.js') }}"></s>
+<script src="{{ asset('js/ajax.js') }}"></script>
 
 </html>
