@@ -116,7 +116,9 @@ Route::post('/dashboard/services/store', [ServiceController::class, 'store'])
     ->name('dashboard.service.store')
     ->middleware(['auth']);
 
-Route::delete('/dashboard/services/{id}', [ServiceController::class, 'destroy']);
+Route::delete('/dashboard/services/{id}', [ServiceController::class, 'destroy'])
+    ->name('dashboard.service.destroy')
+    ->middleware(['auth']);
 
 
 //station admin
@@ -151,8 +153,27 @@ Route::post('/dashboard/stations/store', [StationController::class, 'store'])
     ->name('dashboard.station.store')
     ->middleware(['auth']);
 
-Route::delete('/dashboard/stations/{id}', [StationController::class, 'destroy']);
+Route::delete('/dashboard/stations/{id}', [StationController::class, 'destroy'])
+    ->name('dashboard.station.destroy')
+    ->middleware(['auth']);
 
 
 
 //booking admin
+
+
+Route::get('/dashboard/bookings', [BookingController::class, 'showAll'])
+    ->name('dashboard.booking')
+    ->middleware(['auth']);
+
+Route::put('/dashboard/booking/update/{id}/{status}', [BookingController::class, 'update'])
+    ->name('dashboard.booking.update')
+    ->middleware(['auth']);
+
+Route::delete('/dashboard/booking/{id}', [BookingController::class, 'destroy'])
+    ->name('dashboard.booking.destroy')
+    ->middleware(['auth']);
+
+Route::put('/dashboard/booking/filter', [BookingController::class, 'filter'])
+    ->name('dashboard.booking.filter')
+    ->middleware(['auth']);

@@ -9,6 +9,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 
@@ -234,10 +235,36 @@ class BookingController extends Controller
      */
     public function update(UpdateBookingRequest $request, Booking $booking)
     {
-        return response()->json([
-            'status' => 'success',
-            'body' => 'Booking updated',
-        ]);
+        if ($request->process == 'update_status') {
+            try {
+
+                $booking::where('id', $request->id)->update(
+                    [
+                        'status' => !$request->status,
+                    ]
+                );
+
+                return redirect()->back()->with('message', 'booking updated successfully');
+            } catch (\Throwable $th) {
+                return redirect()->back()->with('error', 'Something went wrong');
+            }
+        }
+        if ($request->process == 'user_action') {
+            try {
+
+                $booking::where('id', $request->id)->update(
+                    [
+                        'status' => 0,
+                    ]
+                );
+
+                return redirect()->back()->with('message', 'booking updated successfully');
+            } catch (\Throwable $th) {
+                return redirect()->back()->with('error', 'Something went wrong');
+            }
+        }
+
+        return redirect()->back()->with('error', 'Server side error');
     }
 
     /**
@@ -248,14 +275,20 @@ class BookingController extends Controller
      */
     public function destroy(Booking $booking, UpdateBookingRequest $request)
     {
-        $booking = Booking::where("token_reserve", $request->token);
+        // $booking = Booking::where("token_reserve", $request->token);
 
-        $booking->update(
-            [
-                'status' => 0,
-            ]
-        );
-        return redirect('/booking');
+        // $booking->update(
+        //     [
+        //         'status' => 0,
+        //     ]
+        // );
+        // return redirect('/booking');
+        try {
+            $booking::destroy(request()->id);
+            return redirect()->back()->with('message', 'booking deleted successfully');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Something went wrong');
+        }
     }
 
     public static function timeAndPrice()
@@ -280,5 +313,57 @@ class BookingController extends Controller
     public function showCard()
     {
         return view('booking.show');
+    }
+
+
+    public function showAll()
+    {
+
+        $bookings = Booking::with('user')->with('service')->with('station')->paginate(5);
+
+        //return response()->json($bookings);
+
+        return view('booking.showAll', compact('bookings'));
+    }
+
+    public function filter(Request $request)
+    {
+
+        // ->with('service')->with('station')
+        $bookings = Booking::select('*');
+
+        // Search for a  username.
+        if (request()->has('username') && request()->input('username') != '') {
+            $bookings =  $bookings->with('user', function ($bookings) {
+                return $bookings->where('name', 'like', '%' . request()->input('username') . '%');
+            });
+        }
+
+        // Search for a  service.
+        if (request()->has('service') && request()->input('service') != '') {
+            $bookings->with('service', function ($bookings) {
+                return $bookings->where('name', 'like', '%' . request()->input('service') . '%');
+            });
+        }
+        // Search for a service station.
+        if (request()->has('station') && request()->input('station') != '') {
+            $bookings->with('station', function ($bookings) {
+                return $bookings->where('name', 'like', '%' . request()->input('station') . '%');
+            });
+        }
+        if (request()->has('token') && request()->input('token') != '') {
+            $bookings->where('token_reserve', '=', request()->input('token'));
+        }
+        if (request()->has('status') && request()->input('status') != '') {
+            $bookings->where('status', '=', request()->input('status'));
+        }
+
+        // TODO: check
+        $bookings = $bookings->paginate(5);
+        // dd($bookings);
+        return response()->json($bookings);
+        // Get the results and return them.
+
+        return view('booking.showAll', compact('bookings'));
     }
 }
