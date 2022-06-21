@@ -740,6 +740,12 @@ video {
 .h-5 {
   height: 1.25rem;
 }
+.h-8 {
+  height: 2rem;
+}
+.h-96 {
+  height: 24rem;
+}
 .min-h-screen {
   min-height: 100vh;
 }

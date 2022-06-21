@@ -28,6 +28,8 @@ Route::get('/home', function () {
 
 Route::delete('/booking/{token}', [BookingController::class, 'destroy'])
     ->middleware(['auth']);
+Route::put('/booking/update/{token}', [BookingController::class, 'update'])
+    ->middleware(['auth']);
 
 Route::get('/booking/{token}/edit', [BookingController::class, 'edit'])
     ->middleware(['auth']);

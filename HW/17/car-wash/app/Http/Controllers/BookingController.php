@@ -156,18 +156,25 @@ class BookingController extends Controller
     {
 
         $needle = request()->token;
-        $booking = Booking::has('user')->where('token_reserve', $needle)->where('status', '=', ' 1')->get();
-        if ($booking->isEmpty()) {
-            return response()->json([
-                'status' => 'error',
-                'body' => 'Booking errors',
-            ]);
-        }
 
+        // TODO : check show
+        $bookings = Booking::select('*')
+            ->where('token_reserve', $needle)
+            ->with('user', function ($bookings) {
+                return $bookings->select('*')->get();
+            })
+            ->with('service', function ($bookings) {
+                return  $bookings->select('*')->get();
+            })
+            ->with('station', function ($bookings) {
+                return  $bookings->select('*')->get();
+            })->get();
+
+        // return response()->json($bookings);
         return view(
             'booking.show',
             [
-                'booking' => $booking->first(),
+                'bookings' => $bookings,
             ]
         );
     }
@@ -216,13 +223,13 @@ class BookingController extends Controller
         if ($request->process == 'user_action') {
             try {
 
-                $booking::where('id', $request->id)->update(
+                $booking::where('token_reserve', $request->token)->update(
                     [
                         'status' => 0,
                     ]
                 );
 
-                return redirect()->back()->with('message', 'booking updated successfully');
+                return redirect()->back()->with('message', 'booking disable successfully');
             } catch (\Throwable $th) {
                 return redirect()->back()->with('error', 'Something went wrong');
             }
