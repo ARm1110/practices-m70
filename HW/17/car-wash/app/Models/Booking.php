@@ -17,13 +17,10 @@ class Booking extends Model
     protected $fillable = [
         'start_time',
         'end_time',
-        'date',
-        'service',
-        'price',
-        'fastService',
+        'service_id',
         'user_id',
         'status',
-        'station',
+        'station_id',
         'token_reserve'
     ];
     public function user()

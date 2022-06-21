@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreBookingRequest;
 use App\Http\Requests\UpdateBookingRequest;
 use App\Models\Booking;
+use App\Models\Service;
+use App\Models\Station;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Date;
@@ -38,9 +40,8 @@ class BookingController extends Controller
      */
     public function create()
     {
-        return  view(
-            'booking.create'
-        );
+        $services = Service::select('id', 'name')->where('status', '1')->get();
+        return view('booking.create', compact('services'));
     }
 
     /**
@@ -51,17 +52,6 @@ class BookingController extends Controller
      */
     public function store(StoreBookingRequest $request)
     {
-
-        Validator::make(
-            $request->all(),
-            [
-                'email' => ['required'],
-                'date' => ['required'],
-                'service' => ['required'],
-                'time' => ['required'],
-                'fastService' => ['required'],
-            ]
-        )->validate();
         //check if time 9:00 am- 9:00pm 
         // == '9:00 am- 9:00pm'
         if ($request->input('time')) {
@@ -69,75 +59,58 @@ class BookingController extends Controller
             $openTime = strtotime($request->input('date') . ' 9:00 Am');
             $closeTime = strtotime($request->input('date') . ' 9:00 Pm');
             if ($timeInput < $openTime || $timeInput > $closeTime) {
-                return response()->json(
-                    [
-                        'status' => 'error',
-                        'body' =>  'Time is not valid',
-                    ],
-                );
+                return redirect()->back()->with('info', 'time select is not valid');
             }
         }
-
-        //find user
-        $user = User::select('id')->where('email', $request->email)->get();
-        if (empty($user)) {
-            return response()->json([
-                'status' => 'error',
-                'body' => 'User not found',
-
-            ]);
-        }
-
         //check active services
-
-        $services = Booking::select('*')->where('user_id', '=', ($user->first()->id))
+        $services = Booking::select('*')->where('user_id', '=', (auth()->id()))
             ->where('status', '=', '1')
             ->get();
-
-
         if ($services->isEmpty() != true) {
-            return response()->json([
-                'status' => 'error',
-                'body' => 'you are active service   '
-
-            ]);
+            return redirect()->back()->with('error', 'you are not access any service ');
+        }
+        //service find by id
+        $service = DB::table('services')
+            ->select('*')
+            ->where('id', '=', $request->input('service'))
+            ->get();
+        if ($service->isEmpty() == true) {
+            return redirect()->back()->with('error', 'broken input service');
         }
 
-        //service find and set time
 
-        $timeAndPrice = BookingController::timeAndPrice();
-        $type = $request->input('service');
-        $result = $timeAndPrice[$type];
+
+        // $type = $request->input('service');
+        $result = $service->first()->time;
         $dateFrom = $request->input('date');
-        $price =  $result['price'];
+        // $price =  $result['price'];
 
-
+        //check if fast service select
         if ($request->input('fastService') != true || $request->input('fastService') != 'true') {
             $start_time = $request->input('time');
         } else {
             $start_time = date('H:i', time());
         }
 
+        //set from and to best formatters
         $from = $dateFrom . ' ' . $start_time;
-        $to = $dateFrom . ' ' . date('H:i', strtotime($start_time) + $result['time']);
+        $to = $dateFrom . ' ' . date('H:i', strtotime($start_time) + $result);
 
         //check time is not in the past
         if ((strtotime($from) < time())) {
-            return response()->json(
-                [
-                    'status' => 'error',
-                    'body' =>  'Time is not valid :the past',
-                ],
-            );
+            return redirect()->back()->with('warning', 'you are select time in the past');
         }
 
 
         //check if time is free
-        $sta = [1, 2];
-        for ($i = 1; $i <= count($sta); $i++) {
+        $station = Station::select('*')
+            ->where('status', '=', '1')
+            ->get();
 
-            $child = Booking::where('station', '=', $i)
-                ->where('status', '=', '1')
+        //search for free time 
+        foreach ($station->pluck('id') as $id) {
+            $child = Booking::has('station')
+                ->where('station_id', '=', $id)
                 ->where(function ($query) use ($from, $to) {
                     $query->whereBetween('start_time', [$from, $to])
                         ->orWhereBetween('end_time', [$from, $to]);
@@ -147,39 +120,30 @@ class BookingController extends Controller
                 break;
             }
         }
+        //booking error print
         if (($child->isEmpty()) != true) {
-            return response()->json([
-                'status' => 'error',
-                'body' => 'Booking not available ',
-            ]);
+            return redirect()->back()->with('warning', 'booking not available');
         }
 
         //saved date after check
-        //generated token for user 
-
+        //dd($from, $to, $service->first()->id, auth()->id(), $id, rand(1000, 9999));
         try {
             Booking::create(
                 [
                     'start_time' => $from,
                     'end_time' => $to,
-                    'service' => $type,
-                    'price' => $price,
-                    'user_id' => $user->first()->id,
+                    'service_id' => $service->first()->id,
+                    'user_id' => auth()->id(),
+                    'station_id' => $id,
                     'status' => 1,
                     'token_reserve' => rand(1000, 9999),
-                    'station' => $i
+
                 ]
             );
-            return response()->json([
-                'status' => 'success',
-                'body' => 'Booking success',
-            ]);
+            return redirect()->back()->with('message', 'reserved time successfully');
         } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'body' => 'Booking failed' . $e
-            ]);
-        }
+            return redirect()->back()->with('error', 'Something went wrong');
+        };
     }
 
     /**
@@ -275,14 +239,6 @@ class BookingController extends Controller
      */
     public function destroy(Booking $booking, UpdateBookingRequest $request)
     {
-        // $booking = Booking::where("token_reserve", $request->token);
-
-        // $booking->update(
-        //     [
-        //         'status' => 0,
-        //     ]
-        // );
-        // return redirect('/booking');
         try {
             $booking::destroy(request()->id);
             return redirect()->back()->with('message', 'booking deleted successfully');

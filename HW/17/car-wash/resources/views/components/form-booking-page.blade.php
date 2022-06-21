@@ -22,14 +22,8 @@
     @csrf
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <div class="mt-4">
-        <div>
-            <label class="block " for="Name">Email<label>
-                    <input type="text" placeholder="Email" name="email"
-                        class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600">
-        </div>
+
         <div class="mt-4">
-
-
             <div class="timepicker relative form-floating mb-3 xl:w-96" data-mdb-with-icon="false"
                 id="input-toggle-timepicker">
                 <input type="date" name="date"
@@ -77,14 +71,7 @@
         <label class="block">select service<label>
                 <div class="flex justify-center">
                     <div class="mb-3 xl:w-96">
-                        <select name="service"
-                            class="form-select appearance-none  block w-full px-3py-1.5text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeatborder border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            aria-label="Default select example">
-                            <option disabled selected> select...</option>
-                            <option value="basic">Basic</option>
-                            <option value="internal_washing">Internal washing</option>
-                            <option value="full_washing">Full Washing</option>
-                        </select>
+                        {{ $body }}
                     </div>
                 </div>
     </div>
