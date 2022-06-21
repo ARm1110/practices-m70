@@ -206,6 +206,7 @@ class BookingController extends Controller
      */
     public function update(UpdateBookingRequest $request, Booking $booking)
     {
+
         if ($request->process == 'update_status') {
             try {
 
@@ -221,14 +222,13 @@ class BookingController extends Controller
             }
         }
         if ($request->process == 'user_action') {
+            //  dd($request->process);   
             try {
-
                 $booking::where('token_reserve', $request->token)->update(
                     [
-                        'status' => 0,
+                        'status' => false,
                     ]
                 );
-
                 return redirect()->back()->with('message', 'booking disable successfully');
             } catch (\Throwable $th) {
                 return redirect()->back()->with('error', 'Something went wrong');

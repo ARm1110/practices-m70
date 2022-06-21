@@ -45,7 +45,6 @@
                                 <a href="/booking/{{ request()->token }}/edit"
                                     class="font-medium text-yellow-600  dark:text-blue-500 hover:underline">Edit</a>
                             </td> --}}
-
                             @if ($booking->status)
                                 <td class="px-6 py-4 text-right ">
                                     <form method="POST" action="/booking/update/{{ request()->token }}">
