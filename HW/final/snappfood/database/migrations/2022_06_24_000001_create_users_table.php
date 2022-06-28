@@ -17,19 +17,12 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('content_phone')->nullable();
-            $table->string('address')->nullable();
-            $table->string('image')->nullable();
+            $table->string('contact_phone');
             $table->foreignIdFor(City::class)->constrained();
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->boolean('is_admin')->default(false);
-            $table->boolean('is_active')->default(false);
-            $table->boolean('is_user')->default(false);
-            $table->boolean('is_shopper')->default(false);
+            $table->boolean('is_active')->default(true);
             $table->enum('role', ['admin', 'user', 'shopper'])->default('user');
-            $table->rememberToken();
             $table->timestamps();
         });
     }

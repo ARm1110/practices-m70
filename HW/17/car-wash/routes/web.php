@@ -125,7 +125,8 @@ Route::delete('/dashboard/services/{id}', [ServiceController::class, 'destroy'])
 
 //station admin
 
-
+//prefix route
+//group routes
 Route::get('/dashboard/stations', [StationController::class, 'index'])
     ->name('dashboard.station')
     ->middleware(['auth']);

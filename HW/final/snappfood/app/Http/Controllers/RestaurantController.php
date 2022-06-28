@@ -25,7 +25,8 @@ class RestaurantController extends Controller
      */
     public function create()
     {
-        //
+        // dd('create');
+        return view('dashboard.restaurant.create');
     }
 
     /**

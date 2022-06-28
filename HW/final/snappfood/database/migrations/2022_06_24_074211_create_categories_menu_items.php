@@ -16,12 +16,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('in_offer', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('categories_menu_items', function (Blueprint $table) {
             $table->foreignIdFor(MenuItem::class)->constrained();
             $table->foreignIdFor(Category::class)->constrained();
-            // $table->foreign('menu_id')->references('id')->on('menu_items');
-            // $table->foreign('category_id')->references('id')->on('ategories');
         });
     }
 

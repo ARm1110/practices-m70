@@ -17,6 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('city_name');
             $table->string('zip_code');
+            $table->string('latitude');
+            $table->string('longitude');
+            $table->boolean('is_active')->default(false);
             $table->timestamps();
         });
     }

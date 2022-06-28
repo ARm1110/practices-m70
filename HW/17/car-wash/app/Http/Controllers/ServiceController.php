@@ -112,7 +112,7 @@ class ServiceController extends Controller
             }
         }
         if ($request->process == 'edit') {
-
+            // TODO: update the service
             // validate
             $rules = array(
                 'name'       => 'required|min:3|max:255',

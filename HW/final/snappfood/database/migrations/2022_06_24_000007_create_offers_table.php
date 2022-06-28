@@ -19,7 +19,6 @@ return new class extends Migration
             $table->time('time_active_from');
             $table->date('date_active_to');
             $table->time('time_active_to');
-            $table->string('image');
             $table->decimal('offer_price');
             $table->timestamps();
         });

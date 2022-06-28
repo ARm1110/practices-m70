@@ -14,6 +14,6 @@ class CitySeeder extends Seeder
      */
     public function run()
     {
-        
+        //
     }
 }

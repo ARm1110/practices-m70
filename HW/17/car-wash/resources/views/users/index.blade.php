@@ -4,6 +4,11 @@
     <x-dashboard>
     @section('homePage')
         <x-table-user>
+            <x-slot name="title">
+                <th scope="col" class="px-6 py-3">
+                    Name
+                </th>
+            </x-slot>
 
             <x-slot name="body">
                 @foreach ($users as $user)
