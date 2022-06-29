@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\ShopperController;
 use App\Http\Controllers\UserController;
@@ -65,5 +66,12 @@ Route::group(['middleware' => 'auth'], function () {
         'as' => 'shopper.'
     ], function () {
         Route::get('/add-restaurant', [RestaurantController::class, 'create'])->name('restaurant.create');
+        Route::get('/list-restaurant', [RestaurantController::class, 'index'])->name('restaurant.index');
+        Route::post('/add-restaurant', [RestaurantController::class, 'store'])->name('restaurant.store');
+        Route::put('/update-restaurant/{id}/{status}', [RestaurantController::class, 'updateStatus'])->name('restaurant.update');
+        Route::get('/restaurant/{id}/edit', [RestaurantController::class, 'edit'])->name('restaurant.edit');
+        Route::put('/restaurant/{id}/edit', [RestaurantController::class, 'update'])->name('restaurant.edit.update');
+        Route::get('/menu/create', [MenuItemController::class, 'create'])->name('menu.create');
+        Route::get('/menu/index', [MenuItemController::class, 'index'])->name('menu.index');
     });
 });

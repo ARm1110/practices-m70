@@ -19,10 +19,7 @@ return new class extends Migration
             $table->string('item_name');
             $table->string('description')->nullable();
             $table->string('price');
-            $table->foreignIdFor(Category::class)->constrained();
             $table->boolean('active')->default(false);
-
-
             $table->timestamps();
         });
     }
