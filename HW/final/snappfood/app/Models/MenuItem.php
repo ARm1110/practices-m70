@@ -11,13 +11,18 @@ class MenuItem extends Model
 
 
 
-    public function category()
+    public function foodCategory()
     {
-        return $this->hasMany(Category::class);
+        return $this->belongsToMany(FoodCategory::class);
     }
 
     public function offers()
     {
         return $this->hasMany(Offer::class);
+    }
+
+    public function restaurant()
+    {
+        return $this->belongsTo(Restaurant::class);
     }
 }

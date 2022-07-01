@@ -60,4 +60,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(Restaurant::class);
     }
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
+
+    public function foodCategories()
+    {
+        return $this->hasMany(FoodCategory::class);
+    }
 }

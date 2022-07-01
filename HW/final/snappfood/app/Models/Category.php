@@ -15,10 +15,21 @@ class Category extends Model
 
     public function menuItems()
     {
-        return $this->hasMany(MenuItem::class);
+        return $this->belongsToMany(MenuItem::class);
     }
+
     public function restaurant()
     {
         return $this->belongsTo(Restaurant::class);
+    }
+
+    public function foodCategories()
+    {
+        return $this->hasMany(FoodCategory::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

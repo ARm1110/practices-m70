@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FoodCategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\RestaurantController;
@@ -73,5 +74,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('/restaurant/{id}/edit', [RestaurantController::class, 'update'])->name('restaurant.edit.update');
         Route::get('/menu/create', [MenuItemController::class, 'create'])->name('menu.create');
         Route::get('/menu/index', [MenuItemController::class, 'index'])->name('menu.index');
+        Route::get('/food-category/create', [FoodCategoryController::class, 'create'])->name('food-category.create');
+        Route::post('/food-category/create', [FoodCategoryController::class, 'store'])->name('food-category.store');
+        Route::get('/food-category/index', [FoodCategoryController::class, 'index'])->name('food-category.index');
+        Route::put('/update-food-category/{id}/{status}', [FoodCategoryController::class, 'updateStatus'])->name('food-category.update');
+        Route::get('/food-category/{id}/edit', [FoodCategoryController::class, 'edit'])->name('food-category.edit');
+        Route::put('/food-category/{id}/edit', [FoodCategoryController::class, 'update'])->name('food-category.edit.update');
     });
 });
