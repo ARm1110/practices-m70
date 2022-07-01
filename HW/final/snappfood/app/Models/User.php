@@ -18,9 +18,10 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'firstName',
+        'lastName',
         'email',
-        'contact_phone',
+        'phone',
         'city_id',
         'password',
         'role',
@@ -68,5 +69,10 @@ class User extends Authenticatable
     public function foodCategories()
     {
         return $this->hasMany(FoodCategory::class);
+    }
+
+    public function addresses()
+    {
+        return $this->morphToMany(Address::class, 'addressable');
     }
 }

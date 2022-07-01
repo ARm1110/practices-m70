@@ -25,6 +25,8 @@ class RegisterRequest extends FormRequest
     {
         return [
 
+            'firstName' => 'required|regex:/(^[a-zA-Z]+)/',
+            'lastName' => 'required|regex:/(^[a-zA-Z]+)/',
             'name' => 'required|regex:/(^[a-zA-Z]+)/',
             'phone' => 'required|regex:/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/',
             'email' => 'required|email|unique:users,email',
@@ -37,8 +39,10 @@ class RegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => ':attributes is required',
-            'name.regex' => ':attributes is not valid',
+            'firstName.required' => ':attributes is required',
+            'firstName.regex' => ':attributes is not valid',
+            'lastName.required' => ':attributes is required',
+            'lastName.regex' => ':attributes is not valid',
             'phone.regex' => ':attributes is not valid',
             'phone.required' => ':attributes is required',
             'email.required' => ':attributes is required',

@@ -42,9 +42,10 @@ class AuthController extends Controller
         try {
             User::create(
                 [
-                    'name' => $request->name,
+                    'firstName' => $request->firstName,
+                    'lastName' => $request->lastName,
                     'email' => $request->email,
-                    'contact_phone' => $request->phone,
+                    'phone' => $request->phone,
                     'city_id' => $request->city,
                     'password' => $request->password,
                 ]

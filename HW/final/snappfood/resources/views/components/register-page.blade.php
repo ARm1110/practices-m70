@@ -19,10 +19,20 @@
                     @csrf
                     <div class="mt-4">
                         <div>
-                            <label class="block" for="Name">Name<label>
-                                    <input type="text" placeholder="Name" name="name" value="{{ old('name') }}"
+                            <label class="block" for="firstName">firstName<label>
+                                    <input type="text" placeholder="firstName" name="firstName"
+                                        value="{{ old('firstName') }}"
                                         class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600">
-                                    @error('name')
+                                    @error('firstName')
+                                        <span class="text-xs text-red-400"> {{ $message }}!</span>
+                                    @enderror
+                        </div>
+                        <div>
+                            <label class="block" for="lastName">lastName<label>
+                                    <input type="text" placeholder="lastName" name="lastName"
+                                        value="{{ old('lastName') }}"
+                                        class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600">
+                                    @error('lastName')
                                         <span class="text-xs text-red-400"> {{ $message }}!</span>
                                     @enderror
                         </div>
