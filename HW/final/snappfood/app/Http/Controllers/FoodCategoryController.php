@@ -20,13 +20,14 @@ class FoodCategoryController extends Controller
     public function index()
     {
 
-        $category = Category::select('id', 'user_id')->where('user_id', auth()->user()->id)->where('is_active', '1')->get();
+        $foodCategories = Restaurant::select('*')->with('foodCategories')->where('user_id', auth()->user()->id)->paginate(5);
 
-        $foodCategory = FoodCategory::select('*')->paginate(5);
 
         $data = [
-            'foodCategories' => $foodCategory,
+            'foodCategories' => $foodCategories,
         ];
+
+
         return view('dashboard.food-category.index', compact('data'));
     }
 

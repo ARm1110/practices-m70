@@ -38,26 +38,10 @@ class AddressController extends Controller
             'lat' => 'required',
             'lon' => 'required',
         ]);
-        //     'address_name',
-        //     'address_line_1',
-        //     'address_line_2',
-        //     'city',
-        //     'state',
-        //     'zip_code',
-        //     'latitude',
-        //     'longitude',
-        //     'is_active',
+
         $user = User::find(auth()->user()->id);
 
-        // $address = Address::create([
-        //     'address_name' => $request->name,
-        //     'address_line_1' => $request->address,
-        //     'city' => $request->city,
-        //     'state' => $request->state,
-        //     'zip_code' => $request->zip_code,
-        //     'latitude' => $request->lat,
-        //     'longitude' => $request->lon,
-        // ]);
+
         $address = new Address;
         $address->address_name = $request->name;
         $address->address_line_1 = $request->address;
@@ -96,10 +80,10 @@ class AddressController extends Controller
     public function update(Request $request, Address $address)
     {
         return response()->json($this->getIp());
-        $ip = '50.90.0.1';
-        $data = \Location::get($ip);
-        dd($data);
-        $address->updated($request->all());
+
+        $address->find($request->id)->updated([
+            'is_active' => !$request->status
+        ]);
     }
 
     /**

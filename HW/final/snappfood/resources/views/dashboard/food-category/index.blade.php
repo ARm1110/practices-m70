@@ -14,9 +14,11 @@
             </x-slot>
             <x-slot name="title">
                 <th scope="col" class="px-6 py-3">
-                    Name
+                    Restaurant Name
                 </th>
-
+                <th scope="col" class="px-6 py-3">
+                    Category Name
+                </th>
 
                 <th scope="col" class="px-6 py-3">
                     Last Activity
@@ -28,9 +30,7 @@
                 <th scope="col" class="px-6 py-3">
                     Process
                 </th>
-                <th scope="col" class="px-6 py-3">
-                    Edit
-                </th>
+
             </x-slot>
             <x-slot name="body">
                 @foreach ($data['foodCategories'] as $foodCategory)
@@ -38,55 +38,58 @@
                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                            {{ $foodCategory->category_name }}
+                            {{ $foodCategory->restaurant_name }}
                         </th>
 
 
-
-                        <td class="px-6 py-4">
-                            {{ $foodCategory->updated_at->diffForHumans() }}
-                        </td>
-                        <td class="px-6 py-4">
-                            {{ $foodCategory->is_active ? 'Active' : 'Inactive' }}
-                        </td>
+                        @foreach ($foodCategory['foodCategories'] as $item)
+                            <th scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                                {{ $item->category_name }}
+                            </th>
 
 
-                        @if ($foodCategory->is_active)
-                            <td class="px-6 py-4 text-right relative">
-                                <form
-                                    action="/shopper/update-food-category/{{ $foodCategory->id }}/{{ $foodCategory->is_active }}"
-                                    method="post" class="text-center">
-                                    @method('PUT')
-                                    @csrf
-                                    <button type="submit"
-                                        class="font-medium text-red-600 dark:text-red-500 hover:underline">
-                                        <img src="{{ asset('image/server-en.svg') }}"
-                                            class="w-10 hover:w-9 absolute top-3 " alt="">
-                                    </button>
-                                </form>
+
+                            <td class="px-6 py-4">
+                                {{ $item->updated_at->diffForHumans() }}
                             </td>
-                        @else
-                            <td class="px-6 py-4 text-right relative">
-                                <form
-                                    action="/shopper/update-food-category/{{ $foodCategory->id }}/{{ $foodCategory->is_active }}"
-                                    method="post" class="text-center">
-                                    @method('PUT')
-                                    @csrf
-                                    <button type="submit"
-                                        class="font-medium text-green-600 dark:text-green-500 hover:underline">
-                                        <img src="{{ asset('image/server-de.svg') }}"
-                                            class="w-10 hover:w-9 absolute top-3" alt=""> </button>
-                                </form>
-                            </td>
-                        @endif
-                        <td class="px-6 py-4 text-right relative">
-                            <a href="/shopper/food-category/{{ $foodCategory->id }}/edit"
-                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                <img src="{{ asset('image/edit.svg') }}" class="w-8 hover:w-9 absolute top-3 "
-                                    alt="">
 
-                            </a>
-                        </td>
+                            <td class="px-6 py-4">
+                                {{ $item->is_active ? 'Active' : 'Inactive' }}
+                            </td>
+
+
+                            @if ($item->is_active)
+                                <td class="px-6 py-4 text-right relative">
+                                    <form
+                                        action="/shopper/update-food-category/{{ $item->id }}/{{ $item->is_active }}"
+                                        method="post" class="text-center">
+                                        @method('PUT')
+                                        @csrf
+                                        <button type="submit"
+                                            class="font-medium text-red-600 dark:text-red-500 hover:underline">
+                                            <img src="{{ asset('image/server-en.svg') }}"
+                                                class="w-10 hover:w-9 absolute top-3 " alt="">
+                                        </button>
+                                    </form>
+                                </td>
+                            @else
+                                <td class="px-6 py-4 text-right relative">
+                                    <form
+                                        action="/shopper/update-food-category/{{ $item->id }}/{{ $item->is_active }}"
+                                        method="post" class="text-center">
+                                        @method('PUT')
+                                        @csrf
+                                        <button type="submit"
+                                            class="font-medium text-green-600 dark:text-green-500 hover:underline">
+                                            <img src="{{ asset('image/server-de.svg') }}"
+                                                class="w-10 hover:w-9 absolute top-3" alt=""> </button>
+                                    </form>
+                                </td>
+                            @endif
+                        @endforeach
+
+
 
                     </tr>
                 @endforeach
