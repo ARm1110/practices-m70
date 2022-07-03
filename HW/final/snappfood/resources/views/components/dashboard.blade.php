@@ -6,7 +6,7 @@
             </ul>
         </div>
     </aside>
-    <div class="px-4">
+    <div class="px-4 w-full ">
         @yield('homePage')
     </div>
 </div>

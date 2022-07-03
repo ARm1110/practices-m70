@@ -66,19 +66,36 @@ Route::group(['middleware' => 'auth'], function () {
         'prefix' => 'shopper',
         'as' => 'shopper.'
     ], function () {
-        Route::get('/add-restaurant', [RestaurantController::class, 'create'])->name('restaurant.create');
-        Route::get('/list-restaurant', [RestaurantController::class, 'index'])->name('restaurant.index');
-        Route::post('/add-restaurant', [RestaurantController::class, 'store'])->name('restaurant.store');
-        Route::put('/update-restaurant/{id}/{status}', [RestaurantController::class, 'updateStatus'])->name('restaurant.update');
-        Route::get('/restaurant/{id}/edit', [RestaurantController::class, 'edit'])->name('restaurant.edit');
-        Route::put('/restaurant/{id}/edit', [RestaurantController::class, 'update'])->name('restaurant.edit.update');
-        Route::get('/menu/create', [MenuItemController::class, 'create'])->name('menu.create');
-        Route::get('/menu/index', [MenuItemController::class, 'index'])->name('menu.index');
-        Route::get('/food-category/create', [FoodCategoryController::class, 'create'])->name('food-category.create');
-        Route::post('/food-category/create', [FoodCategoryController::class, 'store'])->name('food-category.store');
-        Route::get('/food-category/index', [FoodCategoryController::class, 'index'])->name('food-category.index');
-        Route::put('/update-food-category/{id}/{status}', [FoodCategoryController::class, 'updateStatus'])->name('food-category.update');
-        Route::get('/food-category/{id}/edit', [FoodCategoryController::class, 'edit'])->name('food-category.edit');
-        Route::put('/food-category/{id}/edit', [FoodCategoryController::class, 'update'])->name('food-category.edit.update');
+        Route::controller(RestaurantController::class)->group(function () {
+            Route::get('/add-restaurant', 'create')->name('restaurant.create');
+            Route::get('/list-restaurant',  'index')->name('restaurant.index');
+            Route::post('/add-restaurant',  'store')->name('restaurant.store');
+            Route::put('/update-restaurant/{id}/{status}',  'updateStatus')->name('restaurant.update');
+            Route::get('/restaurant/{id}/edit',  'edit')->name('restaurant.edit');
+            Route::put('/restaurant/{id}/edit',  'update')->name('restaurant.edit.update');
+        });
+        Route::controller(MenuItemController::class)->group(function () {
+            Route::get('/menu/create',  'create')->name('menu.create');
+            Route::get('/menu/index',  'index')->name('menu.index');
+        });
+        Route::controller(FoodCategoryController::class)->group(function () {
+            Route::group([
+                'prefix' => 'food-category',
+                'as' => 'food-category.'
+            ], function () {
+                Route::get('/create',  'create')->name('create');
+                Route::get('/',  'index')->name('index');
+                Route::post('/create',  'store')->name('store');
+                Route::put('/{id}/{status}/edit',  'updateStatus')->name('status.update');
+                Route::get('/{id}/edit',  'edit')->name('edit');
+                Route::put('/{id}/edit',  'update')->name('update');
+            });
+            // Route::get('/food-category/create',  'create')->name('food-category.create');
+            // Route::post('/food-category/create',  'store')->name('food-category.store');
+            // Route::get('/food-category/index',  'index')->name('food-category.index');
+            // Route::put('/update-food-category/{id}/{status}',  'updateStatus')->name('food-category.update');
+            // Route::get('/food-category/{id}/edit',  'edit')->name('food-category.edit');
+            // Route::put('/food-category/{id}/edit',  'update')->name('food-category.edit.update');
+        });
     });
 });

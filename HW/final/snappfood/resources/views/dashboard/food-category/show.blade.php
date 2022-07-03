@@ -4,8 +4,6 @@
     <x-dashboard>
 
         <x-slot name="content">
-
-
         </x-slot>
     @section('homePage')
         <x-table>

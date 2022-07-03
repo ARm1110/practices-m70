@@ -5,7 +5,7 @@
     <div class="w-full flex justify-center" style="height: 1200px">
         <div class="w-full max-w-xs mt-10 ">
             <form class="bg-white shadow-md rounded w-96 px-8 pt-6 pb-8 mb-4" method="post"
-                action="/shopper/food-category/create">
+                action="{{ route('shopper.food-category.create') }}">
                 @csrf
 
                 <div class="mb-4">
