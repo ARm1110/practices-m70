@@ -75,8 +75,13 @@ Route::group(['middleware' => 'auth'], function () {
             Route::put('/restaurant/{id}/edit',  'update')->name('restaurant.edit.update');
         });
         Route::controller(MenuItemController::class)->group(function () {
-            Route::get('/menu/create',  'create')->name('menu.create');
-            Route::get('/menu/index',  'index')->name('menu.index');
+            Route::group([
+                'prefix' => 'menu',
+                'as' => 'menu.'
+            ], function () {
+                Route::get('/create',  'create')->name('create');
+                Route::get('/index',  'index')->name('index');
+            });
         });
         Route::controller(FoodCategoryController::class)->group(function () {
             Route::group([
