@@ -25,8 +25,6 @@ class UpdateFoodCategoryRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255|unique:food_categories,category_name,' . $this->id,
-            'category' => 'required|integer|exists:categories,id',
-
         ];
     }
 }

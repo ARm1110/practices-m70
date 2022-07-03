@@ -75,7 +75,6 @@
         </x-table>
     @endsection
     @section('homePage')
-        test
     @endsection
 </x-dashboard>
 @endsection

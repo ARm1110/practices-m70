@@ -43,15 +43,14 @@
                         </th>
 
                         <td class="px-6 py-4 text-right relative">
-                            <form action="/shopper/food-category-show/{{ $foodCategory->id }}" method="post"
+                            <a href="{{ route('shopper.food-category.showAll', ['id' => $foodCategory->id]) }}"
                                 class="text-center">
-                                @method('PUT')
-                                @csrf
+
                                 <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline">
-                                    <img src="{{ asset('image/view-more.svg') }}" class="w-24 hover:w-20 absolute top-3 "
-                                        alt="">
+                                    <img src="{{ asset('image/view-more.svg') }}"
+                                        class="w-24 hover:w-20 absolute left-2 top-3 " alt="">
                                 </button>
-                            </form>
+                            </a>
                         </td>
 
 
@@ -75,8 +74,6 @@
 
         </x-table>
     @endsection
-    @section('homePage')
-        test
-    @endsection
+
 </x-dashboard>
 @endsection

@@ -4,10 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class FoodCategory extends Model
 {
     use HasFactory;
+
+    use SoftDeletes; //<--- use the softdelete traits
+
+    protected $dates = ['deleted_at']; //<--- new field to be added in your table
 
     public function category()
     {

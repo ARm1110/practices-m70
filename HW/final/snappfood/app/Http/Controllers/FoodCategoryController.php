@@ -7,11 +7,16 @@ use App\Http\Requests\UpdateFoodCategoryRequest;
 use App\Models\Category;
 use App\Models\FoodCategory;
 use App\Models\Restaurant;
-use GuzzleHttp\Psr7\Request;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\View;
+use Laravel\Sanctum\HasApiTokens;
 
 class FoodCategoryController extends Controller
 {
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
     /**
      * Display a listing of the resource.
      *
@@ -80,6 +85,32 @@ class FoodCategoryController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\FoodCategory  $foodCategory
+     * @return \Illuminate\Http\Response
+     */
+    public function showAll(FoodCategory $foodCategory, $id)
+    {
+        try {
+
+
+            $foodCategories = FoodCategory::where('restaurant_id', $id)->paginate(5);
+            $restaurant = Restaurant::find($id);
+            $trash = FoodCategory::onlyTrashed()->where('restaurant_id', $id)->get();
+            $data = [
+                'foodCategories' => $foodCategories,
+                'restaurant' => $restaurant,
+                'trash' => $trash,
+            ];
+            // return response()->json($data);
+            return view('dashboard.food-category.show-all', compact('data'));
+        } catch (\Throwable $th) {
+            return response()->json(['error' => 'Something went wrong']);
+        }
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\FoodCategory  $foodCategory
@@ -87,11 +118,11 @@ class FoodCategoryController extends Controller
      */
     public function edit(FoodCategory $foodCategory)
     {
-        $restaurants = Restaurant::where('user_id', auth()->user()->id)->get();
+        // $restaurants = Restaurant::where('user_id', auth()->user()->id)->get();
         $foodCategory = FoodCategory::select('*')->where('id', request()->id)->get();
 
         $data = [
-            'restaurants' => $restaurants,
+            // 'restaurants' => $restaurants,
             'foodCategories' => $foodCategory,
         ];
         return view('dashboard.food-category.edit', compact('data'));
@@ -110,7 +141,6 @@ class FoodCategoryController extends Controller
         try {
             $foodCategory->where('id', $request->id)->update([
                 'category_name' => $request->name,
-                'category_id' => $request->category,
                 'is_active' => false
             ]);
 
@@ -121,13 +151,15 @@ class FoodCategoryController extends Controller
     }
     public function updateStatus(FoodCategory $foodCategory)
     {
+
         try {
             $foodCategory::where('id', request()->id)->update(
                 [
                     'is_active' => !request()->status,
                 ]
             );
-            return redirect()->back()->with('message', 'update status successfully !!');
+            $message = !request()->status ? 'Food Category activated successfully' : 'Food Category deactivated successfully';
+            return redirect()->back()->with('message', $message);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Something went wrong');
         }
@@ -140,6 +172,47 @@ class FoodCategoryController extends Controller
      */
     public function destroy(FoodCategory $foodCategory)
     {
-        //
+        //soft-delete
+        try {
+            $foodCategory::where('id', request()->id)->update([
+                'is_active' => false
+            ]);
+            $foodCategory::where('id', request()->id)->delete();
+            return redirect()->back()->with('message', 'Food Category deleted successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Something went wrong');
+        }
+    }
+    public function trash(FoodCategory $foodCategory)
+    {
+        try {
+            $trash = $foodCategory->onlyTrashed()->where('restaurant_id', request()->id)->paginate(5);
+            $data = [
+                'trashed' => $trash,
+            ];
+
+            return view('dashboard.food-category.trash', compact('data'));
+        } catch (\Throwable $th) {
+            return response()->json(['error' => 'Something went wrong']);
+        }
+    }
+    public function restore(FoodCategory $foodCategory)
+    {
+
+        try {
+            $foodCategory::where('id', request()->id)->restore();
+            return redirect()->back()->with('message', 'Food Category restored successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Something went wrong');
+        }
+    }
+    public function forceDelete(FoodCategory $foodCategory)
+    {
+        try {
+            $foodCategory::where('id', request()->id)->forceDelete();
+            return redirect()->back()->with('warning', 'Food Category deleted successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Something went wrong');
+        }
     }
 }

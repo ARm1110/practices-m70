@@ -86,10 +86,16 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::get('/create',  'create')->name('create');
                 Route::get('/',  'index')->name('index');
                 Route::post('/create',  'store')->name('store');
-                Route::put('/{id}/{status}/edit',  'updateStatus')->name('status.update');
+                Route::put('/{id}/{status}/updateStatus',  'updateStatus')->name('status.update');
                 Route::get('/{id}/edit',  'edit')->name('edit');
                 Route::put('/{id}/edit',  'update')->name('update');
+                Route::get('/show/{id}',  'showAll')->name('showAll');
+                Route::delete('/{id}/delete', 'destroy')->name('delete');
+                Route::get('/{id}/trash', 'trash')->name('trash');
+                Route::put('/{id}/trash/restore', 'restore')->name('restore');
+                Route::delete('/{id}/trash/delete', 'forceDelete')->name('forceDelete');
             });
+
             // Route::get('/food-category/create',  'create')->name('food-category.create');
             // Route::post('/food-category/create',  'store')->name('food-category.store');
             // Route::get('/food-category/index',  'index')->name('food-category.index');

@@ -19,7 +19,7 @@
                 <div class="md:w-1/2 px-3 mb-6 md:mb-0">
                     <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
                         for="grid-first-name">
-                        Name
+                        Name Food category
                     </label>
                     @foreach ($data['foodCategories'] as $item)
                         <input
@@ -35,7 +35,7 @@
 
 
             </div>
-            <div class="-mx-3 md:flex mb-6">
+            {{-- <div class="-mx-3 md:flex mb-6">
                 <div class="md:w-1/2 px-3 mb-6 md:mb-0">
                     <div class="flex flex-col">
                         <div class="mb-4">
@@ -60,7 +60,7 @@
                     </div>
 
                 </div>
-            </div>
+            </div> --}}
             <div class="-mx-3 md:flex mb-6">
                 <div class="md:w-1/2 px-3 mb-6 md:mb-0">
                     <button type="submit" name="process" value="edit"
