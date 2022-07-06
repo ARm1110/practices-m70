@@ -98,10 +98,13 @@ class FoodCategoryController extends Controller
             $foodCategories = FoodCategory::where('restaurant_id', $id)->paginate(5);
             $restaurant = Restaurant::find($id);
             $trash = FoodCategory::onlyTrashed()->where('restaurant_id', $id)->get();
+            $menuItems = FoodCategory::where('restaurant_id', $id)->with('menuItems')->get();
+
             $data = [
                 'foodCategories' => $foodCategories,
                 'restaurant' => $restaurant,
                 'trash' => $trash,
+                'menuItems' => $menuItems,
             ];
             // return response()->json($data);
             return view('dashboard.food-category.show-all', compact('data'));

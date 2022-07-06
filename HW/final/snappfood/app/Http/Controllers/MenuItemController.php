@@ -25,7 +25,16 @@ class MenuItemController extends Controller
      */
     public function index()
     {
-        dd('MenuItemController');
+
+        $foodCategories = Restaurant::select('*')->with('foodCategories')->where('user_id', auth()->user()->id)->paginate(5);
+
+        $data = [
+            'menuItems' => $foodCategories,
+        ];
+
+        // return response()->json($data);
+
+        return view('dashboard.menu-item.index', compact('data'));
     }
 
     /**
@@ -95,7 +104,16 @@ class MenuItemController extends Controller
      */
     public function show(MenuItem $menuItem)
     {
-        //
+        $menuItem = MenuItem::select('*')
+            ->where('restaurant_id', request()->restaurant)
+            ->where('food_category_id', request()->category)
+            ->get();
+
+        $data = [
+            'menuItem' => $menuItem,
+        ];
+
+        return view('dashboard.menu-item.show', compact('data'));
     }
 
     /**

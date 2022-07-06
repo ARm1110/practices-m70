@@ -84,6 +84,7 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::post('/store',  'store')->name('store');
                 Route::get('/index',  'index')->name('index');
                 Route::post('/next-request',  'next')->name('next');
+                Route::put('/food/{category}/{restaurant}',  'show')->name('show');
             });
         });
         Route::controller(FoodCategoryController::class)->group(function () {

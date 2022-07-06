@@ -43,16 +43,16 @@
             </x-slot>
             <x-slot name="title">
                 <th scope="col" class="px-6 py-3">
-                    Category Name
+                    menu name
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Food category
+                    Food description
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Food list
+                    Food price
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    last activity
+                    food Discount
                 </th>
                 <th scope="col" class="px-6 py-3">
                     status
@@ -72,14 +72,19 @@
 
             </x-slot>
             <x-slot name="body">
-                @foreach ($data['foodCategories'] as $foodCategory)
+                @foreach ($data['menuItems'] as $menuItem)
                     <tr
                         class="bg-white border-b w-full dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                            {{ $foodCategory->category_name }}
+                            {{ $menuItem->item_name }}
                         </th>
-
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                            {{ $menuItem->description }}
+                        </th>
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                            {{ $menuItem->price }}
+                        </th>
 
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
                             @if ($foodCategory['menuItems']->count())
