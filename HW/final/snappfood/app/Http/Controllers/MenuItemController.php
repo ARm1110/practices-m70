@@ -65,24 +65,23 @@ class MenuItemController extends Controller
     public function store(StoreMenuItemRequest $request, MenuItem $menuItem)
     {
 
-
         try {
-            $menuItem->created(
+            $menuItem->create(
                 [
-                    'name' => $request->name,
-                    'description' => $request->description,
+                    'item_name' => $request->name,
+                    'description' =>  $request->description,
                     'price' => $request->price,
                     'restaurant_id' => $request->restaurant,
-                    'category_id' => $request->category,
+                    'food_category_id' => $request->category,
                     'user_id' => auth()->user()->id,
                     'is_active' => false,
 
                 ]
 
-            );
+            )->save();
 
 
-            return redirect()->back()->with('success', 'Menu Item Created Successfully');
+            return redirect()->back()->with('message', 'Menu Item Created Successfully');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Something went wrong' . $e->getMessage());
         }
