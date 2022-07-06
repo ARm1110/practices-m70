@@ -70,6 +70,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/add-restaurant', 'create')->name('restaurant.create');
             Route::get('/list-restaurant',  'index')->name('restaurant.index');
             Route::post('/add-restaurant',  'store')->name('restaurant.store');
+
             Route::put('/update-restaurant/{id}/{status}',  'updateStatus')->name('restaurant.update');
             Route::get('/restaurant/{id}/edit',  'edit')->name('restaurant.edit');
             Route::put('/restaurant/{id}/edit',  'update')->name('restaurant.edit.update');
@@ -80,7 +81,9 @@ Route::group(['middleware' => 'auth'], function () {
                 'as' => 'menu.'
             ], function () {
                 Route::get('/create',  'create')->name('create');
+                Route::post('/store',  'store')->name('store');
                 Route::get('/index',  'index')->name('index');
+                Route::post('/next-request',  'next')->name('next');
             });
         });
         Route::controller(FoodCategoryController::class)->group(function () {

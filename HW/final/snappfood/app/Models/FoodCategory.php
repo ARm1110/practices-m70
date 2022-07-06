@@ -21,7 +21,7 @@ class FoodCategory extends Model
 
     public function menuItems()
     {
-        return $this->belongsTo(MenuItem::class);
+        return $this->hasMany(MenuItem::class);
     }
 
     public function user()

@@ -9,11 +9,20 @@ class MenuItem extends Model
 {
     use HasFactory;
 
-
+    protected $fillable = [
+        'name',
+        'description',
+        'price',
+        'restaurant_id',
+        'category_id',
+        'is_active',
+        'created_at',
+        'updated_at',
+    ];
 
     public function foodCategory()
     {
-        return $this->belongsToMany(FoodCategory::class);
+        return $this->hasOne(FoodCategory::class);
     }
 
     public function offers()

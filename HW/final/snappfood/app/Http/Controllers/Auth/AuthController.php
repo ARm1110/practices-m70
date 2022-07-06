@@ -50,8 +50,10 @@ class AuthController extends Controller
                     'password' => $request->password,
                 ]
             );
+
             return redirect()->route('home.show.login')->with('message', 'create new account successfully');
         } catch (\Throwable $th) {
+
             return redirect()->back()->with('error', 'Something went wrong');
         }
     }

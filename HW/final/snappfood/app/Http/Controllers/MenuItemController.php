@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\checkMenuItemRequest;
 use App\Http\Requests\StoreMenuItemRequest;
 use App\Http\Requests\UpdateMenuItemRequest;
 use App\Models\FoodCategory;
 use App\Models\MenuItem;
 use App\Models\Restaurant;
 use App\Models\User;
+use Carbon\Carbon;
+use GuzzleHttp\Promise\Create;
+use Illuminate\Cache\CacheLock;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Stmt\Catch_;
 
 class MenuItemController extends Controller
 {
@@ -28,22 +35,25 @@ class MenuItemController extends Controller
      */
     public function create()
     {
-        // // TODO: Implement create() method.
-        // $query = Restaurant::join('categories', 'restaurants.category_id', '=', 'categories.id')
-        //     ->join('cities', 'restaurants.city_id', '=', 'cities.id')
-        //     ->select('restaurants.id as restaurant_id', 'restaurants.restaurant_name',  'categories.id as category_id', 'categories.category_name',  'cities.id as city_id', 'cities.city_name')
-        //     ->where('restaurants.user_id', auth()->user()->id)
-        //     ->where('restaurants.is_active', '1')
-        //     // ->where('restaurants.is_verified', '1')
-        //     ->get();
+        // TODO - Implement create() method.
 
-        $foodCategory = FoodCategory::select('*')->where('user_id', auth()->user()->id)->where('is_active', '1')->get();
+        try {
+            cache()->pull('menu_item_request');
+            $restaurants = Restaurant::select('*')
+                ->with('category')
+                ->where('user_id', auth()->user()->id)
+                ->where('is_active', true)
+                ->get();
+            $data = [
+                'restaurants' => $restaurants,
+            ];
+            // return response()->json($restaurants);
 
 
-
-        return response()->json($foodCategory);
-        // dd($query);
-        return view('dashboard.menu-item.create',   compact('query'));
+            return view('dashboard.menu-item.create',   compact('data'));
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Something went wrong');
+        }
     }
 
     /**
@@ -52,9 +62,30 @@ class MenuItemController extends Controller
      * @param  \App\Http\Requests\StoreMenuItemRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreMenuItemRequest $request)
+    public function store(StoreMenuItemRequest $request, MenuItem $menuItem)
     {
-        //
+
+
+        try {
+            $menuItem->created(
+                [
+                    'name' => $request->name,
+                    'description' => $request->description,
+                    'price' => $request->price,
+                    'restaurant_id' => $request->restaurant,
+                    'category_id' => $request->category,
+                    'user_id' => auth()->user()->id,
+                    'is_active' => false,
+
+                ]
+
+            );
+
+
+            return redirect()->back()->with('success', 'Menu Item Created Successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Something went wrong' . $e->getMessage());
+        }
     }
 
     /**
@@ -100,5 +131,20 @@ class MenuItemController extends Controller
     public function destroy(MenuItem $menuItem)
     {
         //
+    }
+
+    public function next(checkMenuItemRequest $request)
+    {
+        try {
+            $category = FoodCategory::select('*')->where('restaurant_id', $request->restaurant)->get();
+            $data = [
+                'category' => $category->toArray(),
+                'menu_items' => $request->all(),
+            ];
+
+            return  redirect()->back()->with(['info' => 'you have time, 5 minutes  ', 'data' => $data]);
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Something went wrong');
+        }
     }
 }
