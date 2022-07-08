@@ -35,4 +35,20 @@ class NotificationController extends Controller
 
         dd('Task completed!');
     }
+
+    public function sendRequestToShopper()
+    {
+        $userSchema = User::first();
+
+        $mail = [
+            'name' => $userSchema->name,
+            'email' => $userSchema->email,
+            'message' => 'This is a test notification',
+
+        ];
+
+        Notification::send($userSchema, new RequestJoinNotification($mail));
+
+        dd('Task completed!');
+    }
 }

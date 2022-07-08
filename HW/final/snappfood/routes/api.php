@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\API\AddressController;
 use App\Http\Controllers\API\AuthController;
-use App\Http\Controllers\RestaurantController;
+use App\Http\Controllers\API\RestaurantController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -42,8 +42,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         'prefix' => 'restaurant',
         'as' => 'restaurant.'
     ], function () {
-        Route::get('/all', [RestaurantController::class, 'indexApi']);
-        Route::get('/{id}', [RestaurantController::class, 'showApi']);
-        Route::get('/{id}/foods', [RestaurantController::class, 'showFoodsApi']);
+        Route::get('/all', [RestaurantController::class, 'index']);
+        Route::get('/{id}', [RestaurantController::class, 'show']);
+        Route::get('/{id}/foods', [RestaurantController::class, 'showFoods']);
     });
 });

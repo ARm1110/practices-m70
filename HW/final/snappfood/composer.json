@@ -16,6 +16,7 @@
         "laravel/sanctum": "^2.15",
         "laravel/tinker": "^2.7",
         "nesbot/carbon": "^2.58",
+        "spatie/laravel-medialibrary": "^9.6.0",
         "stevebauman/location": "^6.5"
     },
     "require-dev": {
