@@ -7,6 +7,7 @@ use App\Http\Requests\StoreMenuItemRequest;
 use App\Http\Requests\UpdateMenuItemRequest;
 use App\Models\FoodCategory;
 use App\Models\MenuItem;
+use App\Models\Offer;
 use App\Models\Restaurant;
 use App\Models\User;
 use Carbon\Carbon;
@@ -107,11 +108,14 @@ class MenuItemController extends Controller
         $menuItem = MenuItem::select('*')
             ->where('restaurant_id', request()->restaurant)
             ->where('food_category_id', request()->category)
-            ->get();
+            ->paginate(5);
 
+        $offers = Offer::all();
         $data = [
-            'menuItem' => $menuItem,
+            'menuItems' => $menuItem,
+            'offers' => $offers,
         ];
+
 
         return view('dashboard.menu-item.show', compact('data'));
     }
@@ -159,9 +163,21 @@ class MenuItemController extends Controller
                 'menu_items' => $request->all(),
             ];
 
-            return  redirect()->back()->with(['info' => 'you have time, 5 minutes  ', 'data' => $data]);
+            return  redirect()->back()->with(['info' => 'you have time, 5 minutes', 'data' => $data]);
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', 'Something went wrong');
+        }
+    }
+
+    public function setPivot()
+    {
+        // TODO :not fund this route
+        try {
+            $offer = Offer::find(request()->offer);
+            $offer->menuItems()->sync(request()->menu);
+            // return redirect()->back()->with('info', 'Offer set to pivot successfully');
+        } catch (\Throwable $th) {
+            // return redirect()->back()->with('error', 'Something went wrong');
         }
     }
 }

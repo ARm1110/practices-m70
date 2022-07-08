@@ -4,8 +4,10 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Notifications\AuthNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 
 class AuthController extends Controller
 {
@@ -31,6 +33,19 @@ class AuthController extends Controller
             'is_active' => true,
             'role' => 'user'
         ]);
+
+
+        //send notification to user
+        $mail = [
+            'name' =>  $user->firstName,
+            'email' => $user->email,
+            'user_id' => $user->id,
+            'message' => 'welcome to the website',
+
+        ];
+
+        Notification::send($user, new AuthNotification($mail));
+
 
 
         $token = $user->createToken('appToken')->plainTextToken;

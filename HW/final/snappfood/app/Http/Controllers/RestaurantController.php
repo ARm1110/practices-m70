@@ -6,6 +6,8 @@ use App\Http\Requests\StoreRestaurantRequest;
 use App\Http\Requests\UpdateRestaurantRequest;
 use App\Models\Category;
 use App\Models\City;
+use App\Models\FoodCategory;
+use App\Models\MenuItem;
 use App\Models\Restaurant;
 
 class RestaurantController extends Controller
@@ -20,6 +22,17 @@ class RestaurantController extends Controller
         $restaurants = Restaurant::select('*')->where('user_id', auth()->user()->id)->paginate(5);
         // dd($restaurants);
         return view('dashboard.restaurant.index', compact('restaurants'));
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexApi()
+    {
+        $restaurants = Restaurant::select('*')->get();
+
+        return response()->json($restaurants);
     }
 
     /**
@@ -84,9 +97,24 @@ class RestaurantController extends Controller
      * @param  \App\Models\Restaurant  $restaurant
      * @return \Illuminate\Http\Response
      */
-    public function show(Restaurant $restaurant)
+    public function showApi(Restaurant $restaurant)
     {
-        //
+
+        $restaurant = Restaurant::select('*')
+            ->where('id', request()->id)
+            ->get();
+
+        return response()->json($restaurant);
+    }
+
+    public function showFoodsApi()
+    {
+
+        $restaurant = FoodCategory::select('*')
+            ->with(['menuItems', 'restaurant'])
+            ->where('restaurant_id', request()->id)
+            ->get();
+        return response()->json($restaurant);
     }
 
     /**

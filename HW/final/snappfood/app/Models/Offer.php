@@ -17,6 +17,7 @@ class Offer extends Model
         'discount',
         'user_id',
         'is_active',
+        ''
     ];
 
     public function menuItems()

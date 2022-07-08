@@ -48,6 +48,7 @@ class AddressController extends Controller
         $address->city = $request->city;
         $address->state = $request->state;
         $address->zip_code = $request->zip_code;
+        $address->is_active = false;
         $address->latitude = $request->lat;
         $address->longitude = $request->lon;
         $user->addresses()->save($address);
@@ -79,11 +80,18 @@ class AddressController extends Controller
      */
     public function update(Request $request, Address $address)
     {
-        return response()->json($this->getIp());
+        Address::where('is_active', 1)
+            ->update(['is_active' => 0]);
 
-        $address->find($request->id)->updated([
-            'is_active' => !$request->status
+        $address =  $address->updated([
+            'is_active' => 1
         ]);
+        $msg = [
+            'status' => 'success',
+            'message' => 'Address updated successfully',
+            'data' => $address
+        ];
+        return response()->json($msg);
     }
 
     /**

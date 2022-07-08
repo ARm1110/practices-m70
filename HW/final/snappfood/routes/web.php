@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FoodCategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenuItemController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\ShopperController;
@@ -43,6 +44,7 @@ Route::group(['middleware' => 'auth'], function () {
         'as' => 'home.'
     ], function () {
         Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+        Route::get('/send-notification', [NotificationController::class, 'sendOfferNotification']);
     });
 });
 
@@ -113,6 +115,7 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::get('/index',  'index')->name('index');
                 Route::post('/next-request',  'next')->name('next');
                 Route::put('/food/{category}/{restaurant}',  'show')->name('show');
+                Route::get('/add-offer/{menu}',  'setPivot')->name('setPivot');
             });
         });
         Route::controller(FoodCategoryController::class)->group(function () {
@@ -132,13 +135,6 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::put('/{id}/trash/restore', 'restore')->name('restore');
                 Route::delete('/{id}/trash/delete', 'forceDelete')->name('forceDelete');
             });
-
-            // Route::get('/food-category/create',  'create')->name('food-category.create');
-            // Route::post('/food-category/create',  'store')->name('food-category.store');
-            // Route::get('/food-category/index',  'index')->name('food-category.index');
-            // Route::put('/update-food-category/{id}/{status}',  'updateStatus')->name('food-category.update');
-            // Route::get('/food-category/{id}/edit',  'edit')->name('food-category.edit');
-            // Route::put('/food-category/{id}/edit',  'update')->name('food-category.edit.update');
         });
     });
 });

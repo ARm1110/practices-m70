@@ -157,10 +157,4 @@ class OfferController extends Controller
             return redirect()->back()->with('error', 'Something went wrong');
         }
     }
-    public function setPivot()
-    {
-        $offer = Offer::find(request()->id);
-        $offer->menuItems()->sync(request()->menuItems);
-        return redirect()->back()->with('message', 'Offer updated successfully');
-    }
 }

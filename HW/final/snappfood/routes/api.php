@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AddressController;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\RestaurantController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -36,4 +37,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/address-list', [AddressController::class, 'index']);
     Route::put('/address-list/{id}', [AddressController::class, 'update']);
     Route::post('/logout', [AuthController::class, 'logout']);
+
+    Route::group([
+        'prefix' => 'restaurant',
+        'as' => 'restaurant.'
+    ], function () {
+        Route::get('/all', [RestaurantController::class, 'indexApi']);
+        Route::get('/{id}', [RestaurantController::class, 'showApi']);
+        Route::get('/{id}/foods', [RestaurantController::class, 'showFoodsApi']);
+    });
 });
