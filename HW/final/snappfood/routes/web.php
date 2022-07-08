@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FoodCategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenuItemController;
+use App\Http\Controllers\OfferController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\ShopperController;
 use App\Http\Controllers\UserController;
@@ -50,7 +51,34 @@ Route::group(['middleware' => 'auth'], function () {
         'prefix' => 'dashboard',
         'as' => 'dashboard.'
     ], function () {
-        // Route::get('shopper', [DashboardController::class, 'shopper'])->name('dashboard');
+        Route::group(
+            [
+                'prefix' => 'admin',
+                'as' => 'admin.'
+            ],
+            function () {
+                Route::group(
+                    [
+                        'prefix' => 'offer',
+                        'as' => 'offer.'
+                    ],
+                    function () {
+                        Route::controller(OfferController::class)->group(function () {
+                            Route::get('/all',  'index')->name('index');
+                            Route::get('/create',  'create')->name('create');
+                            Route::post('/store',  'store')->name('store');
+                            Route::get('/edit/{id}',  'edit')->name('edit');
+                            Route::put('/update/{id}',  'update')->name('update');
+                            Route::put('/update/{id}/{status}',  'updateStatus')->name('updateStatus');
+                            Route::delete('/delete/{id}', 'delete')->name('delete');
+                            Route::delete('/trash/delete/{id}',  'destroy')->name('forceDelete');
+                            Route::get('/trash/all', 'trash')->name('trash');
+                            Route::put('/trash/restore/{id}', 'restore')->name('restore');
+                        });
+                    }
+                );
+            }
+        );
         Route::get('admin', [DashboardController::class, 'admin'])->name('admin');
         Route::get('/users/list', [DashboardController::class, 'showUser'])->name('users');
         Route::get('/user/show/{id}', [UserController::class, 'show'])->name('user.edit');

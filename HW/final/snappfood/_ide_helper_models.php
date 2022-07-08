@@ -152,6 +152,32 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\FoodParty
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $description
+ * @property string $discount
+ * @property int $is_active
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Database\Factories\FoodPartyFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|FoodParty newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|FoodParty newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|FoodParty query()
+ * @method static \Illuminate\Database\Eloquent\Builder|FoodParty whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FoodParty whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FoodParty whereDiscount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FoodParty whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FoodParty whereIsActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FoodParty whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FoodParty whereUpdatedAt($value)
+ */
+	class FoodParty extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\MenuItem
  *
  * @property int $id
@@ -195,11 +221,9 @@ namespace App\Models{
  * App\Models\Offer
  *
  * @property int $id
- * @property string $date_active_from
- * @property string $time_active_from
- * @property string $date_active_to
- * @property string $time_active_to
- * @property string $offer_price
+ * @property string $name
+ * @property string $discount
+ * @property int $is_active
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\MenuItem[] $menuItems
@@ -209,12 +233,10 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Offer newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Offer query()
  * @method static \Illuminate\Database\Eloquent\Builder|Offer whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Offer whereDateActiveFrom($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Offer whereDateActiveTo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Offer whereDiscount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Offer whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Offer whereOfferPrice($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Offer whereTimeActiveFrom($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Offer whereTimeActiveTo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Offer whereIsActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Offer whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Offer whereUpdatedAt($value)
  */
 	class Offer extends \Eloquent {}

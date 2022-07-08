@@ -13,12 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('offers', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->decimal('discount');
-            $table->boolean('is_active')->default(false);
-            $table->timestamps();
+        Schema::table('offers', function (Blueprint $table) {
+            $table->softDeletes();
         });
     }
 
@@ -29,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('offers');
+        Schema::table('offers', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

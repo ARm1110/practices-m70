@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\MenuItem;
+use App\Models\Offer;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,12 +15,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('offers', function (Blueprint $table) {
+        Schema::create('menu_items_offers', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->decimal('discount');
-            $table->boolean('is_active')->default(false);
-            $table->timestamps();
+            $table->foreignIdFor(MenuItem::class)->constrained();
+            $table->foreignIdFor(Offer::class)->constrained();
         });
     }
 
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('offers');
+        Schema::dropIfExists('menu_items_offers');
     }
 };

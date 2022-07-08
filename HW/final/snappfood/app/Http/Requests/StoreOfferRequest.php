@@ -13,7 +13,7 @@ class StoreOfferRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return auth()->check();
     }
 
     /**
@@ -24,7 +24,24 @@ class StoreOfferRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'offer_name' => 'required|string|max:255|unique:offers,name',
+            'offer_price' => 'required|numeric',
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages()
+    {
+        return [
+            'offer_name.required' => 'Offer Name is required',
+            'offer_price.required' => 'Offer Price is required',
+            'offer_price.numeric' => 'Offer Price must be a number',
+            'offer_name.string' => 'Offer Name must be a string',
+            'offer_name.unique' => 'Offer Name must be unique',
         ];
     }
 }
