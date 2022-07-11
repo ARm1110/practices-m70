@@ -143,6 +143,17 @@ return [
         // 'store'  => 'redis',
     ],
 
+
+    /*
+    |  cart items count in cart
+    |
+    |
+    */
+
+    'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
+
+
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
@@ -194,6 +205,11 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+
+
+        //cart service provider
+        Darryldecode\Cart\CartServiceProvider::class
 
     ],
 
