@@ -10,12 +10,20 @@
                 <div class="text-center mb-4 w-full ">
                     <img src="{{ asset('image/auth-re.png') }}" class=" p-24 ">
                 </div>
+                <div class="absolute top-7  left-1/4 bg-red-300 rounded-lg opacity-90">
+                    @if (count($errors) > 0)
+                        @foreach ($errors->all() as $error)
+                            <div class="m-3  text-red-900 border-b-2 border-red-900 ">{{ $error }}!</div>
+                        @endforeach
+
+                    @endif
+                </div>
             </div>
         </div>
         <div class="flex items-center justify-center min-h-screen bg-gray-100">
             <div class="px-2 py-2 mx-4 mt-4 text-left bg-white shadow-lg ">
                 <h3 class="text-2xl font-bold text-center">Join us</h3>
-                <form action="{{ route('home.register') }}" method="post">
+                <form action="{{ route('home.register') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="mt-4">
                         <div>
@@ -44,6 +52,16 @@
                                     @error('phone')
                                         <span class="text-xs text-red-400"> {{ $message }}!</span>
                                     @enderror
+                        </div>
+                        <div>
+                            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                for="file_input">Upload profile image </label>
+                            <input
+                                class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                id="file_input" name="profile_image" type="file">
+                            @error('profile_image')
+                                <span class="text-xs text-red-400"> {{ $message }}!</span>
+                            @enderror
                         </div>
                         <div class="mt-4">
                             <label class="block" for="email">Email<label>

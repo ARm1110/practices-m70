@@ -28,6 +28,7 @@ class RegisterRequest extends FormRequest
             'firstName' => 'required|regex:/(^[a-zA-Z]+)/',
             'lastName' => 'required|regex:/(^[a-zA-Z]+)/',
             'phone' => 'required|regex:/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/',
+            'profile_image' => 'required',
             'email' => 'required|email|unique:users,email',
             'city' => 'required|exists:cities,id',
             'password' => 'required|min:6',
@@ -44,6 +45,8 @@ class RegisterRequest extends FormRequest
             'lastName.regex' => ':attributes is not valid',
             'phone.regex' => ':attributes is not valid',
             'phone.required' => ':attributes is required',
+            'profile_image.required' => ':attributes is required',
+
             'email.required' => ':attributes is required',
             'email.unique' => ':attributes already exists',
             'password.required' => ':attributes is required',

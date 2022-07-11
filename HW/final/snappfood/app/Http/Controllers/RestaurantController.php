@@ -23,17 +23,7 @@ class RestaurantController extends Controller
         // dd($restaurants);
         return view('dashboard.restaurant.index', compact('restaurants'));
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function indexApi()
-    {
-        $restaurants = Restaurant::select('*')->get();
 
-        return response()->json($restaurants);
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -91,31 +81,6 @@ class RestaurantController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Restaurant  $restaurant
-     * @return \Illuminate\Http\Response
-     */
-    public function showApi(Restaurant $restaurant)
-    {
-
-        $restaurant = Restaurant::select('*')
-            ->where('id', request()->id)
-            ->get();
-
-        return response()->json($restaurant);
-    }
-
-    public function showFoodsApi()
-    {
-
-        $restaurant = FoodCategory::select('*')
-            ->with(['menuItems', 'restaurant'])
-            ->where('restaurant_id', request()->id)
-            ->get();
-        return response()->json($restaurant);
-    }
 
     /**
      * Show the form for editing the specified resource.
