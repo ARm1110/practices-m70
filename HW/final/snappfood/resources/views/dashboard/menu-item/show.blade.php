@@ -62,18 +62,16 @@
                         </th>
 
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                            <form action="/shopper/menu/add-offer/{{ $menuItem->id }}" method="get"
-                                class="form-horizontal">
-                                {{-- <input type="hidden" name="menu" value="{{ $menuItem->id }}"> --}}
-                                <select name="offer" id="">
-                                    @foreach ($data['offers'] as $offer)
-                                        <option value="{{ $offer->id }}">{{ $offer->name }},{{ $offer->discount }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                <button class=" p-1 bg-green-400 text-white rounded-lg hover:bg-green-900  "> save
+                            <form action="{{ url('/shopper/menu/add-offer') }}" method="post" class="form-horizontal">
+                                @csrf
+                                @method('PUT')
+                                <input type="hidden" name="menu" value="{{ $menuItem->id }}">
+                                <button class=" p-1 bg-green-400 text-white rounded-lg hover:bg-green-900  ">add
+                                    discount
                                 </button>
                             </form>
+
+
                         </th>
 
 

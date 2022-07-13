@@ -168,16 +168,4 @@ class MenuItemController extends Controller
             return redirect()->back()->with('error', 'Something went wrong');
         }
     }
-
-    public function setPivot()
-    {
-        // TODO :not fund this route
-        try {
-            $offer = Offer::find(request()->offer);
-            $offer->menuItems()->sync(request()->menu);
-            // return redirect()->back()->with('info', 'Offer set to pivot successfully');
-        } catch (\Throwable $th) {
-            // return redirect()->back()->with('error', 'Something went wrong');
-        }
-    }
 }

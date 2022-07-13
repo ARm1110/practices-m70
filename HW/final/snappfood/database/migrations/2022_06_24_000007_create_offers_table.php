@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('offers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->decimal('discount');
+            $table->integer('discount');
             $table->boolean('is_active')->default(false);
             $table->timestamps();
         });

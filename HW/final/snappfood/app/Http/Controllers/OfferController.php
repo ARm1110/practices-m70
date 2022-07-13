@@ -157,4 +157,35 @@ class OfferController extends Controller
             return redirect()->back()->with('error', 'Something went wrong');
         }
     }
+
+    public function setPivot()
+    {
+        request()->validate([
+            'offer_id' => 'required|exists:offers,id',
+            'product_id' => 'required|exists:menu_items,id'
+        ]);
+
+        // $offer->menuItems()->attach(request()->product_id, false);
+        try {
+            $offer = Offer::find(request()->offer_id);
+            $offer->menuItems()->attach(request()->product_id);
+            return redirect('home')->with('info', 'Offer set to pivot successfully');
+        } catch (\Throwable $th) {
+            return redirect('home')->with('error', 'Something went wrong' . $th->getMessage());
+        }
+    }
+    public function addOfferForm()
+    {
+        request()->validate([
+            'menu' => 'required|exists:menu_items,id',
+        ]);
+
+        $offer = Offer::all()->where('is_active', '1');
+        $menu = request()->menu;
+        $data = [
+            'offers' => $offer,
+            'menus' => $menu
+        ];
+        return view('dashboard.offer.add-offer', compact('data'));
+    }
 }

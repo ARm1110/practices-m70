@@ -29,7 +29,7 @@ class MenuItem extends Model
 
     public function offers()
     {
-        return $this->hasMany(Offer::class);
+        return $this->belongsToMany(Offer::class);
     }
 
     public function restaurant()

@@ -115,7 +115,10 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::get('/index',  'index')->name('index');
                 Route::post('/next-request',  'next')->name('next');
                 Route::put('/food/{category}/{restaurant}',  'show')->name('show');
-                Route::get('/add-offer/{menu}',  'setPivot')->name('setPivot');
+                Route::controller(OfferController::class)->group(function () {
+                    Route::put('/add-offer',  'addOfferForm')->name('form_offer');
+                    Route::post('/add-offer',  'setPivot')->name('setPivot');
+                });
             });
         });
         Route::controller(FoodCategoryController::class)->group(function () {
