@@ -14127,6 +14127,40 @@
             /**
      * 
      *
+     * @method static \Illuminate\Contracts\Filesystem\Filesystem assertExists(string|array $path)
+     * @method static \Illuminate\Contracts\Filesystem\Filesystem assertDirectoryEmpty(string $path)
+     * @method static \Illuminate\Contracts\Filesystem\Filesystem assertMissing(string|array $path)
+     * @method static \Symfony\Component\HttpFoundation\StreamedResponse download(string $path, string|null $name = null, array|null $headers = [])
+     * @method static \Symfony\Component\HttpFoundation\StreamedResponse response(string $path, string|null $name = null, array|null $headers = [], string|null $disposition = 'inline')
+     * @method static array allDirectories(string|null $directory = null)
+     * @method static array allFiles(string|null $directory = null)
+     * @method static array directories(string|null $directory = null, bool $recursive = false)
+     * @method static array files(string|null $directory = null, bool $recursive = false)
+     * @method static bool append(string $path, string $data)
+     * @method static bool copy(string $from, string $to)
+     * @method static bool delete(string|array $paths)
+     * @method static bool deleteDirectory(string $directory)
+     * @method static bool exists(string $path)
+     * @method static bool makeDirectory(string $path)
+     * @method static bool missing(string $path)
+     * @method static bool move(string $from, string $to)
+     * @method static bool prepend(string $path, string $data)
+     * @method static bool put(string $path, \Psr\Http\Message\StreamInterface|\Illuminate\Http\File|\Illuminate\Http\UploadedFile|string|resource $contents, mixed $options = [])
+     * @method static bool setVisibility(string $path, string $visibility)
+     * @method static bool writeStream(string $path, resource $resource, array $options = [])
+     * @method static int lastModified(string $path)
+     * @method static int size(string $path)
+     * @method static resource|null readStream(string $path)
+     * @method static string get(string $path)
+     * @method static string getVisibility(string $path)
+     * @method static string path(string $path)
+     * @method static string temporaryUrl(string $path, \DateTimeInterface $expiration, array $options = [])
+     * @method static string url(string $path)
+     * @method static string|false mimeType(string $path)
+     * @method static string|false putFile(string $path, \Illuminate\Http\File|\Illuminate\Http\UploadedFile|string $file, mixed $options = [])
+     * @method static string|false putFileAs(string $path, \Illuminate\Http\File|\Illuminate\Http\UploadedFile|string $file, string $name, mixed $options = [])
+     * @method static void macro(string $name, object|callable $macro)
+     * @method static void buildTemporaryUrlsUsing(\Closure $callback)
      * @see \Illuminate\Filesystem\FilesystemManager
      */ 
         class Storage {
@@ -14134,7 +14168,7 @@
          * Get a filesystem instance.
          *
          * @param string|null $name
-         * @return \Illuminate\Filesystem\FilesystemAdapter 
+         * @return \Illuminate\Contracts\Filesystem\Filesystem 
          * @static 
          */ 
         public static function drive($name = null)
@@ -14146,7 +14180,7 @@
          * Get a filesystem instance.
          *
          * @param string|null $name
-         * @return \Illuminate\Filesystem\FilesystemAdapter 
+         * @return \Illuminate\Contracts\Filesystem\Filesystem 
          * @static 
          */ 
         public static function disk($name = null)
@@ -14157,7 +14191,7 @@
                     /**
          * Get a default cloud filesystem instance.
          *
-         * @return \Illuminate\Filesystem\FilesystemAdapter 
+         * @return \Illuminate\Contracts\Filesystem\Filesystem 
          * @static 
          */ 
         public static function cloud()
@@ -14169,7 +14203,7 @@
          * Build an on-demand disk.
          *
          * @param string|array $config
-         * @return \Illuminate\Filesystem\FilesystemAdapter 
+         * @return \Illuminate\Contracts\Filesystem\Filesystem 
          * @static 
          */ 
         public static function build($config)
@@ -14181,7 +14215,7 @@
          * Create an instance of the local driver.
          *
          * @param array $config
-         * @return \Illuminate\Filesystem\FilesystemAdapter 
+         * @return \Illuminate\Contracts\Filesystem\Filesystem 
          * @static 
          */ 
         public static function createLocalDriver($config)
@@ -14193,7 +14227,7 @@
          * Create an instance of the ftp driver.
          *
          * @param array $config
-         * @return \Illuminate\Filesystem\FilesystemAdapter 
+         * @return \Illuminate\Contracts\Filesystem\Filesystem 
          * @static 
          */ 
         public static function createFtpDriver($config)
@@ -14205,7 +14239,7 @@
          * Create an instance of the sftp driver.
          *
          * @param array $config
-         * @return \Illuminate\Filesystem\FilesystemAdapter 
+         * @return \Illuminate\Contracts\Filesystem\Filesystem 
          * @static 
          */ 
         public static function createSftpDriver($config)
@@ -14308,572 +14342,6 @@
         {
                         /** @var \Illuminate\Filesystem\FilesystemManager $instance */
                         return $instance->setApplication($app);
-        }
-                    /**
-         * Assert that the given file or directory exists.
-         *
-         * @param string|array $path
-         * @param string|null $content
-         * @return \Illuminate\Filesystem\FilesystemAdapter 
-         * @static 
-         */ 
-        public static function assertExists($path, $content = null)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->assertExists($path, $content);
-        }
-                    /**
-         * Assert that the given file or directory does not exist.
-         *
-         * @param string|array $path
-         * @return \Illuminate\Filesystem\FilesystemAdapter 
-         * @static 
-         */ 
-        public static function assertMissing($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->assertMissing($path);
-        }
-                    /**
-         * Assert that the given directory is empty.
-         *
-         * @param string $path
-         * @return \Illuminate\Filesystem\FilesystemAdapter 
-         * @static 
-         */ 
-        public static function assertDirectoryEmpty($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->assertDirectoryEmpty($path);
-        }
-                    /**
-         * Determine if a file or directory exists.
-         *
-         * @param string $path
-         * @return bool 
-         * @static 
-         */ 
-        public static function exists($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->exists($path);
-        }
-                    /**
-         * Determine if a file or directory is missing.
-         *
-         * @param string $path
-         * @return bool 
-         * @static 
-         */ 
-        public static function missing($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->missing($path);
-        }
-                    /**
-         * Determine if a file exists.
-         *
-         * @param string $path
-         * @return bool 
-         * @static 
-         */ 
-        public static function fileExists($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->fileExists($path);
-        }
-                    /**
-         * Determine if a file is missing.
-         *
-         * @param string $path
-         * @return bool 
-         * @static 
-         */ 
-        public static function fileMissing($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->fileMissing($path);
-        }
-                    /**
-         * Determine if a directory exists.
-         *
-         * @param string $path
-         * @return bool 
-         * @static 
-         */ 
-        public static function directoryExists($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->directoryExists($path);
-        }
-                    /**
-         * Determine if a directory is missing.
-         *
-         * @param string $path
-         * @return bool 
-         * @static 
-         */ 
-        public static function directoryMissing($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->directoryMissing($path);
-        }
-                    /**
-         * Get the full path for the file at the given "short" path.
-         *
-         * @param string $path
-         * @return string 
-         * @static 
-         */ 
-        public static function path($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->path($path);
-        }
-                    /**
-         * Get the contents of a file.
-         *
-         * @param string $path
-         * @return string|null 
-         * @static 
-         */ 
-        public static function get($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->get($path);
-        }
-                    /**
-         * Create a streamed response for a given file.
-         *
-         * @param string $path
-         * @param string|null $name
-         * @param array $headers
-         * @param string|null $disposition
-         * @return \Symfony\Component\HttpFoundation\StreamedResponse 
-         * @static 
-         */ 
-        public static function response($path, $name = null, $headers = [], $disposition = 'inline')
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->response($path, $name, $headers, $disposition);
-        }
-                    /**
-         * Create a streamed download response for a given file.
-         *
-         * @param string $path
-         * @param string|null $name
-         * @return \Symfony\Component\HttpFoundation\StreamedResponse 
-         * @static 
-         */ 
-        public static function download($path, $name = null, $headers = [])
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->download($path, $name, $headers);
-        }
-                    /**
-         * Write the contents of a file.
-         *
-         * @param string $path
-         * @param \Psr\Http\Message\StreamInterface|\Illuminate\Http\File|\Illuminate\Http\UploadedFile|string|resource $contents
-         * @param mixed $options
-         * @return string|bool 
-         * @static 
-         */ 
-        public static function put($path, $contents, $options = [])
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->put($path, $contents, $options);
-        }
-                    /**
-         * Store the uploaded file on the disk.
-         *
-         * @param string $path
-         * @param \Illuminate\Http\File|\Illuminate\Http\UploadedFile|string $file
-         * @param mixed $options
-         * @return string|false 
-         * @static 
-         */ 
-        public static function putFile($path, $file, $options = [])
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->putFile($path, $file, $options);
-        }
-                    /**
-         * Store the uploaded file on the disk with a given name.
-         *
-         * @param string $path
-         * @param \Illuminate\Http\File|\Illuminate\Http\UploadedFile|string $file
-         * @param string $name
-         * @param mixed $options
-         * @return string|false 
-         * @static 
-         */ 
-        public static function putFileAs($path, $file, $name, $options = [])
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->putFileAs($path, $file, $name, $options);
-        }
-                    /**
-         * Get the visibility for the given path.
-         *
-         * @param string $path
-         * @return string 
-         * @static 
-         */ 
-        public static function getVisibility($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->getVisibility($path);
-        }
-                    /**
-         * Set the visibility for the given path.
-         *
-         * @param string $path
-         * @param string $visibility
-         * @return bool 
-         * @static 
-         */ 
-        public static function setVisibility($path, $visibility)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->setVisibility($path, $visibility);
-        }
-                    /**
-         * Prepend to a file.
-         *
-         * @param string $path
-         * @param string $data
-         * @param string $separator
-         * @return bool 
-         * @static 
-         */ 
-        public static function prepend($path, $data, $separator = '
-')
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->prepend($path, $data, $separator);
-        }
-                    /**
-         * Append to a file.
-         *
-         * @param string $path
-         * @param string $data
-         * @param string $separator
-         * @return bool 
-         * @static 
-         */ 
-        public static function append($path, $data, $separator = '
-')
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->append($path, $data, $separator);
-        }
-                    /**
-         * Delete the file at a given path.
-         *
-         * @param string|array $paths
-         * @return bool 
-         * @static 
-         */ 
-        public static function delete($paths)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->delete($paths);
-        }
-                    /**
-         * Copy a file to a new location.
-         *
-         * @param string $from
-         * @param string $to
-         * @return bool 
-         * @static 
-         */ 
-        public static function copy($from, $to)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->copy($from, $to);
-        }
-                    /**
-         * Move a file to a new location.
-         *
-         * @param string $from
-         * @param string $to
-         * @return bool 
-         * @static 
-         */ 
-        public static function move($from, $to)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->move($from, $to);
-        }
-                    /**
-         * Get the file size of a given file.
-         *
-         * @param string $path
-         * @return int 
-         * @static 
-         */ 
-        public static function size($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->size($path);
-        }
-                    /**
-         * Get the mime-type of a given file.
-         *
-         * @param string $path
-         * @return string|false 
-         * @static 
-         */ 
-        public static function mimeType($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->mimeType($path);
-        }
-                    /**
-         * Get the file's last modification time.
-         *
-         * @param string $path
-         * @return int 
-         * @static 
-         */ 
-        public static function lastModified($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->lastModified($path);
-        }
-                    /**
-         * Get a resource to read the file.
-         *
-         * @param string $path
-         * @return resource|null The path resource or null on failure.
-         * @static 
-         */ 
-        public static function readStream($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->readStream($path);
-        }
-                    /**
-         * Write a new file using a stream.
-         *
-         * @param string $path
-         * @param resource $resource
-         * @param array $options
-         * @return bool 
-         * @static 
-         */ 
-        public static function writeStream($path, $resource, $options = [])
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->writeStream($path, $resource, $options);
-        }
-                    /**
-         * Get the URL for the file at the given path.
-         *
-         * @param string $path
-         * @return string 
-         * @throws \RuntimeException
-         * @static 
-         */ 
-        public static function url($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->url($path);
-        }
-                    /**
-         * Get a temporary URL for the file at the given path.
-         *
-         * @param string $path
-         * @param \DateTimeInterface $expiration
-         * @param array $options
-         * @return string 
-         * @throws \RuntimeException
-         * @static 
-         */ 
-        public static function temporaryUrl($path, $expiration, $options = [])
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->temporaryUrl($path, $expiration, $options);
-        }
-                    /**
-         * Get an array of all files in a directory.
-         *
-         * @param string|null $directory
-         * @param bool $recursive
-         * @return array 
-         * @static 
-         */ 
-        public static function files($directory = null, $recursive = false)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->files($directory, $recursive);
-        }
-                    /**
-         * Get all of the files from the given directory (recursive).
-         *
-         * @param string|null $directory
-         * @return array 
-         * @static 
-         */ 
-        public static function allFiles($directory = null)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->allFiles($directory);
-        }
-                    /**
-         * Get all of the directories within a given directory.
-         *
-         * @param string|null $directory
-         * @param bool $recursive
-         * @return array 
-         * @static 
-         */ 
-        public static function directories($directory = null, $recursive = false)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->directories($directory, $recursive);
-        }
-                    /**
-         * Get all the directories within a given directory (recursive).
-         *
-         * @param string|null $directory
-         * @return array 
-         * @static 
-         */ 
-        public static function allDirectories($directory = null)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->allDirectories($directory);
-        }
-                    /**
-         * Create a directory.
-         *
-         * @param string $path
-         * @return bool 
-         * @static 
-         */ 
-        public static function makeDirectory($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->makeDirectory($path);
-        }
-                    /**
-         * Recursively delete a directory.
-         *
-         * @param string $directory
-         * @return bool 
-         * @static 
-         */ 
-        public static function deleteDirectory($directory)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->deleteDirectory($directory);
-        }
-                    /**
-         * Get the Flysystem driver.
-         *
-         * @return \League\Flysystem\FilesystemOperator 
-         * @static 
-         */ 
-        public static function getDriver()
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->getDriver();
-        }
-                    /**
-         * Get the Flysystem adapter.
-         *
-         * @return \League\Flysystem\FilesystemAdapter 
-         * @static 
-         */ 
-        public static function getAdapter()
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->getAdapter();
-        }
-                    /**
-         * Get the configuration values.
-         *
-         * @return array 
-         * @static 
-         */ 
-        public static function getConfig()
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->getConfig();
-        }
-                    /**
-         * Define a custom temporary URL builder callback.
-         *
-         * @param \Closure $callback
-         * @return void 
-         * @static 
-         */ 
-        public static function buildTemporaryUrlsUsing($callback)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        $instance->buildTemporaryUrlsUsing($callback);
-        }
-                    /**
-         * Register a custom macro.
-         *
-         * @param string $name
-         * @param object|callable $macro
-         * @return void 
-         * @static 
-         */ 
-        public static function macro($name, $macro)
-        {
-                        \Illuminate\Filesystem\FilesystemAdapter::macro($name, $macro);
-        }
-                    /**
-         * Mix another object into the class.
-         *
-         * @param object $mixin
-         * @param bool $replace
-         * @return void 
-         * @throws \ReflectionException
-         * @static 
-         */ 
-        public static function mixin($mixin, $replace = true)
-        {
-                        \Illuminate\Filesystem\FilesystemAdapter::mixin($mixin, $replace);
-        }
-                    /**
-         * Checks if macro is registered.
-         *
-         * @param string $name
-         * @return bool 
-         * @static 
-         */ 
-        public static function hasMacro($name)
-        {
-                        return \Illuminate\Filesystem\FilesystemAdapter::hasMacro($name);
-        }
-                    /**
-         * Flush the existing macros.
-         *
-         * @return void 
-         * @static 
-         */ 
-        public static function flushMacros()
-        {
-                        \Illuminate\Filesystem\FilesystemAdapter::flushMacros();
-        }
-                    /**
-         * Dynamically handle calls to the class.
-         *
-         * @param string $method
-         * @param array $parameters
-         * @return mixed 
-         * @throws \BadMethodCallException
-         * @static 
-         */ 
-        public static function macroCall($method, $parameters)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->macroCall($method, $parameters);
         }
          
     }
@@ -16537,6 +16005,430 @@
         {
                         /** @var \Stevebauman\Location\Location $instance */
                         return $instance->get($ip);
+        }
+         
+    }
+     
+}
+
+    namespace Darryldecode\Cart\Facades { 
+            /**
+     * 
+     *
+     */ 
+        class CartFacade {
+                    /**
+         * sets the session key
+         *
+         * @param string $sessionKey the session key or identifier
+         * @return $this|bool 
+         * @throws \Exception
+         * @static 
+         */ 
+        public static function session($sessionKey)
+        {
+                        /** @var \Darryldecode\Cart\Cart $instance */
+                        return $instance->session($sessionKey);
+        }
+                    /**
+         * get instance name of the cart
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getInstanceName()
+        {
+                        /** @var \Darryldecode\Cart\Cart $instance */
+                        return $instance->getInstanceName();
+        }
+                    /**
+         * get an item on a cart by item ID
+         *
+         * @param $itemId
+         * @return mixed 
+         * @static 
+         */ 
+        public static function get($itemId)
+        {
+                        /** @var \Darryldecode\Cart\Cart $instance */
+                        return $instance->get($itemId);
+        }
+                    /**
+         * check if an item exists by item ID
+         *
+         * @param $itemId
+         * @return bool 
+         * @static 
+         */ 
+        public static function has($itemId)
+        {
+                        /** @var \Darryldecode\Cart\Cart $instance */
+                        return $instance->has($itemId);
+        }
+                    /**
+         * add item to the cart, it can be an array or multi dimensional array
+         *
+         * @param string|array $id
+         * @param string $name
+         * @param float $price
+         * @param int $quantity
+         * @param array $attributes
+         * @param \Darryldecode\Cart\CartCondition|array $conditions
+         * @param string $associatedModel
+         * @return \Darryldecode\Cart\Cart 
+         * @throws InvalidItemException
+         * @static 
+         */ 
+        public static function add($id, $name = null, $price = null, $quantity = null, $attributes = [], $conditions = [], $associatedModel = null)
+        {
+                        /** @var \Darryldecode\Cart\Cart $instance */
+                        return $instance->add($id, $name, $price, $quantity, $attributes, $conditions, $associatedModel);
+        }
+                    /**
+         * update a cart
+         *
+         * @param $id
+         * @param array $data the $data will be an associative array, you don't need to pass all the data, only the key value
+         * of the item you want to update on it
+         * @return bool 
+         * @static 
+         */ 
+        public static function update($id, $data)
+        {
+                        /** @var \Darryldecode\Cart\Cart $instance */
+                        return $instance->update($id, $data);
+        }
+                    /**
+         * add condition on an existing item on the cart
+         *
+         * @param int|string $productId
+         * @param \Darryldecode\Cart\CartCondition $itemCondition
+         * @return \Darryldecode\Cart\Cart 
+         * @static 
+         */ 
+        public static function addItemCondition($productId, $itemCondition)
+        {
+                        /** @var \Darryldecode\Cart\Cart $instance */
+                        return $instance->addItemCondition($productId, $itemCondition);
+        }
+                    /**
+         * removes an item on cart by item ID
+         *
+         * @param $id
+         * @return bool 
+         * @static 
+         */ 
+        public static function remove($id)
+        {
+                        /** @var \Darryldecode\Cart\Cart $instance */
+                        return $instance->remove($id);
+        }
+                    /**
+         * clear cart
+         *
+         * @return bool 
+         * @static 
+         */ 
+        public static function clear()
+        {
+                        /** @var \Darryldecode\Cart\Cart $instance */
+                        return $instance->clear();
+        }
+                    /**
+         * add a condition on the cart
+         *
+         * @param \Darryldecode\Cart\CartCondition|array $condition
+         * @return \Darryldecode\Cart\Cart 
+         * @throws InvalidConditionException
+         * @static 
+         */ 
+        public static function condition($condition)
+        {
+                        /** @var \Darryldecode\Cart\Cart $instance */
+                        return $instance->condition($condition);
+        }
+                    /**
+         * get conditions applied on the cart
+         *
+         * @return \Darryldecode\Cart\CartConditionCollection 
+         * @static 
+         */ 
+        public static function getConditions()
+        {
+                        /** @var \Darryldecode\Cart\Cart $instance */
+                        return $instance->getConditions();
+        }
+                    /**
+         * get condition applied on the cart by its name
+         *
+         * @param $conditionName
+         * @return \Darryldecode\Cart\CartCondition 
+         * @static 
+         */ 
+        public static function getCondition($conditionName)
+        {
+                        /** @var \Darryldecode\Cart\Cart $instance */
+                        return $instance->getCondition($conditionName);
+        }
+                    /**
+         * Get all the condition filtered by Type
+         * Please Note that this will only return condition added on cart bases, not those conditions added
+         * specifically on an per item bases
+         *
+         * @param $type
+         * @return \Darryldecode\Cart\CartConditionCollection 
+         * @static 
+         */ 
+        public static function getConditionsByType($type)
+        {
+                        /** @var \Darryldecode\Cart\Cart $instance */
+                        return $instance->getConditionsByType($type);
+        }
+                    /**
+         * Remove all the condition with the $type specified
+         * Please Note that this will only remove condition added on cart bases, not those conditions added
+         * specifically on an per item bases
+         *
+         * @param $type
+         * @return \Darryldecode\Cart\Cart 
+         * @static 
+         */ 
+        public static function removeConditionsByType($type)
+        {
+                        /** @var \Darryldecode\Cart\Cart $instance */
+                        return $instance->removeConditionsByType($type);
+        }
+                    /**
+         * removes a condition on a cart by condition name,
+         * this can only remove conditions that are added on cart bases not conditions that are added on an item/product.
+         * 
+         * If you wish to remove a condition that has been added for a specific item/product, you may
+         * use the removeItemCondition(itemId, conditionName) method instead.
+         *
+         * @param $conditionName
+         * @return void 
+         * @static 
+         */ 
+        public static function removeCartCondition($conditionName)
+        {
+                        /** @var \Darryldecode\Cart\Cart $instance */
+                        $instance->removeCartCondition($conditionName);
+        }
+                    /**
+         * remove a condition that has been applied on an item that is already on the cart
+         *
+         * @param $itemId
+         * @param $conditionName
+         * @return bool 
+         * @static 
+         */ 
+        public static function removeItemCondition($itemId, $conditionName)
+        {
+                        /** @var \Darryldecode\Cart\Cart $instance */
+                        return $instance->removeItemCondition($itemId, $conditionName);
+        }
+                    /**
+         * remove all conditions that has been applied on an item that is already on the cart
+         *
+         * @param $itemId
+         * @return bool 
+         * @static 
+         */ 
+        public static function clearItemConditions($itemId)
+        {
+                        /** @var \Darryldecode\Cart\Cart $instance */
+                        return $instance->clearItemConditions($itemId);
+        }
+                    /**
+         * clears all conditions on a cart,
+         * this does not remove conditions that has been added specifically to an item/product.
+         * 
+         * If you wish to remove a specific condition to a product, you may use the method: removeItemCondition($itemId, $conditionName)
+         *
+         * @return void 
+         * @static 
+         */ 
+        public static function clearCartConditions()
+        {
+                        /** @var \Darryldecode\Cart\Cart $instance */
+                        $instance->clearCartConditions();
+        }
+                    /**
+         * get cart sub total without conditions
+         *
+         * @param bool $formatted
+         * @return float 
+         * @static 
+         */ 
+        public static function getSubTotalWithoutConditions($formatted = true)
+        {
+                        /** @var \Darryldecode\Cart\Cart $instance */
+                        return $instance->getSubTotalWithoutConditions($formatted);
+        }
+                    /**
+         * get cart sub total
+         *
+         * @param bool $formatted
+         * @return float 
+         * @static 
+         */ 
+        public static function getSubTotal($formatted = true)
+        {
+                        /** @var \Darryldecode\Cart\Cart $instance */
+                        return $instance->getSubTotal($formatted);
+        }
+                    /**
+         * the new total in which conditions are already applied
+         *
+         * @return float 
+         * @static 
+         */ 
+        public static function getTotal()
+        {
+                        /** @var \Darryldecode\Cart\Cart $instance */
+                        return $instance->getTotal();
+        }
+                    /**
+         * get total quantity of items in the cart
+         *
+         * @return int 
+         * @static 
+         */ 
+        public static function getTotalQuantity()
+        {
+                        /** @var \Darryldecode\Cart\Cart $instance */
+                        return $instance->getTotalQuantity();
+        }
+                    /**
+         * get the cart
+         *
+         * @return \Darryldecode\Cart\CartCollection 
+         * @static 
+         */ 
+        public static function getContent()
+        {
+                        /** @var \Darryldecode\Cart\Cart $instance */
+                        return $instance->getContent();
+        }
+                    /**
+         * check if cart is empty
+         *
+         * @return bool 
+         * @static 
+         */ 
+        public static function isEmpty()
+        {
+                        /** @var \Darryldecode\Cart\Cart $instance */
+                        return $instance->isEmpty();
+        }
+                    /**
+         * Setter for decimals. Change value on demand.
+         *
+         * @param $decimals
+         * @static 
+         */ 
+        public static function setDecimals($decimals)
+        {
+                        /** @var \Darryldecode\Cart\Cart $instance */
+                        return $instance->setDecimals($decimals);
+        }
+                    /**
+         * Setter for decimals point. Change value on demand.
+         *
+         * @param $dec_point
+         * @static 
+         */ 
+        public static function setDecPoint($dec_point)
+        {
+                        /** @var \Darryldecode\Cart\Cart $instance */
+                        return $instance->setDecPoint($dec_point);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function setThousandsSep($thousands_sep)
+        {
+                        /** @var \Darryldecode\Cart\Cart $instance */
+                        return $instance->setThousandsSep($thousands_sep);
+        }
+                    /**
+         * Associate the cart item with the given id with the given model.
+         *
+         * @param string $id
+         * @param mixed $model
+         * @return void 
+         * @static 
+         */ 
+        public static function associate($model)
+        {
+                        /** @var \Darryldecode\Cart\Cart $instance */
+                        $instance->associate($model);
+        }
+         
+    }
+     
+}
+
+    namespace Intervention\Image\Facades { 
+            /**
+     * 
+     *
+     */ 
+        class Image {
+                    /**
+         * Overrides configuration settings
+         *
+         * @param array $config
+         * @return self 
+         * @static 
+         */ 
+        public static function configure($config = [])
+        {
+                        /** @var \Intervention\Image\ImageManager $instance */
+                        return $instance->configure($config);
+        }
+                    /**
+         * Initiates an Image instance from different input types
+         *
+         * @param mixed $data
+         * @return \Intervention\Image\Image 
+         * @static 
+         */ 
+        public static function make($data)
+        {
+                        /** @var \Intervention\Image\ImageManager $instance */
+                        return $instance->make($data);
+        }
+                    /**
+         * Creates an empty image canvas
+         *
+         * @param int $width
+         * @param int $height
+         * @param mixed $background
+         * @return \Intervention\Image\Image 
+         * @static 
+         */ 
+        public static function canvas($width, $height, $background = null)
+        {
+                        /** @var \Intervention\Image\ImageManager $instance */
+                        return $instance->canvas($width, $height, $background);
+        }
+                    /**
+         * Create new cached image and run callback
+         * (requires additional package intervention/imagecache)
+         *
+         * @param \Closure $callback
+         * @param int $lifetime
+         * @param boolean $returnObj
+         * @return \Image 
+         * @static 
+         */ 
+        public static function cache($callback, $lifetime = null, $returnObj = false)
+        {
+                        /** @var \Intervention\Image\ImageManager $instance */
+                        return $instance->cache($callback, $lifetime, $returnObj);
         }
          
     }
@@ -20742,6 +20634,8 @@ namespace  {
             class Validator extends \Illuminate\Support\Facades\Validator {}
             class View extends \Illuminate\Support\Facades\View {}
             class Location extends \Stevebauman\Location\Facades\Location {}
+            class Cart extends \Darryldecode\Cart\Facades\CartFacade {}
+            class Image extends \Intervention\Image\Facades\Image {}
             class Flare extends \Spatie\LaravelIgnition\Facades\Flare {}
      
 }

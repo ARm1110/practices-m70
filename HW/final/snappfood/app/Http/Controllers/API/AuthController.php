@@ -75,6 +75,8 @@ class AuthController extends Controller
             ], 401);
         }
 
+
+
         $token = $user->createToken('appToken')->plainTextToken;
 
         $response = [

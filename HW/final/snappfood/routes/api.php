@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\API\AddressController;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\CartController;
+use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\RestaurantController;
+use App\Http\Controllers\API\WalletController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -46,4 +49,39 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('/{id}', [RestaurantController::class, 'show']);
         Route::get('/{id}/foods', [RestaurantController::class, 'showFoods']);
     });
+    Route::group([
+        'prefix' => 'carts',
+        'as' => 'carts.'
+    ], function () {
+        Route::get('/', [CartController::class, 'index'])->name('list');
+        Route::get('/show/{cart_id}', [CartController::class, 'show'])->name('show');
+        Route::post('/add', [CartController::class, 'add'])->name('store');
+        Route::patch('/add', [CartController::class, 'update'])->name('update');
+        Route::get('/clear', [CartController::class, 'clear'])->name('clear');
+        Route::get('/continue', [CartController::class, 'continue'])->name('continue');
+    });
+    Route::group(
+        [
+            'prefix' => 'orders',
+            'as' => 'orders.'
+
+        ],
+        function () {
+            Route::get('/{order_id}/payment', [WalletController::class, 'transfer'])->name('payment');
+        }
+    );
+
+
+    Route::group(
+        [
+            'prefix' => 'wallet',
+            'as' => 'wallet.'
+
+        ],
+        function () {
+            Route::post('/deposit', [WalletController::class, 'addToCard'])->name('add');
+            Route::post('/withdraw', [WalletController::class, 'withdrawCard'])->name('withdraw');
+            Route::post('/forceWithdraw', [WalletController::class, 'forceWithdrawCard'])->name('forceWithdraw');
+        }
+    );
 });

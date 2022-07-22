@@ -22,6 +22,6 @@ class Offer extends Model
 
     public function menuItems()
     {
-        return $this->belongsToMany(MenuItem::class);
+        return $this->belongsToMany(MenuItem::class, 'menu_items', 'menu_item_id', 'offer_id');
     }
 }

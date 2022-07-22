@@ -193,9 +193,20 @@ namespace App\Models{
  * @property int $is_new
  * @property int $user_id
  * @property-read \App\Models\FoodCategory|null $foodCategory
+ * @property-read string $balance
+ * @property-read int $balance_int
+ * @property-read \Bavix\Wallet\Models\Wallet $wallet
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Offer[] $offers
  * @property-read int|null $offers_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
+ * @property-read int|null $orders_count
  * @property-read \App\Models\Restaurant $restaurant
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Bavix\Wallet\Models\Transaction[] $transactions
+ * @property-read int|null $transactions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Bavix\Wallet\Models\Transfer[] $transfers
+ * @property-read int|null $transfers_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Bavix\Wallet\Models\Transaction[] $walletTransactions
+ * @property-read int|null $wallet_transactions_count
  * @method static \Database\Factories\MenuItemFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|MenuItem newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|MenuItem newQuery()
@@ -213,7 +224,44 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|MenuItem whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|MenuItem whereUserId($value)
  */
-	class MenuItem extends \Eloquent {}
+	class MenuItem extends \Eloquent implements \Bavix\Wallet\Interfaces\ProductInterface, \Bavix\Wallet\Interfaces\Wallet {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\MenuItemOrder
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property int $menu_item_id
+ * @property int|null $order_id
+ * @property string $status
+ * @property int $quantity
+ * @property int $before_discount
+ * @property int $after_discount
+ * @property int $discount
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int $total_price
+ * @property-read \App\Models\MenuItem $menuItem
+ * @property-read \App\Models\Order|null $order
+ * @method static \Illuminate\Database\Eloquent\Builder|MenuItemOrder newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|MenuItemOrder newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|MenuItemOrder query()
+ * @method static \Illuminate\Database\Eloquent\Builder|MenuItemOrder whereAfterDiscount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|MenuItemOrder whereBeforeDiscount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|MenuItemOrder whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|MenuItemOrder whereDiscount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|MenuItemOrder whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|MenuItemOrder whereMenuItemId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|MenuItemOrder whereOrderId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|MenuItemOrder whereQuantity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|MenuItemOrder whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|MenuItemOrder whereTotalPrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|MenuItemOrder whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|MenuItemOrder whereUserId($value)
+ */
+	class MenuItemOrder extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -222,24 +270,56 @@ namespace App\Models{
  *
  * @property int $id
  * @property string $name
- * @property string $discount
+ * @property int $discount
  * @property int $is_active
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\MenuItem[] $menuItems
  * @property-read int|null $menu_items_count
  * @method static \Database\Factories\OfferFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Offer newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Offer newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Offer onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Offer query()
  * @method static \Illuminate\Database\Eloquent\Builder|Offer whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Offer whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Offer whereDiscount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Offer whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Offer whereIsActive($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Offer whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Offer whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Offer withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Offer withoutTrashed()
  */
 	class Offer extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Order
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property int $total_price
+ * @property string $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\MenuItem[] $menuItems
+ * @property-read int|null $menu_items_count
+ * @property-read \App\Models\User $user
+ * @method static \Database\Factories\OrderFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Order newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Order query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereTotalPrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereUserId($value)
+ */
+	class Order extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -266,9 +346,22 @@ namespace App\Models{
  * @property-read \App\Models\City $city
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\FoodCategory[] $foodCategories
  * @property-read int|null $food_categories_count
+ * @property-read string $balance
+ * @property-read int $balance_int
+ * @property-read \Bavix\Wallet\Models\Wallet $wallet
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
+ * @property-read int|null $media_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\MenuItem[] $menuItems
  * @property-read int|null $menu_items_count
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Bavix\Wallet\Models\Transaction[] $transactions
+ * @property-read int|null $transactions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Bavix\Wallet\Models\Transfer[] $transfers
+ * @property-read int|null $transfers_count
  * @property-read \App\Models\User $user
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Bavix\Wallet\Models\Transaction[] $walletTransactions
+ * @property-read int|null $wallet_transactions_count
  * @method static \Database\Factories\RestaurantFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Restaurant newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Restaurant newQuery()
@@ -290,7 +383,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Restaurant whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Restaurant whereUserId($value)
  */
-	class Restaurant extends \Eloquent {}
+	class Restaurant extends \Eloquent implements \Bavix\Wallet\Interfaces\Wallet, \Spatie\MediaLibrary\HasMedia {}
 }
 
 namespace App\Models{
@@ -316,13 +409,24 @@ namespace App\Models{
  * @property-read \App\Models\City $city
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\FoodCategory[] $foodCategories
  * @property-read int|null $food_categories_count
+ * @property-read string $balance
+ * @property-read int $balance_int
  * @property-read mixed $full_name
+ * @property-read \Bavix\Wallet\Models\Wallet $wallet
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
+ * @property-read int|null $media_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Restaurant[] $restaurants
  * @property-read int|null $restaurants_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Sanctum\PersonalAccessToken[] $tokens
  * @property-read int|null $tokens_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Bavix\Wallet\Models\Transaction[] $transactions
+ * @property-read int|null $transactions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Bavix\Wallet\Models\Transfer[] $transfers
+ * @property-read int|null $transfers_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Bavix\Wallet\Models\Transaction[] $walletTransactions
+ * @property-read int|null $wallet_transactions_count
  * @method static \Database\Factories\UserFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
@@ -340,6 +444,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRole($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  */
-	class User extends \Eloquent {}
+	class User extends \Eloquent implements \Bavix\Wallet\Interfaces\Wallet, \Spatie\MediaLibrary\HasMedia, \Bavix\Wallet\Interfaces\Customer {}
 }
 

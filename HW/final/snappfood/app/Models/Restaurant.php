@@ -4,11 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Bavix\Wallet\Traits\HasWallet;
+use Bavix\Wallet\Interfaces\Wallet;
+use Illuminate\Notifications\Notifiable;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Restaurant extends Model
+class Restaurant extends Model implements Wallet, HasMedia
 {
     use HasFactory;
-
+    use InteractsWithMedia;
+    use HasWallet;
+    use  Notifiable;
     protected $fillable = [
         'restaurant_name',
         'phone_number',
@@ -22,14 +29,6 @@ class Restaurant extends Model
         'is_active',
         'is_verified',
     ];
-    //restaurant_name
-    // description
-    // phone_number
-    // opening_hours
-    // closing_hours
-    // latitude
-    // longitude
-    // is_active
 
     public function city()
     {
