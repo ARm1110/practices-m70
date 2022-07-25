@@ -140,6 +140,10 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::get('/',  'index')->name('index');
                 //reject
                 Route::put('/reject/{order_id}',  'reject')->name('reject');
+                //accept
+                Route::put('/accept/{order_id}',  'accept')->name('accept');
+                //archive
+                Route::get('/archive',  'archive')->name('archive');
             });
         });
         Route::controller(FoodCategoryController::class)->group(function () {

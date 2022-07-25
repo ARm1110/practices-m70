@@ -25,12 +25,8 @@
                 <th scope="col" class="px-6 py-3">
                     total price
                 </th>
-                <th scope="col" class="px-6 py-3">
-                    reject
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Accept
-                </th>
+
+
             </x-slot>
             <x-slot name="body">
                 @foreach ($data['orders'] as $orderItem)
@@ -52,28 +48,6 @@
                             {{ $orderItem->total_price }}
                         </th>
 
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                            <form action="{{ route('shopper.order.reject', $orderItem->order_id) }}" method="POST">
-                                @csrf
-                                @method('PUT')
-                                <input type="hidden" name="menuItem" value={{ $orderItem->id }}>
-                                <button type="submit"
-                                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                                    Reject
-                                </button>
-                            </form>
-                        </th>
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                            <form action="{{ route('shopper.order.accept', $orderItem->order_id) }}" method="POST">
-                                @csrf
-                                @method('PUT')
-                                <input type="hidden" name="menuItem" value={{ $orderItem->id }}>
-                                <button type="submit"
-                                    class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                                    Accept
-                                </button>
-                            </form>
-                        </th>
 
                     </tr>
                 @endforeach

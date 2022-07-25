@@ -25,11 +25,6 @@ class OrderController extends Controller
             ->paginate(10);
 
 
-        //return response()->json([
-        //     'success' => true,
-        //     'data' => $orders,
-        //     'message' => 'get all orders success'
-        // ], 200, []);
 
         $data = [
             'orders' => $orders,
@@ -134,12 +129,7 @@ class OrderController extends Controller
             //update status order
             $MenuItemOrder->status = 'rejected';
             $MenuItemOrder->save();
-            return response()->json([
-                'success' => true,
-                'data' =>  $user->balance,
-
-                'message' => 'order rejected'
-            ], 200, []);
+            return back()->with('message', 'Order rejected successfully');
         } catch (\Throwable $th) {
             return response()->json([
                 'success' => false,
@@ -148,5 +138,38 @@ class OrderController extends Controller
 
             ], 500, []);
         }
+    }
+
+    public function accept(Request $request)
+    {
+        try {
+            //accept
+
+
+            MenuItemOrder::select('*')
+                ->where('id', request()->menuItem)
+                ->where('order_id', request()->order_id)
+                ->where('status', 'ordered')->update(['status' => 'delivered']);
+
+            return back()->with('message', 'order accepted');
+        } catch (\Throwable $th) {
+
+            return back()->with('error', 'order not accepted');
+        }
+    }
+    public function archive()
+    {
+        $orders = MenuItemOrder::whereRelation('menuItem', 'user_id', auth()->user()->id)
+            ->with('user')
+            ->with('menuItem')
+            ->paginate(10);
+
+
+
+        $data = [
+            'orders' => $orders,
+        ];
+
+        return view('dashboard.orders.archive', compact('data'));
     }
 }

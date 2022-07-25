@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ShopperController extends Controller
@@ -15,8 +15,14 @@ class ShopperController extends Controller
     public function index()
     {
         // dd('ShopperController');
+        //Total Revenue
 
-        return view('dashboard.shoppers.index');
+        $user = User::find(auth()->user()->id);
+        $totalRevenue = $user->transactions->sum('amount');
+        $data = [
+            'totalRevenue' => $totalRevenue,
+        ];
+        return view('dashboard.shoppers.index', compact('data'));
     }
 
     /**

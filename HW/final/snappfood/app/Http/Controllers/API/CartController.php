@@ -18,6 +18,7 @@ class CartController extends Controller
     public function index()
     {
         // show all the items in the cart
+
         $items = MenuItemOrder::where('user_id', auth()->user()->id)->where('status', 'pending')->get();
         if (!($items->count() > 0)) {
             return response()->json([
@@ -37,9 +38,17 @@ class CartController extends Controller
 
             // Get offer price 
             $menuItem = (MenuItem::with('offers')->where('id', $request->menu_item_id)->first()['offers']);
-            foreach ($menuItem as $offer) {
-                $offer_price = $offer->discount;
+
+
+            if ($menuItem->isEmpty()) {
+                $offer_price = 0;
+            } else {
+                foreach ($menuItem as $offer) {
+                    $offer_price = $offer->discount;
+                }
             }
+
+
 
             // Get data for create MenuItemOrder 
             $menuItem = MenuItem::find($request['menu_item_id']);
@@ -68,7 +77,7 @@ class CartController extends Controller
                 // print error message
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Already exist in cart',
+                    'message' => 'Already exist in cart , return to cart page',
                     'url' => route('carts.list'),
 
                 ], 404);
@@ -112,11 +121,11 @@ class CartController extends Controller
         }
     }
 
-    public function show($request)
+    public function show(Request $request)
     {
 
         try {
-            $items = MenuItemOrder::find($request->id)->where('user_id', auth()->user()->id)->where('status', 'pending')->get()->first();
+            $items = MenuItemOrder::find($request->cart_id)->where('user_id', auth()->user()->id)->where('status', 'pending')->get()->first();
             // check if the menu item order is exists
             if (!($items->count() > 0)) {
                 return response()->json([
@@ -231,6 +240,9 @@ class CartController extends Controller
             foreach ($items as $item) {
                 $item->update([
                     'order_id' => $order->id,
+                ]);
+
+                $item->update([
                     'status' => 'ordered',
                 ]);
             }
