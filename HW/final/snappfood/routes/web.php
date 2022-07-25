@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\WalletController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FoodCategoryController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OfferController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\ShopperController;
 use App\Http\Controllers\UserController;
@@ -119,6 +121,25 @@ Route::group(['middleware' => 'auth'], function () {
                     Route::put('/add-offer',  'addOfferForm')->name('form_offer');
                     Route::post('/add-offer',  'setPivot')->name('setPivot');
                 });
+            });
+        });
+
+        Route::controller(WalletController::class)->group(function () {
+            Route::group([
+                'prefix' => 'wallet',
+                'as' => 'wallet.'
+            ], function () {
+                Route::get('/transactions',  'transactions')->name('transactions');
+            });
+        });
+        Route::controller(OrderController::class)->group(function () {
+            Route::group([
+                'prefix' => 'order',
+                'as' => 'order.'
+            ], function () {
+                Route::get('/',  'index')->name('index');
+                //reject
+                Route::put('/reject/{order_id}',  'reject')->name('reject');
             });
         });
         Route::controller(FoodCategoryController::class)->group(function () {

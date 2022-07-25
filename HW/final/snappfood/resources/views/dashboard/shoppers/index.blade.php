@@ -40,6 +40,20 @@
                     <span class="flex-1 ml-3 whitespace-nowrap">
                         Food list</span>
                 </a>
+                <a href="{{ route('shopper.order.index') }}"
+                    class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-red-100 dark:hover:bg-gray-700">
+                    <img src="{{ asset('image/settings.svg') }}" class="w-8" alt="">
+                    <span class="flex-1 ml-3 whitespace-nowrap">
+                        order list </span>
+                </a>
+                <a href="{{ route('shopper.wallet.transactions') }}"
+                    class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-red-100 dark:hover:bg-gray-700">
+                    <img src="{{ asset('image/settings.svg') }}" class="w-8" alt="">
+                    <span class="flex-1 ml-3 whitespace-nowrap">
+                        Transactions</span>
+                </a>
+
+
             </li>
 
         </x-slot>

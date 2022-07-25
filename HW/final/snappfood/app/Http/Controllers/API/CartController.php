@@ -18,7 +18,7 @@ class CartController extends Controller
     public function index()
     {
         // show all the items in the cart
-        $items = MenuItemOrder::where('user_id', auth()->id())->where('status', 'pending')->get();
+        $items = MenuItemOrder::where('user_id', auth()->user()->id)->where('status', 'pending')->get();
         if (!($items->count() > 0)) {
             return response()->json([
                 'status' => 'error',

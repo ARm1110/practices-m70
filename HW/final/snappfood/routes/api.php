@@ -85,3 +85,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         }
     );
 });
+
+Route::post('/cache', [WalletController::class, 'testCache']);

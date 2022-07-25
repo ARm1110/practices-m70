@@ -7,6 +7,7 @@ use App\Models\MenuItem;
 use App\Models\MenuItemOrder;
 use App\Models\Order;
 use App\Models\User;
+use Cache;
 use DB;
 use Illuminate\Http\Request;
 
@@ -114,5 +115,31 @@ class WalletController extends Controller
                 'message' => $e->getMessage()
             ], 400, []);
         }
+    }
+
+
+
+    public function transactions()
+    {
+        $user = User::find(auth()->user()->id);
+        $transactions = $user->transactions;
+        return response()->json([
+            'success' => true,
+            'data' => $transactions,
+            'message' => 'wallet proses success'
+        ], 200, []);
+    }
+    public function testCache(Request $request)
+    {
+        //cache
+        $data = $request->all();
+
+        //store cache
+        Cache::put('data', $data);
+        return response()->json([
+            'success' => true,
+            'cache' => Cache::get('data'),
+            'message' => 'wallet proses success'
+        ], 200, []);
     }
 }

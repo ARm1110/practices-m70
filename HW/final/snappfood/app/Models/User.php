@@ -101,4 +101,17 @@ class User extends Authenticatable implements Wallet, HasMedia, Customer
             ->fit(Manipulations::FIT_CROP, 300, 300)
             ->nonQueued();
     }
+
+
+    public function getMediaUrl(string $conversionName = ''): string
+    {
+        if ($conversionName === 'preview') {
+            return $this->getFirstMediaUrl('preview');
+        }
+        return $this->getFirstMediaUrl();
+    }
+    public function menuItemOrders()
+    {
+        return $this->hasMany(MenuItemOrder::class);
+    }
 }
