@@ -116,6 +116,36 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\Comment
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property int $menu_item_order_id
+ * @property string $comment
+ * @property int $rating
+ * @property string $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\MenuItemOrder|null $menuItemOrder
+ * @property-read \App\Models\User $user
+ * @method static \Database\Factories\CommentFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereComment($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereMenuItemOrderId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereRating($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereUserId($value)
+ */
+	class Comment extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\FoodCategory
  *
  * @property int $id
@@ -239,12 +269,15 @@ namespace App\Models{
  * @property int $quantity
  * @property int $before_discount
  * @property int $after_discount
+ * @property int $total_price
  * @property int $discount
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property int $total_price
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
+ * @property-read int|null $comments_count
  * @property-read \App\Models\MenuItem $menuItem
  * @property-read \App\Models\Order|null $order
+ * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|MenuItemOrder newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|MenuItemOrder newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|MenuItemOrder query()
@@ -407,6 +440,8 @@ namespace App\Models{
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Category[] $categories
  * @property-read int|null $categories_count
  * @property-read \App\Models\City $city
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
+ * @property-read int|null $comments_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\FoodCategory[] $foodCategories
  * @property-read int|null $food_categories_count
  * @property-read string $balance
@@ -415,6 +450,8 @@ namespace App\Models{
  * @property-read \Bavix\Wallet\Models\Wallet $wallet
  * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
  * @property-read int|null $media_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\MenuItemOrder[] $menuItemOrders
+ * @property-read int|null $menu_item_orders_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Restaurant[] $restaurants

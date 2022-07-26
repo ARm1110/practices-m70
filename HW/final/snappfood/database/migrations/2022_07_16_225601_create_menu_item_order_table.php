@@ -1,5 +1,6 @@
 <?php
 
+
 use App\Models\MenuItem;
 use App\Models\Offer;
 use App\Models\Order;
@@ -22,6 +23,7 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->constrained();
             $table->foreignIdFor(MenuItem::class)->constrained();
             $table->foreignIdFor(Order::class)->constrained()->nullable();
+
             $table->enum('status', ['pending', 'ordered', 'accepted', 'rejected', 'delivered'])->default('pending');
             $table->integer('quantity');
             $table->integer('before_discount');

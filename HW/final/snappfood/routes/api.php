@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\AddressController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CartController;
+use App\Http\Controllers\API\CommentController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\RestaurantController;
 use App\Http\Controllers\API\WalletController;
@@ -68,7 +69,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         ],
         function () {
             Route::get('/{order_id}/payment', [WalletController::class, 'transfer'])->name('payment');
+            //post comment
+            Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
         }
+
     );
 
 

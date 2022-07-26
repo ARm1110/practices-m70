@@ -114,4 +114,12 @@ class User extends Authenticatable implements Wallet, HasMedia, Customer
     {
         return $this->hasMany(MenuItemOrder::class);
     }
+
+
+
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

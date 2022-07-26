@@ -102,7 +102,7 @@ class WalletController extends Controller
             //payment ech cart 
             DB::table('orders')
                 ->where('id', $request->order_id)
-                ->update(['status' => "accept"]);
+                ->update(['status' => "ordered"]);
             return response()->json([
                 'success' => true,
                 'data' => $user->balance,

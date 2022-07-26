@@ -9,11 +9,14 @@ class MenuItemOrder extends Model
 {
     use HasFactory;
 
+
+
     protected $fillable = [
         'menu_item_id',
         'order_id',
         'offer_id',
         'user_id',
+        'status',
         'before_discount',
         'after_discount',
         'total_price',
@@ -40,5 +43,15 @@ class MenuItemOrder extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    // public function offer()
+    // {
+    //     return $this->belongsTo(Offer::class);
+    // }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

@@ -241,7 +241,6 @@ class CartController extends Controller
                 $item->update([
                     'order_id' => $order->id,
                 ]);
-
                 $item->update([
                     'status' => 'ordered',
                 ]);
