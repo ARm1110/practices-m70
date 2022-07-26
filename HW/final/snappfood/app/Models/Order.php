@@ -20,7 +20,7 @@ class Order extends Model
         'created_at',
         'updated_at',
     ];
-
+    protected $table = 'orders';
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -29,5 +29,9 @@ class Order extends Model
     public function menuItems()
     {
         return $this->belongsToMany(MenuItem::class);
+    }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

@@ -38,6 +38,8 @@
 
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.6.0/mapbox-gl.css' rel='stylesheet' />
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.6.0/mapbox-gl.js'></script>
+
+    <script src="https://kit.fontawesome.com/aad5c2afc7.js" crossorigin="anonymous"></script>
 </head>
 
 <body>

@@ -54,7 +54,7 @@ class CartController extends Controller
             $menuItem = MenuItem::find($request['menu_item_id']);
 
             // Get data for validate MenuItemOrder if exists
-            $menuItemOrder = MenuItemOrder::where('menu_item_id', $request['menu_item_id'])->where('user_id', auth()->user()->id)->first();
+            $menuItemOrder = MenuItemOrder::where('menu_item_id', $request['menu_item_id'])->where('user_id', auth()->user()->id)->where('status', 'pending')->first();
 
             // check if the item is already in the cart
             if ($menuItemOrder == null) {

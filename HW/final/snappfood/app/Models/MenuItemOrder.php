@@ -50,8 +50,5 @@ class MenuItemOrder extends Model
     //     return $this->belongsTo(Offer::class);
     // }
 
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
-    }
+
 }

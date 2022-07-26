@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
 use App\Models\Comment;
+use Request;
 
 class CommentController extends Controller
 {
@@ -15,7 +16,23 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        // return all comment status padding
+
+        $comments = Comment::with('user')
+            // ->with('order.menuItems.restaurant')
+            ->paginate(10);
+        // return response()->json([
+        //     'success' => true,
+        //     'data' => $comments,
+        //     'message' => 'comments proses success'
+        // ], 200, []);
+        $data = [
+
+            'comments' => $comments,
+
+        ];
+
+        return view('dashboard.comments.index', compact('data'));
     }
 
     /**
@@ -82,5 +99,31 @@ class CommentController extends Controller
     public function destroy(Comment $comment)
     {
         //
+    }
+
+    public function reject(Request $request)
+    {
+        //update status to rejected
+        $comment = Comment::where('id', request()->id)->where('status', 'pending')->first();
+        if ($comment) {
+            $comment->status = 'rejected';
+            $comment->save();
+            return back()->with('message', 'Comment has been rejected');
+        } else {
+            return back()->with('error', 'Something went wrong');
+        }
+    }
+
+    public function approve(Request $request)
+    {
+        //update status to approved
+        $comment = Comment::where('id', request()->id)->where('status', 'pending')->first();
+        if ($comment) {
+            $comment->status = 'approved';
+            $comment->save();
+            return back()->with('message', 'Comment has been approved');
+        } else {
+            return back()->with('error', 'Something went wrong');
+        }
     }
 }

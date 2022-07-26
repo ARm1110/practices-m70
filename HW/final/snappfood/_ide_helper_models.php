@@ -120,13 +120,13 @@ namespace App\Models{
  *
  * @property int $id
  * @property int $user_id
- * @property int $menu_item_order_id
+ * @property int $order_id
  * @property string $comment
  * @property int $rating
  * @property string $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\MenuItemOrder|null $menuItemOrder
+ * @property-read \App\Models\Order $order
  * @property-read \App\Models\User $user
  * @method static \Database\Factories\CommentFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment newModelQuery()
@@ -135,7 +135,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereComment($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Comment whereMenuItemOrderId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereOrderId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereRating($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereUpdatedAt($value)
@@ -273,8 +273,6 @@ namespace App\Models{
  * @property int $discount
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
- * @property-read int|null $comments_count
  * @property-read \App\Models\MenuItem $menuItem
  * @property-read \App\Models\Order|null $order
  * @property-read \App\Models\User $user
@@ -338,6 +336,8 @@ namespace App\Models{
  * @property string $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
+ * @property-read int|null $comments_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\MenuItem[] $menuItems
  * @property-read int|null $menu_items_count
  * @property-read \App\Models\User $user

@@ -71,6 +71,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::get('/{order_id}/payment', [WalletController::class, 'transfer'])->name('payment');
             //post comment
             Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+            //get comment
+
+            Route::get('/comments', [CommentController::class, 'index'])->name('comments.index');
         }
 
     );

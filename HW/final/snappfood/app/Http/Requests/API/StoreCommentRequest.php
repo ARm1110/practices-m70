@@ -25,7 +25,7 @@ class StoreCommentRequest extends FormRequest
     {
         return [
             'body' => 'required|string|max:255',
-            'menuItemsOrder_id' => 'required|integer|exists:menu_item_order,id',
+            'order_id' => 'required|integer|exists:menu_item_order,id',
             'rating' => 'required|integer|between:1,5',
         ];
     }
@@ -41,9 +41,9 @@ class StoreCommentRequest extends FormRequest
             'body.required' => 'The comment body is required',
             'body.string' => 'The comment body must be a string',
             'body.max' => 'The comment body must be less than 255 characters',
-            'menuItemsOrder_id.required' => 'The menu item order id is required',
-            'menuItemsOrder_id.integer' => 'The menu item order id must be an integer',
-            'menuItemsOrder_id.exists' => 'The menu item order id must exist',
+            'order_id.required' => 'The  order id is required',
+            'order_id.integer' => 'The  order id must be an integer',
+            'order_id.exists' => 'The  order id must exist',
             'rating.required' => 'The rating is required',
             'rating.integer' => 'The rating must be an integer',
             'rating.between' => 'The rating must be between 1 and 5',

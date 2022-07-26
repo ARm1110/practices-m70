@@ -11,7 +11,7 @@ class Comment extends Model
 
     protected $fillable = [
         'user_id',
-        'menu_item_order_id',
+        'order_id',
         'comment',
         'rating',
         'status',
@@ -26,8 +26,8 @@ class Comment extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function menuItemOrder()
+    public function order()
     {
-        return $this->belongsTo(MenuItemOrder::class);
+        return $this->belongsTo(Order::class);
     }
 }

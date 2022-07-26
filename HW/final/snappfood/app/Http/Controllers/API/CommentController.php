@@ -4,18 +4,51 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\StoreCommentRequest;
+use App\Http\Resources\API\CommentResource;
 use App\Models\Comment;
 use App\Models\MenuItemOrder;
+use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 class CommentController extends Controller
 {
-    //TODO: Implement CommentController 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     //resource
     public function index()
     {
-        // $comments = Comment::all()->where('id', auth()->user()->id);
-        // return response()->json($comments);
+
+        // get all the comments by restaurant_id
+        if (isset(request()->restaurant_id)) {
+            $query = Order::select('*')
+                ->with('menuItems', fn ($query) => $query->where('restaurant_id', request()->restaurant_id))
+                ->with('comments')
+                ->get();
+
+            //passed to resource
+            return CommentResource::collection($query);
+
+            return response()->json([
+                'success' => true,
+                'data' => $query,
+                'request' => request()->restaurant_id,
+                'message' => 'comments proses success'
+            ], 200, []);
+        }
+        $comments = Comment::with('user')
+            ->with('menuItem')
+            ->with('order')
+            ->get();
+        return response()->json([
+            'success' => true,
+            'data' => $comments,
+            'request' => request()->restaurant_id,
+            'message' => 'comments proses success'
+        ], 200, []);
     }
     public function show($id)
     {
@@ -24,27 +57,36 @@ class CommentController extends Controller
     {
         try {
             // check if menu item order . status ==  'delivered'
-            $menuItemOrder = MenuItemOrder::find($request->menuItemsOrder_id)->where('user_id', auth()->user()->id)->where('status', 'delivered');
-            if (!$menuItemOrder) {
+            $order = Order::find($request->order_id)->where('user_id', auth()->user()->id)->where('status', 'ordered');
+            if (!$order) {
                 $msg = [
                     'status' => 'error',
-                    'message' => 'You can only comment on a menu item order that has been delivered'
+                    'message' => 'You can only comment on a  order that has been delivered'
                 ];
 
                 return response()->json($msg, 400);
             }
 
+            // check if comment already exists
+            $check = Comment::where('order_id', $request->order_id)->where('user_id', auth()->user()->id)->first();
 
+            if ($check != null) {
+                $msg = [
+                    'status' => 'error',
+                    'message' => 'You have already commented on this order'
+                ];
+
+                return response()->json($msg, 400);
+            }
             $comment = new Comment();
             $comment->user_id = auth()->user()->id;
             $comment->comment = $request->body;
-            $comment->menu_item_order_id = $request->menuItemsOrder_id;
+            $comment->order_id = $request->order_id;
             $comment->rating = $request->rating;
             $comment->save();
 
             $msg = [
                 'success' => true,
-                'data' =>   $comment,
                 'message' => 'Comment added successfully'
             ];
 

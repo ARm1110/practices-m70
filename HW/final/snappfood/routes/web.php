@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\WalletController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FoodCategoryController;
 use App\Http\Controllers\HomeController;
@@ -146,6 +147,19 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::get('/archive',  'archive')->name('archive');
             });
         });
+        Route::controller(CommentController::class)->group(function () {
+            Route::group([
+                'prefix' => 'comment',
+                'as' => 'comment.'
+            ], function () {
+                Route::get('/',  'index')->name('index');
+                //accept
+                Route::get('/accept/{id}',  'approve')->name('approve');
+                //reject
+                Route::get('/reject/{id}',  'reject')->name('reject');
+            });
+        });
+
         Route::controller(FoodCategoryController::class)->group(function () {
             Route::group([
                 'prefix' => 'food-category',
