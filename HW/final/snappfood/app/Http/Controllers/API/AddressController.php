@@ -78,18 +78,25 @@ class AddressController extends Controller
      * @param  \App\Models\Address  $address
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Address $address)
+    public function update(Request $request)
     {
-        Address::where('is_active', 1)
-            ->update(['is_active' => 0]);
 
-        $address =  $address->updated([
-            'is_active' => 1
+
+        $query = User::find(auth()->user()->id);
+        foreach ($query->addresses as   $item) {
+
+            $item->is_active = false;
+            $item->save();
+        }
+
+        Address::where('id', $request->id)->update([
+            'is_active' => true
         ]);
+
         $msg = [
             'status' => 'success',
             'message' => 'Address updated successfully',
-            'data' => $address
+            'data' => $query
         ];
         return response()->json($msg);
     }
