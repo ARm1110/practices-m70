@@ -188,4 +188,21 @@ class OfferController extends Controller
         ];
         return view('dashboard.offer.add-offer', compact('data'));
     }
+
+    public function updateFoodParty()
+    {
+
+        try {
+
+            Offer::where('id', request()->id)->update(
+                [
+                    'is_food_party' => !request()->status
+                ]
+            );
+
+            return redirect()->back()->with('message', 'Offer foodparty update successfully');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Something went wrong' . $th->getMessage());
+        }
+    }
 }

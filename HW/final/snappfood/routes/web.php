@@ -82,6 +82,7 @@ Route::group(['middleware' => 'auth'], function () {
                                 Route::delete('/trash/delete/{id}',  'destroy')->name('forceDelete');
                                 Route::get('/trash/all', 'trash')->name('trash');
                                 Route::put('/trash/restore/{id}', 'restore')->name('restore');
+                                Route::put('/update-food-party/{id}',  'updateFoodParty')->name('update-foodParty');
                             });
                         }
                     );

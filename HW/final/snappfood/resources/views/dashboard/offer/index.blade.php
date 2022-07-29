@@ -32,6 +32,9 @@
                     status
                 </th>
                 <th scope="col" class="px-6 py-3">
+                    food party
+                </th>
+                <th scope="col" class="px-6 py-3">
                     last activity
                 </th>
                 <th scope="col" class="px-6 py-3">
@@ -63,6 +66,31 @@
                                 <span class="text-red-500">Inactive</span>
                             @endif
                         </td>
+                        <td class="px-6 py-4">
+                            @if ($offer->is_food_party == 1)
+                                <form action="{{ route('dashboard.admin.offer.update-foodParty', ['id' => $offer->id]) }}"
+                                    method="post">
+                                    @csrf
+                                    @method('PUT')
+                                    <input type="hidden" name="status" value="{{ $offer->is_food_party }}">
+                                    <button type="submit"
+                                        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                                        Yes
+                                    </button>
+                                </form>
+                            @else
+                                <form action="{{ route('dashboard.admin.offer.update-foodParty', ['id' => $offer->id]) }}"
+                                    method="post">
+                                    @csrf
+                                    @method('PUT')
+                                    <input type="hidden" name="status" value="{{ $offer->is_food_party }}">
+                                    <button type="submit"
+                                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-2 rounded">
+                                        No
+                                    </button>
+                                </form>
+                            @endif
+                        </td>
 
                         <td class="px-6 py-4">
                             {{ $offer->updated_at->diffForHumans() }}
@@ -89,8 +117,8 @@
                                     @csrf
                                     <button type="submit"
                                         class="font-medium text-green-600 dark:text-green-500 hover:underline">
-                                        <img src="{{ asset('image/server-de.svg') }}"
-                                            class="w-10 hover:w-9 absolute top-3" alt=""> </button>
+                                        <img src="{{ asset('image/server-de.svg') }}" class="w-10 hover:w-9 absolute top-3"
+                                            alt=""> </button>
                                 </form>
                             </td>
                         @endif
