@@ -11,6 +11,18 @@
 
 Assuming your project is in a folder named "Project" on your Desktop.
 
+-   **[admin]**
+-   see user list and active or Inactive
+-   create offer
+-   offer list and active or Inactive
+-   comment list and reject or accept
+
+-   **[shopper]**
+-   see user list and active or Inactive
+-   create offer
+-   offer list and active or Inactive
+-   comment list and reject or accept
+
 ### Starting ..
 
     .env.example -> .env
