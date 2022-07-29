@@ -40,6 +40,15 @@ Assuming your project is in a folder named "Project" on your Desktop.
 ### Starting ..
 
     .env.example -> .env
+    add MAPBOX_TOKEN .env
+    CACHE_DRIVER:database
+    FILESYSTEM_DISK:local
+    DB_CONNECTION:mysql
+    DB_HOST:your_domain
+    DB_PORT:your_db_port
+    DB_DATABASE:snappfood
+    DB_USERNAME=your_username
+    DB_PASSWORD=your_password
     composer install
     composer dump-autoload
     php artisan key:generate
