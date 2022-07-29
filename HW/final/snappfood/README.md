@@ -39,6 +39,7 @@ Assuming your project is in a folder named "Project" on your Desktop.
 
 ### Starting ..
 
+    first page web : http://your-domain/home
     .env.example -> .env
     add MAPBOX_TOKEN .env
     CACHE_DRIVER:database
