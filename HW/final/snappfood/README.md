@@ -7,57 +7,59 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## Setting up
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Assuming your project is in a folder named "Project" on your Desktop.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+-   **[admin]**
+-   show user list and active or Inactive
+-   create offer
+-   offer list and active or Inactive
+-   comment list and reject or accept
+-   show notification list and active or Inactive
+-   email:amirrajabali1999@gmail.com
+-   password:12345678
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+-   **[shopper]**
+-   show Total Revenue on home page
+-   add restaurant and show restaurant list and active or Inactive or edited
+-   add food by restaurant and show food list and active or Inactive or edited
+-   add food category by restaurant and show ..
+-   show order list and accept or reject
+-   show transactions history
+-   show archive list order
+-   show comment on order and accept or reject
+-   email:shopper123@gmail.com
+-   password:12345678
 
-## Learning Laravel
+-   **[user(api-side)]**
+-   **[visit decimation](https://documenter.getpostman.com/view/21723981/UzXSwvw9)**
+-   email:user123@gmail.com
+-   password:12345678
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Starting ..
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+    .env.example -> .env
+    composer install
+    composer dump-autoload
+    php artisan key:generate
+    php artisan migrate:install
+    php artisan migrate
+    php artisan db:seed
+    php artisan serve
 
-## Laravel Sponsors
+### Package Usage
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+-   **[bavix/laravel-wallet](https://bavix.github.io/laravel-wallet/#/)**
+-   **[darryldecode/cart]**
+-   **[guzzlehttp/guzzle]**
+-   **[koossaayy/laravel-mapbox]**
+-   **[laravel/framework]**
+-   **[laravel/sanctum]**
+-   **[laravel/tinker]**
+-   **[nesbot/carbon]**
+-   **[spatie/laravel-medialibrary](https://spatie.be/docs/laravel-medialibrary/v10/installation-setup)**
+-   **[stevebauman/location]**
 
 ## License
 

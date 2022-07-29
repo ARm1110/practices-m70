@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CommentController as AdminCommentController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\API\WalletController;
 use App\Http\Controllers\Auth\AuthController;
@@ -82,6 +83,7 @@ Route::group(['middleware' => 'auth'], function () {
                                 Route::delete('/trash/delete/{id}',  'destroy')->name('forceDelete');
                                 Route::get('/trash/all', 'trash')->name('trash');
                                 Route::put('/trash/restore/{id}', 'restore')->name('restore');
+                                Route::put('/update-food-party/{id}',  'updateFoodParty')->name('update-foodParty');
                             });
                         }
                     );
@@ -95,6 +97,21 @@ Route::group(['middleware' => 'auth'], function () {
                                 Route::get('/',  'showNotification')->name('index');
                                 Route::put('/mark',  'markAsRead')->name('markAsRead');
                                 Route::delete('/delete',  'delete')->name('delete');
+                            });
+                        }
+                    );
+                    Route::group(
+                        [
+                            'prefix' => 'comment',
+                            'as' => 'comment.'
+                        ],
+                        function () {
+                            Route::controller(AdminCommentController::class)->group(function () {
+                                Route::get('/',  'index')->name('index');
+                                //accept
+                                Route::get('/accept/{id}',  'approve')->name('approve');
+                                //reject
+                                Route::get('/reject/{id}',  'reject')->name('reject');
                             });
                         }
                     );
