@@ -12,16 +12,30 @@
 Assuming your project is in a folder named "Project" on your Desktop.
 
 -   **[admin]**
--   see user list and active or Inactive
+-   show user list and active or Inactive
 -   create offer
 -   offer list and active or Inactive
 -   comment list and reject or accept
+-   show notification list and active or Inactive
+-   email:amirrajabali1999@gmail.com
+-   password:12345678
 
 -   **[shopper]**
--   see user list and active or Inactive
--   create offer
--   offer list and active or Inactive
--   comment list and reject or accept
+-   show Total Revenue on home page
+-   add restaurant and show restaurant list and active or Inactive or edited
+-   add food by restaurant and show food list and active or Inactive or edited
+-   add food category by restaurant and show ..
+-   show order list and accept or reject
+-   show transactions history
+-   show archive list order
+-   show comment on order and accept or reject
+-   email:shopper123@gmail.com
+-   password:12345678
+
+-   **[user(api-side)]**
+-   **[visit decimation](https://documenter.getpostman.com/view/21723981/UzXSwvw9)**
+-   email:user123@gmail.com
+-   password:12345678
 
 ### Starting ..
 
@@ -33,18 +47,6 @@ Assuming your project is in a folder named "Project" on your Desktop.
     php artisan migrate
     php artisan db:seed
     php artisan serve
-
--
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
 ### Package Usage
 
@@ -58,18 +60,6 @@ We would like to extend our thanks to the following sponsors for funding Laravel
 -   **[nesbot/carbon]**
 -   **[spatie/laravel-medialibrary](https://spatie.be/docs/laravel-medialibrary/v10/installation-setup)**
 -   **[stevebauman/location]**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
 ## License
 
