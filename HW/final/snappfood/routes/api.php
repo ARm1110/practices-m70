@@ -32,9 +32,6 @@ Route::group(['middleware' => 'guest'], function () {
     });
 });
 
-// Route::post('/register', [AuthController::class, 'register']);
-// Route::post('/login', [AuthController::class, 'login']);
-
 
 
 Route::group(['middleware' => ['auth:sanctum']], function () {

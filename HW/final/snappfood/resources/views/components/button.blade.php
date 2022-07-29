@@ -28,5 +28,6 @@
     }
 </style>
 <div class="w-auto">
-    <a href="#" class="btn" style="--clr:#fffb22;--1:0;"><span>Join Now</span></a>
+    <a href="{{ route('home.shopper.notification') }}" class="btn" style="--clr:#fffb22;--1:0;"><span>Join
+            Now</span></a>
 </div>

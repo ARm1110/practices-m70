@@ -22,7 +22,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class)->constrained();
             $table->foreignIdFor(MenuItem::class)->constrained();
-            $table->foreignIdFor(Order::class)->constrained()->nullable();
+            $table->foreignIdFor(Order::class)->nullable();
 
             $table->enum('status', ['pending', 'ordered', 'accepted', 'rejected', 'delivered'])->default('pending');
             $table->integer('quantity');

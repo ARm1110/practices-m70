@@ -28,9 +28,12 @@
                     restaurant, or a ghost kitchen) or food that has not been specially prepared for direct consumption
                     (e.g., vegetables direct from a farm/garden, fruits, frozen meats. etc).
                 </p>
-                <x-button>
+                @if (Auth::check() && auth()->user()->role == 'user')
+                    <x-button>
 
-                </x-button>
+                    </x-button>
+                @endif
+
                 {{-- <a href="#"
                     class="relative self-start inline-block w-auto px-8 py-4 mx-auto mt-0 text-base font-bold text-white bg-red-600 border-t border-gray-200 rounded-md shadow-xl sm:mt-1 fold-bold lg:mx-0">Get
                     Service Now!</a> --}}
