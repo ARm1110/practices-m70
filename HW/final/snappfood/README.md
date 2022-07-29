@@ -7,19 +7,22 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## Setting up
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Assuming your project is in a folder named "Project" on your Desktop.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Starting ..
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+    .env.example -> .env
+    composer install
+    composer dump-autoload
+    php artisan key:generate
+    php artisan migrate:install
+    php artisan migrate
+    php artisan db:seed
+    php artisan serve
+
+-
 
 ## Learning Laravel
 
@@ -31,21 +34,18 @@ If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Lar
 
 We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-### Premium Partners
+### Package Usage
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+-   **[bavix/laravel-wallet](https://bavix.github.io/laravel-wallet/#/)**
+-   **[darryldecode/cart]**
+-   **[guzzlehttp/guzzle]**
+-   **[koossaayy/laravel-mapbox]**
+-   **[laravel/framework]**
+-   **[laravel/sanctum]**
+-   **[laravel/tinker]**
+-   **[nesbot/carbon]**
+-   **[spatie/laravel-medialibrary](https://spatie.be/docs/laravel-medialibrary/v10/installation-setup)**
+-   **[stevebauman/location]**
 
 ## Contributing
 
