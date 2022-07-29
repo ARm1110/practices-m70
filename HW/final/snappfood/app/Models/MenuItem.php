@@ -27,7 +27,7 @@ class MenuItem extends Model implements ProductInterface
         'created_at',
         'updated_at',
     ];
-
+    protected $table = 'menu_items';
     public function getAmountProduct(Customer $customer): int|string
     {
         return $this->price;

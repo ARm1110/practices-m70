@@ -15,7 +15,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('menu_items_offers', function (Blueprint $table) {
+        Schema::create('menu_item_offer', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(MenuItem::class)->constrained();
             $table->foreignIdFor(Offer::class)->constrained();

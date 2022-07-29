@@ -42,6 +42,8 @@ class User extends Authenticatable implements Wallet, HasMedia, Customer
 
     ];
 
+    protected $table = 'users';
+
     /**
      * The attributes that should be hidden for serialization.
      *

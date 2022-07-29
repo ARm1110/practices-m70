@@ -29,6 +29,7 @@ class Restaurant extends Model implements Wallet, HasMedia
         'is_active',
         'is_verified',
     ];
+    protected $table = 'restaurants';
 
     public function city()
     {

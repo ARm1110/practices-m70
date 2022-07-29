@@ -115,6 +115,21 @@ Route::group(['middleware' => 'auth'], function () {
                             });
                         }
                     );
+                    // Route::group(
+                    //     [
+                    //         'prefix' => 'category',
+                    //         'as' => 'category.'
+                    //     ],
+                    //     function () {
+                    //         Route::controller(AdminCommentController::class)->group(function () {
+                    //             Route::get('/',  'index')->name('index');
+                    //             //accept
+                    //             Route::get('/accept/{id}',  'approve')->name('approve');
+                    //             //reject
+                    //             Route::get('/reject/{id}',  'reject')->name('reject');
+                    //         });
+                    //     }
+                    // );
                 }
             );
             Route::get('admin', [DashboardController::class, 'admin'])->name('admin');
