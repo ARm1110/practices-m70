@@ -53,6 +53,7 @@ class MenuItemController extends Controller
                 ->with('category')
                 ->where('user_id', auth()->user()->id)
                 ->where('is_active', true)
+                ->where('is_verified', true)
                 ->get();
             $data = [
                 'restaurants' => $restaurants,

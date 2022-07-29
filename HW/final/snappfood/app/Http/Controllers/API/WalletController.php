@@ -28,15 +28,22 @@ class WalletController extends Controller
 
     public function withdrawCard()
     {
-        $user = User::find(auth()->user()->id);
-        $withdraw = request('withdraw');
-        $user->withdraw($withdraw);
-        $user->balance;
-        return response()->json([
-            'success' => true,
-            'data' => $user->balance,
-            'message' => 'wallet add success'
-        ], 200, []);
+        DB::beginTransaction();
+        try {
+
+            $user = User::find(auth()->user()->id);
+            $withdraw = request('withdraw');
+            $user->withdraw($withdraw);
+            $user->balance;
+            return response()->json([
+                'success' => true,
+                'data' => $user->balance,
+                'message' => 'wallet add success'
+            ], 200, []);
+        } catch (\Throwable $th) {
+            //throw $th;
+            DB::rollback();
+        }
     }
 
     public function getBalance()
@@ -52,6 +59,7 @@ class WalletController extends Controller
     public function transfer(Request $request)
     {
         //TODO fix bug if many restaurant in one user_id
+        DB::beginTransaction();
         try {
             $user = User::find(auth()->user()->id);
             $order = Order::with('menuItems.restaurant')
@@ -109,6 +117,7 @@ class WalletController extends Controller
                 'message' => 'wallet proses success'
             ], 200, []);
         } catch (\Exception $e) {
+            DB::rollback();
             return response()->json([
                 'success' => false,
                 'balance' => $user->balance,
