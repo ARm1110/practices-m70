@@ -204,8 +204,10 @@ class BookingController extends Controller
      * @param  \App\Models\Booking  $booking
      * @return \Illuminate\Http\Response
      */
+
     public function update(UpdateBookingRequest $request, Booking $booking)
     {
+        //TODO: gate and policy
 
         if ($request->process == 'update_status') {
             try {
