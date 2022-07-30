@@ -15,6 +15,15 @@
 
                 </a>
             </li>
+            <li class="mt-1">
+                <a href="{{ route('dashboard.admin.offer.create') }}">
+                    <div class="relative">
+                        <p class=" text-neutral-100 bg-yellow-500 p-3 rounded-md ">create new category</p><br>
+
+                    </div>
+
+                </a>
+            </li>
         </x-slot>
     @section('homePage')
         <x-table>

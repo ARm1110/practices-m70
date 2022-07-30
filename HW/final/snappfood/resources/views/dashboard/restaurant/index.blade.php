@@ -79,8 +79,7 @@
                         </td>
                         @if ($restaurant->is_active)
                             <td class="px-6 py-4 text-right relative">
-                                <form
-                                    action="/shopper/update-restaurant/{{ $restaurant->id }}/{{ $restaurant->is_active }}"
+                                <form action="/shopper/update-restaurant/{{ $restaurant->id }}/{{ $restaurant->is_active }}"
                                     method="post" class="text-center">
                                     @method('PUT')
                                     @csrf
@@ -100,8 +99,8 @@
                                     @csrf
                                     <button type="submit"
                                         class="font-medium text-green-600 dark:text-green-500 hover:underline">
-                                        <img src="{{ asset('image/server-de.svg') }}"
-                                            class="w-10 hover:w-9 absolute top-3" alt=""> </button>
+                                        <img src="{{ asset('image/server-de.svg') }}" class="w-10 hover:w-9 absolute top-3"
+                                            alt=""> </button>
                                 </form>
                             </td>
                         @endif

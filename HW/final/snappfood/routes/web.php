@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CommentController as AdminCommentController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\API\WalletController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FoodCategoryController;
@@ -115,21 +116,28 @@ Route::group(['middleware' => 'auth'], function () {
                             });
                         }
                     );
-                    // Route::group(
-                    //     [
-                    //         'prefix' => 'category',
-                    //         'as' => 'category.'
-                    //     ],
-                    //     function () {
-                    //         Route::controller(AdminCommentController::class)->group(function () {
-                    //             Route::get('/',  'index')->name('index');
-                    //             //accept
-                    //             Route::get('/accept/{id}',  'approve')->name('approve');
-                    //             //reject
-                    //             Route::get('/reject/{id}',  'reject')->name('reject');
-                    //         });
-                    //     }
-                    // );
+                    Route::group(
+                        [
+                            'prefix' => 'category',
+                            'as' => 'category.'
+                        ],
+                        function () {
+                            Route::controller(CategoryController::class)->group(function () {
+                                Route::get('/',  'index')->name('index');
+                                //update
+                                Route::put('/update/{id}',  'update')->name('update');
+                                //create
+                                Route::get('/create',  'create')->name('create');
+                                //store
+                                Route::post('/store',  'store')->name('store');
+                                //soft delete
+                                Route::delete('/{id}/delete', 'softDelete')->name('delete');
+                                Route::get('/trash', 'trash')->name('trash');
+                                Route::put('/{id}/trash/restore', 'restore')->name('restore');
+                                Route::delete('/{id}/trash/delete', 'forceDelete')->name('forceDelete');
+                            });
+                        }
+                    );
                 }
             );
             Route::get('admin', [DashboardController::class, 'admin'])->name('admin');
