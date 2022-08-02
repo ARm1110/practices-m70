@@ -5,7 +5,12 @@
 
         <x-slot name="content">
 
-
+            <a href="{{ route('shopper.restaurant.create') }}"
+                class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-red-100 dark:hover:bg-gray-700">
+                <img src="{{ asset('image/settings.svg') }}" class="w-8" alt="">
+                <span class="flex-1 ml-3 whitespace-nowrap">
+                    Add Restaurant </span>
+            </a>
         </x-slot>
     @section('homePage')
         <x-table>
@@ -79,7 +84,8 @@
                         </td>
                         @if ($restaurant->is_active)
                             <td class="px-6 py-4 text-right relative">
-                                <form action="/shopper/update-restaurant/{{ $restaurant->id }}/{{ $restaurant->is_active }}"
+                                <form
+                                    action="/shopper/update-restaurant/{{ $restaurant->id }}/{{ $restaurant->is_active }}"
                                     method="post" class="text-center">
                                     @method('PUT')
                                     @csrf

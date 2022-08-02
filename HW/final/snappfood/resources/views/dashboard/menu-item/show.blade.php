@@ -5,8 +5,13 @@
 
         <x-slot name="content">
 
-
-
+            <li class="mt-1">
+                <a href="{{ route('shopper.menu.create') }}">
+                    <div class="relative">
+                        <p class=" text-neutral-100 bg-yellow-500 p-3 rounded-md "> Add Food </p><br>
+                    </div>
+                </a>
+            </li>
         </x-slot>
     @section('homePage')
         <x-table>
@@ -105,8 +110,8 @@
                                     @csrf
                                     <button type="submit"
                                         class="font-medium text-red-600 dark:text-red-500 hover:underline">
-                                        <img src="{{ asset('image/server-en.svg') }}"
-                                            class="w-10 hover:w-9 absolute top-3 " alt="">
+                                        <img src="{{ asset('image/server-en.svg') }}" class="w-10 hover:w-9 absolute top-3 "
+                                            alt="">
                                     </button>
                                 </form>
                             </td>
@@ -117,8 +122,8 @@
                                     @csrf
                                     <button type="submit"
                                         class="font-medium text-green-600 dark:text-green-500 hover:underline">
-                                        <img src="{{ asset('image/server-de.svg') }}"
-                                            class="w-10 hover:w-9 absolute top-3" alt=""> </button>
+                                        <img src="{{ asset('image/server-de.svg') }}" class="w-10 hover:w-9 absolute top-3"
+                                            alt=""> </button>
                                 </form>
                             </td>
                         @endif
@@ -134,8 +139,8 @@
                                 @method('DELETE')
                                 @csrf
                                 <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline">
-                                    <img src="{{ asset('image/delete_service.svg') }}"
-                                        class="w-8 hover:w-9 absolute top-3" alt="">
+                                    <img src="{{ asset('image/delete_service.svg') }}" class="w-8 hover:w-9 absolute top-3"
+                                        alt="">
                                 </button>
                             </form>
                         </td>

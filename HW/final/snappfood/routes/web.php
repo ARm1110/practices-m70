@@ -13,6 +13,7 @@ use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\ShopperController;
 use App\Http\Controllers\UserController;
@@ -53,6 +54,20 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/send-notification', [NotificationController::class, 'sendOfferNotification']);
         Route::get('/send-request-to-shopper', [NotificationController::class, 'sendRequestToShopper'])->name('shopper.notification');
     });
+    Route::group(
+        [
+            'prefix' => 'profile',
+            'as' => 'profile.'
+        ],
+        function () {
+            Route::controller(ProfileController::class)->group(function () {
+                Route::get('/',  'index')->name('index');
+                Route::get('/edit', 'edit')->name('edit');
+                Route::post('/update',  'update')->name('update');
+                Route::get('/delete',  'delete')->name('delete');
+            });
+        }
+    );
 });
 
 Route::group(['middleware' => 'auth'], function () {

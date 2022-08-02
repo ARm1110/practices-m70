@@ -1,6 +1,7 @@
 @extends('layouts.layout')
 
 
+
 @section('content')
     <div class="w-full flex justify-center" style="height: 1200px">
         <div class="w-full max-w-xs mt-10 ">
