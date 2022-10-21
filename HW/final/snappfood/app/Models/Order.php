@@ -21,6 +21,7 @@ class Order extends Model
         'updated_at',
     ];
     protected $table = 'orders';
+
     public function user()
     {
         return $this->belongsTo(User::class);

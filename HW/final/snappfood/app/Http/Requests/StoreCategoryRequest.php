@@ -13,7 +13,7 @@ class StoreCategoryRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return auth()->check();
     }
 
     /**
@@ -24,7 +24,22 @@ class StoreCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'category_name' => 'required|string|max:255|unique:categories,category_name',
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages()
+    {
+        return [
+            'category_name.required' => 'Category name is required',
+            'category_name.string' => 'Category name must be a string',
+            'category_name.max' => 'Category name must be less than 255 characters',
+            'category_name.unique' => 'Category name already exists',
         ];
     }
 }

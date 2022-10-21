@@ -19,6 +19,7 @@ class Offer extends Model
         'is_active',
         ''
     ];
+    protected $table = 'offers';
 
     public function menuItems()
     {

@@ -42,11 +42,11 @@
     <script src="https://kit.fontawesome.com/aad5c2afc7.js" crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body style="height: 1200px">
     <x-navbar-home>
 
     </x-navbar-home>
-    <main>
+    <main class="h-full">
         @yield('content')
     </main>
 

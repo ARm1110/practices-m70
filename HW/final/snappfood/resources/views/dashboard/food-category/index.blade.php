@@ -5,7 +5,16 @@
 
         <x-slot name="content">
 
-
+            <li>
+                <a href="{{ route('shopper.restaurant.index') }}">
+                    <p class=" text-neutral-100 bg-yellow-500 p-3 rounded-md ">Restaurant:<br>
+                        <span>
+                            Panel
+                        </span>
+                    </p>
+                    <br>
+                </a>
+            </li>
         </x-slot>
     @section('homePage')
         <x-table>

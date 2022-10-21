@@ -5,7 +5,12 @@
 
         <x-slot name="content">
 
-
+            <a href="{{ route('shopper.restaurant.create') }}"
+                class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-red-100 dark:hover:bg-gray-700">
+                <img src="{{ asset('image/settings.svg') }}" class="w-8" alt="">
+                <span class="flex-1 ml-3 whitespace-nowrap">
+                    Add Restaurant </span>
+            </a>
         </x-slot>
     @section('homePage')
         <x-table>
@@ -100,8 +105,8 @@
                                     @csrf
                                     <button type="submit"
                                         class="font-medium text-green-600 dark:text-green-500 hover:underline">
-                                        <img src="{{ asset('image/server-de.svg') }}"
-                                            class="w-10 hover:w-9 absolute top-3" alt=""> </button>
+                                        <img src="{{ asset('image/server-de.svg') }}" class="w-10 hover:w-9 absolute top-3"
+                                            alt=""> </button>
                                 </form>
                             </td>
                         @endif

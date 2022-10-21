@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CommentController as AdminCommentController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\API\WalletController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FoodCategoryController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\ShopperController;
 use App\Http\Controllers\UserController;
@@ -52,6 +54,20 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/send-notification', [NotificationController::class, 'sendOfferNotification']);
         Route::get('/send-request-to-shopper', [NotificationController::class, 'sendRequestToShopper'])->name('shopper.notification');
     });
+    Route::group(
+        [
+            'prefix' => 'profile',
+            'as' => 'profile.'
+        ],
+        function () {
+            Route::controller(ProfileController::class)->group(function () {
+                Route::get('/',  'index')->name('index');
+                Route::get('/edit', 'edit')->name('edit');
+                Route::post('/update',  'update')->name('update');
+                Route::get('/delete',  'delete')->name('delete');
+            });
+        }
+    );
 });
 
 Route::group(['middleware' => 'auth'], function () {
@@ -112,6 +128,28 @@ Route::group(['middleware' => 'auth'], function () {
                                 Route::get('/accept/{id}',  'approve')->name('approve');
                                 //reject
                                 Route::get('/reject/{id}',  'reject')->name('reject');
+                            });
+                        }
+                    );
+                    Route::group(
+                        [
+                            'prefix' => 'category',
+                            'as' => 'category.'
+                        ],
+                        function () {
+                            Route::controller(CategoryController::class)->group(function () {
+                                Route::get('/',  'index')->name('index');
+                                //update
+                                Route::put('/update/{id}',  'update')->name('update');
+                                //create
+                                Route::get('/create',  'create')->name('create');
+                                //store
+                                Route::post('/store',  'store')->name('store');
+                                //soft delete
+                                Route::delete('/{id}/delete', 'softDelete')->name('delete');
+                                Route::get('/trash', 'trash')->name('trash');
+                                Route::put('/{id}/trash/restore', 'restore')->name('restore');
+                                Route::delete('/{id}/trash/delete', 'forceDelete')->name('forceDelete');
                             });
                         }
                     );
